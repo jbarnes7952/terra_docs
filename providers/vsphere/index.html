@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Terraform provider to work with VMware vSphere, allowing management of virtual machines and other VMware resources. Supports management through both vCenter and ESXi.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/vsphere/index.html" />
+    <meta property="og:title" content="Provider: VMware vSphere - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="A Terraform provider to work with VMware vSphere, allowing management of virtual machines and other VMware resources. Supports management through both vCenter and ESXi." />
+
+    <title>Provider: VMware vSphere - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-vsphere-index" class="layout-vsphere page-provider-vmware-vsphere">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li class="active">
+          <a href="/docs/providers/vsphere/index.html">VMware vSphere Provider</a>
+        </li>
+
+        <li>
+          <a href="#">Data Sources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/d/compute_cluster.html">vsphere_compute_cluster</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/custom_attribute.html">vsphere_custom_attribute</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/datacenter.html">vsphere_datacenter</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/datastore.html">vsphere_datastore</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/datastore_cluster.html">vsphere_datastore_cluster</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/distributed_virtual_switch.html">vsphere_distributed_virtual_switch</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/host.html">vsphere_host</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/network.html">vsphere_network</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/resource_pool.html">vsphere_resource_pool</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/tag.html">vsphere_tag</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/tag_category.html">vsphere_tag_category</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/virtual_machine.html">vsphere_virtual_machine</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/d/vmfs_disks.html">vsphere_vmfs_disks</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Administration Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/license.html">vsphere_license</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li>
+          <a href="#">Host and Cluster Management Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster.html">vsphere_compute_cluster</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_host_group.html">vsphere_compute_cluster_host_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_vm_affinity_rule.html">vsphere_compute_cluster_vm_affinity_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_vm_anti_affinity_rule.html">vsphere_compute_cluster_vm_anti_affinity_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_vm_dependency_rule.html">vsphere_compute_cluster_vm_dependency_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_vm_group.html">vsphere_compute_cluster_vm_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/compute_cluster_vm_host_rule.html">vsphere_compute_cluster_vm_host_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/drs_vm_override.html">vsphere_drs_vm_override</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/dpm_host_override.html">vsphere_dpm_host_override</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/ha_vm_override.html">vsphere_ha_vm_override</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/resource_pool.html">vsphere_resource_pool</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Inventory Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/custom_attribute.html">vsphere_custom_attribute</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/datacenter.html">vsphere_datacenter</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/folder.html">vsphere_folder</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/tag.html">vsphere_tag</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/tag_category.html">vsphere_tag_category</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Networking Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/distributed_port_group.html">vsphere_distributed_port_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/distributed_virtual_switch.html">vsphere_distributed_virtual_switch</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/host_port_group.html">vsphere_host_port_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/host_virtual_switch.html">vsphere_host_virtual_switch</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Storage Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/datastore_cluster.html">vsphere_datastore_cluster</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/datastore_cluster_vm_anti_affinity_rule.html">vsphere_datastore_cluster_vm_anti_affinity_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/file.html">vsphere_file</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/nas_datastore.html">vsphere_nas_datastore</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/storage_drs_vm_override.html">vsphere_storage_drs_vm_override</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/vmfs_datastore.html">vsphere_vmfs_datastore</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Virtual Machine Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/vsphere/r/virtual_disk.html">vsphere_virtual_disk</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/virtual_machine.html">vsphere_virtual_machine</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/virtual_machine_snapshot.html">vsphere_virtual_machine_snapshot</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/vapp_container.html">vsphere_vapp_container</a>
+            </li>
+            <li>
+              <a href="/docs/providers/vsphere/r/vapp_entity.html">vsphere_vapp_entity</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+        <h1 id="vmware-vsphere-provider">
+  <a name="vmware-vsphere-provider" class="anchor" href="#vmware-vsphere-provider">&raquo;</a>
+  VMware vSphere Provider
+</h1>
+<p>The VMware vSphere provider gives Terraform the ability to work with VMware vSphere
+Products, notably <a href="https://www.vmware.com/products/vcenter-server.html">vCenter Server</a> and <a href="https://www.vmware.com/products/esxi-and-esx.html">ESXi</a>.
+This provider can be used to manage many aspects of a VMware vSphere
+environment, including virtual machines, standard and distributed networks,
+datastores, and more.</p>
+<p>Use the navigation on the left to read about the various resources and data
+sources supported by the provider.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> This provider requires API write access and hence is not supported
+on a free ESXi license.</p>
+</div>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<p>The following abridged example demonstrates a current basic usage of the
+provider to launch a virtual machine using the <a href="/docs/providers/vsphere/r/virtual_machine.html"><code>vsphere_virtual_machine</code>
+resource</a>. The datacenter, datastore,
+resource pool, and network are discovered via the
+<a href="/docs/providers/vsphere/d/datacenter.html"><code>vsphere_datacenter</code></a>,
+<a href="/docs/providers/vsphere/d/datastore.html"><code>vsphere_datastore</code></a>,
+<a href="/docs/providers/vsphere/d/resource_pool.html"><code>vsphere_resource_pool</code></a>, and
+<a href="/docs/providers/vsphere/d/network.html"><code>vsphere_network</code></a> data sources respectively. Most of
+these resources can be directly managed by Terraform as well - check the
+sidebar for specific resources.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"vsphere"</span> <span class="p">{</span>
+  <span class="n">user</span>           <span class="o">=</span> <span class="s2">"${var.vsphere_user}"</span>
+  <span class="n">password</span>       <span class="o">=</span> <span class="s2">"${var.vsphere_password}"</span>
+  <span class="n">vsphere_server</span> <span class="o">=</span> <span class="s2">"${var.vsphere_server}"</span>
+
+  <span class="c1"># If you have a self-signed cert</span>
+  <span class="n">allow_unverified_ssl</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"vsphere_datacenter"</span> <span class="s2">"dc"</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"dc1"</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"vsphere_datastore"</span> <span class="s2">"datastore"</span> <span class="p">{</span>
+  <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"datastore1"</span>
+  <span class="n">datacenter_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_datacenter.dc.id}"</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"vsphere_resource_pool"</span> <span class="s2">"pool"</span> <span class="p">{</span>
+  <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"cluster1/Resources"</span>
+  <span class="n">datacenter_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_datacenter.dc.id}"</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"vsphere_network"</span> <span class="s2">"network"</span> <span class="p">{</span>
+  <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"public"</span>
+  <span class="n">datacenter_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_datacenter.dc.id}"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"vsphere_virtual_machine"</span> <span class="s2">"vm"</span> <span class="p">{</span>
+  <span class="nb">name</span>             <span class="o">=</span> <span class="s2">"terraform-test"</span>
+  <span class="n">resource_pool_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_resource_pool.pool.id}"</span>
+  <span class="n">datastore_id</span>     <span class="o">=</span> <span class="s2">"${data.vsphere_datastore.datastore.id}"</span>
+
+  <span class="n">num_cpus</span> <span class="o">=</span> <span class="mi">2</span>
+  <span class="n">memory</span>   <span class="o">=</span> <span class="mi">1024</span>
+  <span class="n">guest_id</span> <span class="o">=</span> <span class="s2">"other3xLinux64Guest"</span>
+
+  <span class="n">network_interface</span> <span class="p">{</span>
+    <span class="n">network_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_network.network.id}"</span>
+  <span class="p">}</span>
+
+  <span class="n">disk</span> <span class="p">{</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">"disk0"</span>
+    <span class="n">size</span>  <span class="o">=</span> <span class="mi">20</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>See the sidebar for usage information on all of the resources, which will have
+examples specific to their own use cases.</p>
+<h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are used to configure the VMware vSphere Provider:</p>
+
+<ul>
+<li><a name="user" /><a href="#user"><code>user</code></a> - (Required) This is the username for vSphere API operations. Can also
+be specified with the <code>VSPHERE_USER</code> environment variable.
+</li>
+<li><a name="password" /><a href="#password"><code>password</code></a> - (Required) This is the password for vSphere API operations. Can
+also be specified with the <code>VSPHERE_PASSWORD</code> environment variable.
+</li>
+<li><a name="vsphere_server" /><a href="#vsphere_server"><code>vsphere_server</code></a> - (Required) This is the vCenter server name for vSphere API
+operations. Can also be specified with the <code>VSPHERE_SERVER</code> environment
+variable.
+</li>
+<li><a name="allow_unverified_ssl" /><a href="#allow_unverified_ssl"><code>allow_unverified_ssl</code></a> - (Optional) Boolean that can be set to true to
+disable SSL certificate verification. This should be used with care as it
+could allow an attacker to intercept your auth token. If omitted, default
+value is <code>false</code>. Can also be specified with the <code>VSPHERE_ALLOW_UNVERIFIED_SSL</code>
+environment variable.
+</li>
+</ul>
+<h3 id="session-persistence-options">
+  <a name="session-persistence-options" class="anchor" href="#session-persistence-options">&raquo;</a>
+  Session persistence options
+</h3>
+<p>The provider also provides session persistence options that can be configured
+below. These can help when using Terraform in a way where session limits could
+be normally reached by creating a new session for every run, such as a large
+amount of concurrent or consecutive Terraform runs in a short period of time.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> Session keys are as good as user credentials for as long as the
+session is valid for - handle them with care and delete them when you know you
+will no longer need them.</p>
+</div>
+
+<ul>
+<li><a name="persist_session" /><a href="#persist_session"><code>persist_session</code></a> - (Optional) Persist the SOAP and REST client sessions to
+disk. Default: <code>false</code>. Can also be specified by the
+<code>VSPHERE_PERSIST_SESSION</code> environment variable.
+</li>
+<li><a name="vim_session_path" /><a href="#vim_session_path"><code>vim_session_path</code></a> - (Optional) The direcotry to save the VIM SOAP API
+session to. Default: <code>${HOME}/.govmomi/sessions</code>. Can also be specified by
+the <code>VSPHERE_VIM_SESSION_PATH</code> environment variable.
+</li>
+<li><a name="rest_session_path" /><a href="#rest_session_path"><code>rest_session_path</code></a> - (Optional) The directory to save the REST API session
+(used for tags) to. Default: <code>${HOME}/.govmomi/rest_sessions</code>. Can also be
+specified by the <code>VSPHERE_REST_SESSION_PATH</code> environment variable.
+</li>
+</ul>
+<h4 id="govc-terraform-session-interoperability">
+  <a name="govc-terraform-session-interoperability" class="anchor" href="#govc-terraform-session-interoperability">&raquo;</a>
+  govc/Terraform session interoperability
+</h4>
+<p>Note that the session format used to save VIM SOAP sessions is the same used
+with <a href="https://github.com/vmware/govmomi/tree/master/govc">govc</a>. If you use govc as part of your provisioning
+process, Terraform will use the saved session if present and if
+<code>persist_session</code> is enabled.</p>
+<h3 id="debugging-options">
+  <a name="debugging-options" class="anchor" href="#debugging-options">&raquo;</a>
+  Debugging options
+</h3>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> The following options can leak sensitive data and should only be
+enabled when instructed to do so by HashiCorp for the purposes of
+troubleshooting issues with the provider, or when attempting to perform your
+own troubleshooting. Use them at your own risk and do not leave them enabled!</p>
+</div>
+
+<ul>
+<li><a name="client_debug" /><a href="#client_debug"><code>client_debug</code></a> - (Optional) When <code>true</code>, the provider logs SOAP calls made to
+the vSphere API to disk.  The log files are logged to <code>${HOME}/.govmomi</code>.
+Can also be specified with the <code>VSPHERE_CLIENT_DEBUG</code> environment variable.
+</li>
+<li><a name="client_debug_path" /><a href="#client_debug_path"><code>client_debug_path</code></a> - (Optional) Override the default log path. Can also
+be specified with the <code>VSPHERE_CLIENT_DEBUG_PATH</code> environment variable.
+</li>
+<li><a name="client_debug_path_run" /><a href="#client_debug_path_run"><code>client_debug_path_run</code></a> - (Optional) A specific subdirectory in
+<code>client_debug_path</code> to use for debugging calls for this particular Terraform
+configuration. All data in this directory is removed at the start of the
+Terraform run. Can also be specified with the <code>VSPHERE_CLIENT_DEBUG_PATH_RUN</code>
+environment variable.
+</li>
+</ul>
+<h2 id="notes-on-required-privileges">
+  <a name="notes-on-required-privileges" class="anchor" href="#notes-on-required-privileges">&raquo;</a>
+  Notes on Required Privileges
+</h2>
+<p>When using a non-administrator account to perform Terraform tasks, keep in mind
+that most Terraform resources perform operations in a CRUD-like fashion and
+require both read and write privileges to the resources they are managing. Make
+sure that the user has appropriate read-write access to the resources you need
+to work with. Read-only access should be sufficient when only using data
+sources on some features. You can read more about vSphere permissions and user
+management <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-5372F580-5C23-4E9C-8A4E-EF1B4DD9033E.html">here</a>.</p>
+<p>There are a couple of exceptions to keep in mind when setting up a restricted
+provisioning user:</p>
+<h3 id="tags">
+  <a name="tags" class="anchor" href="#tags">&raquo;</a>
+  Tags
+</h3>
+<p>If your vSphere version supports <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.vcenterhost.doc/GUID-E8E854DD-AA97-4E0C-8419-CE84F93C4058.html">tags</a>, keep in mind that
+Terraform will always attempt to read tags from a resource, even if you do not
+have any tags defined. Ensure that your user has access to at least read tags,
+or else you will encounter errors.</p>
+<h3 id="events">
+  <a name="events" class="anchor" href="#events">&raquo;</a>
+  Events
+</h3>
+<p>Likewise, some Terraform resources will attempt to read event data from vSphere
+to check for certain events (such as virtual machine customization or power
+events). Ensure that your user has access to read event data.</p>
+<h2 id="use-of-managed-object-references-by-the-vsphere-provider">
+  <a name="use-of-managed-object-references-by-the-vsphere-provider" class="anchor" href="#use-of-managed-object-references-by-the-vsphere-provider">&raquo;</a>
+  Use of Managed Object References by the vSphere Provider
+</h2>
+<p>Unlike the vSphere client, many resources in the vSphere Terraform provider
+take Managed Object IDs (or UUIDs when provided and practical) when referring to
+placement parameters and upstream resources. This provides a stable interface
+for providing necessary data to downstream resources, in addition to minimizing
+the bugs that can arise from the flexibility in how an individual object&#39;s name
+or inventory path can be supplied.</p>
+<p>There are several data sources (such as
+<a href="/docs/providers/vsphere/d/datacenter.html"><code>vsphere_datacenter</code></a>,
+<a href="/docs/providers/vsphere/d/host.html"><code>vsphere_host</code></a>,
+<a href="/docs/providers/vsphere/d/resource_pool.html"><code>vsphere_resource_pool</code></a>,
+<a href="/docs/providers/vsphere/d/datastore.html"><code>vsphere_datastore</code></a>, and
+<a href="/docs/providers/vsphere/d/network.html"><code>vsphere_network</code></a>) that assist with searching for a
+specific resource in Terraform. For usage details on a specific data source,
+look for the appropriate link in the sidebar. In addition, most vSphere
+resources in Terraform supply the managed object ID (or UUID, when it makes
+more sense) as the <code>id</code> attribute, which can be supplied to downstream
+resources that should depend on the parent.</p>
+<h3 id="locating-managed-object-ids">
+  <a name="locating-managed-object-ids" class="anchor" href="#locating-managed-object-ids">&raquo;</a>
+  Locating Managed Object IDs
+</h3>
+<p>There are certain points in time that you may need to locate the managed object
+ID of a specific vSphere resource yourself. A couple of methods are documented
+below.</p>
+<h4 id="via-govc">
+  <a name="via-govc" class="anchor" href="#via-govc">&raquo;</a>
+  Via <code>govc</code>
+</h4>
+<p><a href="https://github.com/vmware/govmomi/tree/master/govc">govc</a> is an vSphere CLI built on <a href="https://github.com/vmware/govmomi">govmomi</a>, the
+vSphere Go SDK. It has a robust inventory browser command that can also be used
+to list managed object IDs.</p>
+<p>To get all the necessary data in a single output, use <code>govc ls -l -i PATH</code>.
+Sample output is below:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ govc ls -l -i /dc1/vm
+VirtualMachine:vm-123 /dc1/vm/foobar
+Folder:group-v234 /dc1/vm/subfolder
+</code></pre></div><p>To do a reverse search, supply the <code>-L</code> switch:</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ govc ls -i -l -L VirtualMachine:vm-123
+VirtualMachine:vm-123 /dc1/vm/foobar
+</code></pre></div><p>For details on setting up govc, see the <a href="https://github.com/vmware/govmomi/tree/master/govc">homepage</a>.</p>
+<h4 id="via-the-vsphere-managed-object-browser-mob-">
+  <a name="via-the-vsphere-managed-object-browser-mob-" class="anchor" href="#via-the-vsphere-managed-object-browser-mob-">&raquo;</a>
+  Via the vSphere Managed Object Browser (MOB)
+</h4>
+<p>The Managed Object Browser (MOB) allows one to browse the entire vSphere
+inventory as it&#39;s presented to the API. It&#39;s normally accessed via
+<code>https://VSPHERE_SERVER/mob</code>. For more information, see
+<a href="https://code.vmware.com/doc/preview?id=4205#/doc/PG_Appx_Using_MOB.21.2.html#994699">here</a>.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> The MOB also offers API method invocation capabilities, and for
+security reasons should be used sparingly. Modern vSphere installations may
+have the MOB disabled by default, at the very least on ESXi systems. For more
+information on current security best practices related to the MOB on ESXi,
+click <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.security.doc/GUID-0EF83EA7-277C-400B-B697-04BDC9173EA3.html">here</a>.</p>
+</div>
+<h2 id="bug-reports-and-contributing">
+  <a name="bug-reports-and-contributing" class="anchor" href="#bug-reports-and-contributing">&raquo;</a>
+  Bug Reports and Contributing
+</h2>
+<p>For more information how how to submit bug reports, feature requests, or
+details on how to make your own contributions to the provider, see the vSphere
+provider <a href="https://github.com/terraform-providers/terraform-provider-vsphere">project page</a>.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

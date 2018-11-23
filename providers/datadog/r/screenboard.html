@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Provides a Datadog screenboard resource. This can be used to create and manage screenboards.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/datadog/r/screenboard.html" />
+    <meta property="og:title" content="Datadog: datadog_screenboard - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Provides a Datadog screenboard resource. This can be used to create and manage screenboards." />
+
+    <title>Datadog: datadog_screenboard - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-datadog-resource-screenboard" class="layout-datadog page-datadog-datadog-screenboard">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li>
+          <a href="/docs/providers/datadog/index.html">Datadog Provider</a>
+        </li>
+
+        <li class="active">
+          <a href="#">Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/datadog/r/downtime.html">datadog_downtime</a>
+            </li>
+            <li>
+              <a href="/docs/providers/datadog/r/monitor.html">datadog_monitor</a>
+            </li>
+            <li>
+              <a href="/docs/providers/datadog/r/timeboard.html">datadog_timeboard</a>
+            </li>
+            <li class="active">
+              <a href="/docs/providers/datadog/r/screenboard.html">datadog_screenboard</a>
+            </li>
+            <li>
+              <a href="/docs/providers/datadog/r/metric_metadata.html">datadog_metric_metadata</a>
+            </li>
+            <li>
+              <a href="/docs/providers/datadog/r/user.html">datadog_user</a>
+            </li>
+            <li>
+              <a href="/docs/providers/datadog/r/integration_gcp.html">datadog_integration_gcp</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="datadog_screenboard">
+  <a name="datadog_screenboard" class="anchor" href="#datadog_screenboard">&raquo;</a>
+  datadog_screenboard
+</h1>
+<p>Provides a Datadog screenboard resource. This can be used to create and manage Datadog screenboards.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Create a new Datadog screenboard</span>
+<span class="n">resource</span> <span class="s2">"datadog_screenboard"</span> <span class="s2">"acceptance_test"</span> <span class="p">{</span>
+  <span class="n">title</span>     <span class="o">=</span> <span class="s2">"Test Screenboard"</span>
+  <span class="n">read_only</span> <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">template_variable</span> <span class="p">{</span>
+    <span class="nb">name</span>    <span class="o">=</span> <span class="s2">"varname 1"</span>
+    <span class="n">prefix</span>  <span class="o">=</span> <span class="s2">"pod_name"</span>
+    <span class="n">default</span> <span class="o">=</span> <span class="s2">"*"</span>
+  <span class="p">}</span>
+
+  <span class="n">template_variable</span> <span class="p">{</span>
+    <span class="nb">name</span>    <span class="o">=</span> <span class="s2">"varname 2"</span>
+    <span class="n">prefix</span>  <span class="o">=</span> <span class="s2">"service_name"</span>
+    <span class="n">default</span> <span class="o">=</span> <span class="s2">"autoscaling"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>       <span class="o">=</span> <span class="s2">"free_text"</span>
+    <span class="n">x</span>          <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">y</span>          <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">text</span>       <span class="o">=</span> <span class="s2">"test text"</span>
+    <span class="n">text_align</span> <span class="o">=</span> <span class="s2">"right"</span>
+    <span class="n">font_size</span>  <span class="o">=</span> <span class="s2">"36"</span>
+    <span class="n">color</span>      <span class="o">=</span> <span class="s2">"#ffc0cb"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>        <span class="o">=</span> <span class="s2">"timeseries"</span>
+    <span class="n">x</span>           <span class="o">=</span> <span class="mi">25</span>
+    <span class="n">y</span>           <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>       <span class="o">=</span> <span class="s2">"graph title terraform"</span>
+    <span class="n">title_size</span>  <span class="o">=</span> <span class="mi">16</span>
+    <span class="n">title_align</span> <span class="o">=</span> <span class="s2">"right"</span>
+    <span class="n">legend</span>      <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">legend_size</span> <span class="o">=</span> <span class="mi">16</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"1d"</span>
+    <span class="p">}</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span> <span class="o">=</span> <span class="s2">"timeseries"</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">q</span>    <span class="o">=</span> <span class="s2">"avg:system.cpu.user{*}"</span>
+        <span class="n">type</span> <span class="o">=</span> <span class="s2">"line"</span>
+
+        <span class="n">style</span> <span class="p">{</span>
+          <span class="n">palette</span> <span class="o">=</span> <span class="s2">"purple"</span>
+          <span class="n">type</span>    <span class="o">=</span> <span class="s2">"dashed"</span>
+          <span class="n">width</span>   <span class="o">=</span> <span class="s2">"thin"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">marker</span> <span class="p">{</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s2">"test marker"</span>
+        <span class="n">type</span>  <span class="o">=</span> <span class="s2">"error dashed"</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s2">"y &lt; 6"</span>
+      <span class="p">}</span>
+
+      <span class="n">event</span> <span class="p">{</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="s2">"test event"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>        <span class="o">=</span> <span class="s2">"query_value"</span>
+    <span class="n">x</span>           <span class="o">=</span> <span class="mi">45</span>
+    <span class="n">y</span>           <span class="o">=</span> <span class="mi">25</span>
+    <span class="n">title</span>       <span class="o">=</span> <span class="s2">"query value title terraform"</span>
+    <span class="n">title_size</span>  <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">title_align</span> <span class="o">=</span> <span class="s2">"center"</span>
+    <span class="n">legend</span>      <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">legend_size</span> <span class="o">=</span> <span class="mi">16</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span> <span class="o">=</span> <span class="s2">"query_value"</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">q</span>    <span class="o">=</span> <span class="s2">"avg:system.cpu.user{*}"</span>
+        <span class="n">type</span> <span class="o">=</span> <span class="s2">"line"</span>
+
+        <span class="n">style</span> <span class="p">{</span>
+          <span class="n">palette</span> <span class="o">=</span> <span class="s2">"purple"</span>
+          <span class="n">type</span>    <span class="o">=</span> <span class="s2">"dashed"</span>
+          <span class="n">width</span>   <span class="o">=</span> <span class="s2">"thin"</span>
+        <span class="p">}</span>
+
+        <span class="n">conditional_format</span> <span class="p">{</span>
+          <span class="n">comparator</span> <span class="o">=</span> <span class="s2">"&gt;"</span>
+          <span class="n">value</span>      <span class="o">=</span> <span class="s2">"1"</span>
+          <span class="n">palette</span>    <span class="o">=</span> <span class="s2">"white_on_red"</span>
+        <span class="p">}</span>
+
+        <span class="n">conditional_format</span> <span class="p">{</span>
+          <span class="n">comparator</span> <span class="o">=</span> <span class="s2">"&gt;="</span>
+          <span class="n">value</span>      <span class="o">=</span> <span class="s2">"2"</span>
+          <span class="n">palette</span>    <span class="o">=</span> <span class="s2">"white_on_yellow"</span>
+        <span class="p">}</span>
+
+        <span class="n">aggregator</span> <span class="o">=</span> <span class="s2">"max"</span>
+      <span class="p">}</span>
+
+      <span class="n">custom_unit</span> <span class="o">=</span> <span class="s2">"%"</span>
+      <span class="n">autoscale</span>   <span class="o">=</span> <span class="kp">false</span>
+      <span class="n">precision</span>   <span class="o">=</span> <span class="s2">"6"</span>
+      <span class="n">text_align</span>  <span class="o">=</span> <span class="s2">"right"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>        <span class="o">=</span> <span class="s2">"toplist"</span>
+    <span class="n">x</span>           <span class="o">=</span> <span class="mi">65</span>
+    <span class="n">y</span>           <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>       <span class="o">=</span> <span class="s2">"toplist title terraform"</span>
+    <span class="n">legend</span>      <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">legend_size</span> <span class="o">=</span> <span class="s2">"auto"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"1d"</span>
+    <span class="p">}</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span> <span class="o">=</span> <span class="s2">"toplist"</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="s2">"top(avg:system.load.1{*} by {host}, 10, 'mean', 'desc')"</span>
+
+        <span class="n">style</span> <span class="p">{</span>
+          <span class="n">palette</span> <span class="o">=</span> <span class="s2">"purple"</span>
+          <span class="n">type</span>    <span class="o">=</span> <span class="s2">"dashed"</span>
+          <span class="n">width</span>   <span class="o">=</span> <span class="s2">"thin"</span>
+        <span class="p">}</span>
+
+        <span class="n">conditional_format</span> <span class="p">{</span>
+          <span class="n">comparator</span> <span class="o">=</span> <span class="s2">"&gt;"</span>
+          <span class="n">value</span>      <span class="o">=</span> <span class="s2">"4"</span>
+          <span class="n">palette</span>    <span class="o">=</span> <span class="s2">"white_on_green"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>  <span class="o">=</span> <span class="s2">"change"</span>
+    <span class="n">x</span>     <span class="o">=</span> <span class="mi">85</span>
+    <span class="n">y</span>     <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">"change title terraform"</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span> <span class="o">=</span> <span class="s2">"change"</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">q</span>             <span class="o">=</span> <span class="s2">"min:system.load.1{*} by {host}"</span>
+        <span class="n">compare_to</span>    <span class="o">=</span> <span class="s2">"week_before"</span>
+        <span class="n">change_type</span>   <span class="o">=</span> <span class="s2">"relative"</span>
+        <span class="n">order_by</span>      <span class="o">=</span> <span class="s2">"present"</span>
+        <span class="n">order_dir</span>     <span class="o">=</span> <span class="s2">"asc"</span>
+        <span class="n">extra_col</span>     <span class="o">=</span> <span class="s2">""</span>
+        <span class="n">increase_good</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>  <span class="o">=</span> <span class="s2">"event_timeline"</span>
+    <span class="n">x</span>     <span class="o">=</span> <span class="mi">105</span>
+    <span class="n">y</span>     <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s2">"event_timeline title terraform"</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">"status:error"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"1d"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>       <span class="o">=</span> <span class="s2">"event_stream"</span>
+    <span class="n">x</span>          <span class="o">=</span> <span class="mi">115</span>
+    <span class="n">y</span>          <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>      <span class="o">=</span> <span class="s2">"event_stream title terraform"</span>
+    <span class="n">query</span>      <span class="o">=</span> <span class="s2">"*"</span>
+    <span class="n">event_size</span> <span class="o">=</span> <span class="s2">"l"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"4h"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>   <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">x</span>      <span class="o">=</span> <span class="mi">145</span>
+    <span class="n">y</span>      <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>  <span class="o">=</span> <span class="s2">"image title terraform"</span>
+    <span class="n">sizing</span> <span class="o">=</span> <span class="s2">"fit"</span>
+    <span class="n">margin</span> <span class="o">=</span> <span class="s2">"large"</span>
+    <span class="n">url</span>    <span class="o">=</span> <span class="s2">"https://datadog-prod.imgix.net/img/dd_logo_70x75.png"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>       <span class="o">=</span> <span class="s2">"note"</span>
+    <span class="n">x</span>          <span class="o">=</span> <span class="mi">165</span>
+    <span class="n">y</span>          <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">bgcolor</span>    <span class="o">=</span> <span class="s2">"pink"</span>
+    <span class="n">text_align</span> <span class="o">=</span> <span class="s2">"right"</span>
+    <span class="n">font_size</span>  <span class="o">=</span> <span class="s2">"36"</span>
+    <span class="n">tick</span>       <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">tick_edge</span>  <span class="o">=</span> <span class="s2">"bottom"</span>
+    <span class="n">tick_pos</span>   <span class="o">=</span> <span class="s2">"50%"</span>
+    <span class="n">html</span>       <span class="o">=</span> <span class="s2">"&lt;b&gt;test note&lt;/b&gt;"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>     <span class="o">=</span> <span class="s2">"alert_graph"</span>
+    <span class="n">x</span>        <span class="o">=</span> <span class="mi">185</span>
+    <span class="n">y</span>        <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>    <span class="o">=</span> <span class="s2">"alert graph title terraform"</span>
+    <span class="n">alert_id</span> <span class="o">=</span> <span class="s2">"123456"</span>
+    <span class="n">viz_type</span> <span class="o">=</span> <span class="s2">"toplist"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"15m"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>       <span class="o">=</span> <span class="s2">"alert_value"</span>
+    <span class="n">x</span>          <span class="o">=</span> <span class="mi">205</span>
+    <span class="n">y</span>          <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>      <span class="o">=</span> <span class="s2">"alert value title terraform"</span>
+    <span class="n">alert_id</span>   <span class="o">=</span> <span class="s2">"123456"</span>
+    <span class="n">text_size</span>  <span class="o">=</span> <span class="s2">"fill_height"</span>
+    <span class="n">text_align</span> <span class="o">=</span> <span class="s2">"right"</span>
+    <span class="n">precision</span>  <span class="o">=</span> <span class="s2">"*"</span>
+    <span class="n">unit</span>       <span class="o">=</span> <span class="s2">"b"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"iframe"</span>
+    <span class="n">x</span>    <span class="o">=</span> <span class="mi">225</span>
+    <span class="n">y</span>    <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">url</span>  <span class="o">=</span> <span class="s2">"https://www.datadoghq.org"</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>        <span class="o">=</span> <span class="s2">"check_status"</span>
+    <span class="n">x</span>           <span class="o">=</span> <span class="mi">245</span>
+    <span class="n">y</span>           <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">title</span>       <span class="o">=</span> <span class="s2">"test title"</span>
+    <span class="n">title_align</span> <span class="o">=</span> <span class="s2">"left"</span>
+    <span class="n">grouping</span>    <span class="o">=</span> <span class="s2">"check"</span>
+    <span class="n">check</span>       <span class="o">=</span> <span class="s2">"aws.ecs.agent_connected"</span>
+    <span class="n">tags</span>        <span class="o">=</span> <span class="p">[</span><span class="s2">"*"</span><span class="p">]</span>
+    <span class="n">group</span>       <span class="o">=</span> <span class="s2">"cluster:test"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"30m"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>                    <span class="o">=</span> <span class="s2">"trace_service"</span>
+    <span class="n">x</span>                       <span class="o">=</span> <span class="mi">265</span>
+    <span class="n">y</span>                       <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">env</span>                     <span class="o">=</span> <span class="s2">"testEnv"</span>
+    <span class="n">service_service</span>         <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">service_name</span>            <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">size_version</span>            <span class="o">=</span> <span class="s2">"large"</span>
+    <span class="n">layout_version</span>          <span class="o">=</span> <span class="s2">"three_column"</span>
+    <span class="n">must_show_hits</span>          <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">must_show_errors</span>        <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">must_show_latency</span>       <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">must_show_breakdown</span>     <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">must_show_distribution</span>  <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">must_show_resource_list</span> <span class="o">=</span> <span class="kp">true</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"30m"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>  <span class="o">=</span> <span class="s2">"hostmap"</span>
+    <span class="n">x</span>     <span class="o">=</span> <span class="mi">285</span>
+    <span class="n">y</span>     <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">"avg:system.load.1{*} by {host}"</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span>             <span class="o">=</span> <span class="s2">"hostmap"</span>
+      <span class="n">node_type</span>       <span class="o">=</span> <span class="s2">"container"</span>
+      <span class="n">scope</span>           <span class="o">=</span> <span class="p">[</span><span class="s2">"datacenter:test"</span><span class="p">]</span>
+      <span class="n">group</span>           <span class="o">=</span> <span class="p">[</span><span class="s2">"pod_name"</span><span class="p">]</span>
+      <span class="n">no_group_hosts</span>  <span class="o">=</span> <span class="kp">false</span>
+      <span class="n">no_metric_hosts</span> <span class="o">=</span> <span class="kp">false</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">q</span>    <span class="o">=</span> <span class="s2">"max:process.stat.container.io.wbps{datacenter:test} by {host}"</span>
+        <span class="n">type</span> <span class="o">=</span> <span class="s2">"fill"</span>
+      <span class="p">}</span>
+
+      <span class="n">style</span> <span class="p">{</span>
+        <span class="n">palette</span>      <span class="o">=</span> <span class="s2">"hostmap_blues"</span>
+        <span class="n">palette_flip</span> <span class="o">=</span> <span class="kp">true</span>
+        <span class="n">fill_min</span>     <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">fill_max</span>     <span class="o">=</span> <span class="mi">300</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>                      <span class="o">=</span> <span class="s2">"manage_status"</span>
+    <span class="n">x</span>                         <span class="o">=</span> <span class="mi">305</span>
+    <span class="n">y</span>                         <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">display_format</span>            <span class="o">=</span> <span class="s2">"countsAndList"</span>
+    <span class="n">color_preference</span>          <span class="o">=</span> <span class="s2">"background"</span>
+    <span class="n">hide_zero_counts</span>          <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">manage_status_show_title</span>  <span class="o">=</span> <span class="kp">false</span>
+    <span class="n">manage_status_title_text</span>  <span class="o">=</span> <span class="s2">"test title"</span>
+    <span class="n">manage_status_title_size</span>  <span class="o">=</span> <span class="s2">"20"</span>
+    <span class="n">manage_status_title_align</span> <span class="o">=</span> <span class="s2">"right"</span>
+
+    <span class="n">params</span> <span class="p">{</span>
+      <span class="n">sort</span>  <span class="o">=</span> <span class="s2">"status,asc"</span>
+      <span class="n">text</span>  <span class="o">=</span> <span class="s2">"status:alert"</span>
+      <span class="n">count</span> <span class="o">=</span> <span class="mi">50</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span>    <span class="o">=</span> <span class="s2">"log_stream"</span>
+    <span class="n">x</span>       <span class="o">=</span> <span class="mi">325</span>
+    <span class="n">y</span>       <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">query</span>   <span class="o">=</span> <span class="s2">"source:kubernetes"</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="s2">"[</span><span class="se">\"</span><span class="s2">column1</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">column2</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">column3</span><span class="se">\"</span><span class="s2">]"</span>
+    <span class="n">logset</span>  <span class="o">=</span> <span class="s2">"1234"</span>
+
+    <span class="n">time</span> <span class="p">{</span>
+      <span class="n">live_span</span> <span class="o">=</span> <span class="s2">"1h"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">widget</span> <span class="p">{</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"process"</span>
+    <span class="n">x</span>    <span class="o">=</span> <span class="mi">365</span>
+    <span class="n">y</span>    <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="n">tile_def</span> <span class="p">{</span>
+      <span class="n">viz</span> <span class="o">=</span> <span class="s2">"process"</span>
+
+      <span class="n">request</span> <span class="p">{</span>
+        <span class="n">query_type</span>  <span class="o">=</span> <span class="s2">"process"</span>
+        <span class="n">metric</span>      <span class="o">=</span> <span class="s2">"process.stat.cpu.total_pct"</span>
+        <span class="n">text_filter</span> <span class="o">=</span> <span class="s2">""</span>
+        <span class="n">tag_filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">limit</span>       <span class="o">=</span> <span class="mi">200</span>
+
+        <span class="n">style</span> <span class="o">=</span> <span class="p">{</span>
+          <span class="n">palette</span> <span class="o">=</span> <span class="s2">"dog_classic_area"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="title" /><a href="#title"><code>title</code></a> - (Required) The name of the screenboard.
+</li>
+<li><a name="height" /><a href="#height"><code>height</code></a> - (Optional) The screenboard&#39;s height.
+</li>
+<li><a name="width" /><a href="#width"><code>width</code></a> - (Optional) The screenboard&#39;s width.
+</li>
+<li><a name="read_only" /><a href="#read_only"><code>read_only</code></a> - (Optional) The read-only status of the screenboard. Default is false.
+</li>
+<li><a name="shared" /><a href="#shared"><code>shared</code></a> - (Optional) Whether the screenboard is shared or not. Default is false.
+</li>
+<li><a name="widget" /><a href="#widget"><code>widget</code></a> - (Required) Nested block describing a widget. The structure of this block is described below. Multiple widget blocks are allowed within a datadog_screenboard resource.
+</li>
+<li><a name="template_variable" /><a href="#template_variable"><code>template_variable</code></a> - (Optional) Nested block describing a template variable. The structure of this block is described below. Multiple template_variable blocks are allowed within a datadog_screenboard resource.
+</li>
+</ul>
+<h3 id="nested-widget-blocks">
+  <a name="nested-widget-blocks" class="anchor" href="#nested-widget-blocks">&raquo;</a>
+  Nested <code>widget</code> blocks
+</h3>
+<p>Nested <code>widget</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="type" /><a href="#type"><code>type</code></a> - (Required) The type of the widget. One of &quot;free_text&quot;, &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, &quot;change&quot;, &quot;event_timeline&quot;, &quot;event_stream&quot;, &quot;image&quot;, &quot;note&quot;, &quot;alert_graph&quot;, &quot;alert_value&quot;, &quot;iframe&quot;, &quot;check_status&quot;, &quot;trace_service&quot;, &quot;hostmap&quot;, &quot;manage_status&quot;, &quot;log_stream&quot;, or &quot;process&quot;.
+</li>
+<li><a name="x" /><a href="#x"><code>x</code></a> - (Required) The position of the widget on the x (vertical) axis. Should be greater or equal to 0.
+</li>
+<li><a name="y" /><a href="#y"><code>y</code></a> - (Required) The position of the widget on the y (horizontal) axis. Should be greater or equal to 0.
+</li>
+<li><a name="title-1" /><a href="#title-1"><code>title</code></a> - (Optional) The title of the widget.
+</li>
+<li><a name="title_align" /><a href="#title_align"><code>title_align</code></a> - (Optional) The alignment of the widget&#39;s title. One of &quot;left&quot;, &quot;center&quot;, or &quot;right&quot;.
+</li>
+<li><a name="title_size" /><a href="#title_size"><code>title_size</code></a> - (Optional) The size of the widget&#39;s title. Default is 16.
+</li>
+<li><a name="height-1" /><a href="#height-1"><code>height</code></a> - (Optional) The height of the widget. Default is 15.
+</li>
+<li><a name="width-1" /><a href="#width-1"><code>width</code></a> - (Optional) The width of the widget. Default is 50.
+</li>
+<li><a name="text" /><a href="#text"><code>text</code></a> - (Optional, only for widgets of type &quot;free_text&quot;) The text to display in the widget.
+</li>
+<li><a name="color" /><a href="#color"><code>color</code></a> - (Optional, only for widgets of type &quot;free_text&quot;) The color of the text in the widget.
+</li>
+<li><a name="font_size" /><a href="#font_size"><code>font_size</code></a> - (Optional, only for widgets of type &quot;free_text&quot;, &quot;note&quot;) The size of the text in the widget.
+</li>
+<li><a name="text_size" /><a href="#text_size"><code>text_size</code></a> - (Optional, only for widgets of type &quot;alert_value&quot;) The size of the text in the widget.
+</li>
+<li><a name="unit" /><a href="#unit"><code>unit</code></a> - (Optional, only for widgets of type &quot;alert_value&quot;) The unit for the value displayed in the widget.
+</li>
+<li><a name="precision" /><a href="#precision"><code>precision</code></a> - (Optional, only for widgets of type &quot;alert_value&quot;) The precision to use when displaying the value. Use &quot;*&quot; for maximum precision.
+</li>
+<li><a name="text_align" /><a href="#text_align"><code>text_align</code></a> - (Optional, only for widgets of type &quot;free_text&quot;, &quot;alert_value&quot;, &quot;note&quot;) The alignment of the text in the widget.
+</li>
+<li><a name="alert_id" /><a href="#alert_id"><code>alert_id</code></a> - (Optional, only for widgets of type &quot;alert_value&quot;, &quot;alert_graph&quot;) The ID of the monitor used by the widget.
+</li>
+<li><a name="auto_refresh" /><a href="#auto_refresh"><code>auto_refresh</code></a> - (Optional, only for widgets of type &quot;alert_value&quot;, &quot;alert_graph&quot;) Boolean indicating whether the widget is refreshed automatically.
+</li>
+<li><a name="legend" /><a href="#legend"><code>legend</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;) Boolean indicating whether to display a legend in the widget.
+</li>
+<li><a name="legend_size" /><a href="#legend_size"><code>legend_size</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;) The size of the legend displayed in the widget.
+</li>
+<li><a name="query" /><a href="#query"><code>query</code></a> - (Optional, only for widgets of type &quot;event_timeline&quot;, &quot;event_stream&quot;, &quot;hostmap&quot;, &quot;log_stream&quot;) The query to use in the widget.
+</li>
+<li><a name="url" /><a href="#url"><code>url</code></a> - (Optional, only for widgets of type &quot;image&quot;, &quot;iframe&quot;) The URL to use as a data source for the widget.
+</li>
+<li><a name="viz_type" /><a href="#viz_type"><code>viz_type</code></a> - (Optional, only for widgets of type &quot;alert_graph&quot;) Type of visualization to use when displaying the widget. Either &quot;timeseries&quot; or &quot;toplist&quot;.
+</li>
+<li><a name="tags" /><a href="#tags"><code>tags</code></a> - (Optional, only for widgets of type &quot;check_status&quot;) List of tags to use in the widget.
+</li>
+<li><a name="check" /><a href="#check"><code>check</code></a> - (Optional, only for widgets of type &quot;check_status&quot;) The check to use in the widget.
+</li>
+<li><a name="group" /><a href="#group"><code>group</code></a> - (Optional, only for widgets of type &quot;check_status&quot;) The check group to use in the widget.
+</li>
+<li><a name="grouping" /><a href="#grouping"><code>grouping</code></a> - (Optional, only for widgets of type &quot;check_status&quot;) Either &quot;check&quot; or &quot;cluster&quot;, depending on whether the widget should use a single check or a cluster of checks.
+</li>
+<li><a name="group_by" /><a href="#group_by"><code>group_by</code></a> - (Optional, only for widgets of type &quot;check_status&quot;) When grouping = &quot;cluster&quot;, indicates a list of tags to use for grouping.
+</li>
+<li><a name="tick" /><a href="#tick"><code>tick</code></a> - (Optional, only for widgets of type &quot;note&quot;) Boolean indicating whether a tick should be displayed on the border of the widget.
+</li>
+<li><a name="tick_pos" /><a href="#tick_pos"><code>tick_pos</code></a> - (Optional, only for widgets of type &quot;note&quot;) When tick = true, string with a percent sign indicating the position of the tick. Example: use tick_pos = &quot;50%&quot; for centered alignment.
+</li>
+<li><a name="tick_edge" /><a href="#tick_edge"><code>tick_edge</code></a> - (Optional, only for widgets of type &quot;note&quot;) When tick = true, string indicating on which side of the widget the tick should be displayed. One of &quot;bottom&quot;, &quot;top&quot;, &quot;left&quot;, &quot;right&quot;.
+</li>
+<li><a name="html" /><a href="#html"><code>html</code></a> - (Optional, only for widgets of type &quot;note&quot;) The content of the widget. HTML tags supported.
+</li>
+<li><a name="bgcolor" /><a href="#bgcolor"><code>bgcolor</code></a> - (Optional, only for widgets of type &quot;note&quot;) The color of the background of the widget.
+</li>
+<li><a name="event_size" /><a href="#event_size"><code>event_size</code></a> - (Optional, only for widgets of type &quot;event_stream&quot;) The size of the events in the widget. Either &quot;s&quot; (small, title only) or &quot;l&quot; (large, full event).
+</li>
+<li><a name="sizing" /><a href="#sizing"><code>sizing</code></a> - (Optional, only for widgets of type &quot;image&quot;) The preferred method to adapt the dimensions of the image to those of the widget. One of &quot;center&quot; (center the image in the tile), &quot;zoom&quot; (zoom the image to cover the whole tile) or &quot;fit&quot; (fit the image dimensions to those of the tile).
+</li>
+<li><a name="margin" /><a href="#margin"><code>margin</code></a> - (Optional, only for widgets of type &quot;image&quot;) The margins to use around the image. Either &quot;small&quot; or &quot;large&quot;.
+</li>
+<li><a name="env" /><a href="#env"><code>env</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) The environment to use.
+</li>
+<li><a name="service_service" /><a href="#service_service"><code>service_service</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) The trace service to use.
+</li>
+<li><a name="service_name" /><a href="#service_name"><code>service_name</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) The name of the service to use.
+</li>
+<li><a name="size_version" /><a href="#size_version"><code>size_version</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) The size of the widget. One of &quot;small&quot;, &quot;medium&quot;, &quot;large&quot;.
+</li>
+<li><a name="layout_version" /><a href="#layout_version"><code>layout_version</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) The number of columns to use when displaying values. One of &quot;one_column&quot;, &quot;two_column&quot;, &quot;three_column&quot;.
+</li>
+<li><a name="must_show_hits" /><a href="#must_show_hits"><code>must_show_hits</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display hits.
+</li>
+<li><a name="must_show_errors" /><a href="#must_show_errors"><code>must_show_errors</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display errors.
+</li>
+<li><a name="must_show_latency" /><a href="#must_show_latency"><code>must_show_latency</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display latency.
+</li>
+<li><a name="must_show_breakdown" /><a href="#must_show_breakdown"><code>must_show_breakdown</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display breakdown.
+</li>
+<li><a name="must_show_distribution" /><a href="#must_show_distribution"><code>must_show_distribution</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display distribution.
+</li>
+<li><a name="must_show_resource_list" /><a href="#must_show_resource_list"><code>must_show_resource_list</code></a> - (Optional, only for widgets of type &quot;trace_service&quot;) Boolean indicating whether to display resources.
+</li>
+<li><a name="display_format" /><a href="#display_format"><code>display_format</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) The display setting to use. One of &quot;counts&quot;, &quot;list&quot;, or &quot;countsAndList&quot;.
+</li>
+<li><a name="color_preference" /><a href="#color_preference"><code>color_preference</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) Whether to colorize text or background. One of &quot;text&quot;, &quot;background&quot;.
+</li>
+<li><a name="hide_zero_counts" /><a href="#hide_zero_counts"><code>hide_zero_counts</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) Boolean indicating whether to hide empty categories.
+</li>
+<li><a name="manage_status_show_title" /><a href="#manage_status_show_title"><code>manage_status_show_title</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) Boolean indicating whether to show a title.
+</li>
+<li><a name="manage_status_title_text" /><a href="#manage_status_title_text"><code>manage_status_title_text</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) The title of the widget.
+</li>
+<li><a name="manage_status_title_size" /><a href="#manage_status_title_size"><code>manage_status_title_size</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) The size of the widget&#39;s title.
+</li>
+<li><a name="manage_status_title_align" /><a href="#manage_status_title_align"><code>manage_status_title_align</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) The alignment of the widget&#39;s title. One of &quot;left&quot;, &quot;center&quot;, or &quot;right&quot;.
+</li>
+<li><a name="columns" /><a href="#columns"><code>columns</code></a> - (Optional, only for widgets of type &quot;log_stream&quot;) Stringified list of columns to use. Example: <code>&quot;[\&quot;column1\&quot;,\&quot;column2\&quot;,\&quot;column3\&quot;]&quot;</code>
+</li>
+<li><a name="logset" /><a href="#logset"><code>logset</code></a> - (Optional, only for widgets of type &quot;log_stream&quot;) ID of the logset to use.
+</li>
+<li><a name="time" /><a href="#time"><code>time</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;toplist&quot;, &quot;event_timeline&quot;, &quot;event_stream&quot;, &quot;alert_graph&quot;, &quot;check_status&quot;, &quot;trace_service&quot;, &quot;log_stream&quot;) Nested block describing the timeframe to use when displaying the widget. The structure of this block is described below. At most one such block should be present in a given widget.
+</li>
+<li><a name="tile_def" /><a href="#tile_def"><code>tile_def</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;hostmap&quot;, &quot;change&quot;, &quot;toplist&quot;, &quot;process&quot;) Nested block describing the content to display in the widget. The structure of this block is described below. At most one such block should be present in a given widget.
+</li>
+<li><a name="params" /><a href="#params"><code>params</code></a> - (Optional, only for widgets of type &quot;manage_status&quot;) Nested block describing the monitors to display. The structure of this block is described below. At most one such block should be present in a given widget.
+</li>
+</ul>
+<h3 id="nested-widget-time-blocks">
+  <a name="nested-widget-time-blocks" class="anchor" href="#nested-widget-time-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>time</code> blocks
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;, &quot;toplist&quot;, &quot;event_timeline&quot;, &quot;event_stream&quot;, &quot;alert_graph&quot;, &quot;check_status&quot;, &quot;trace_service&quot;, &quot;log_stream&quot;.</p>
+<p>Nested <code>widget</code> <code>time</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="live_span" /><a href="#live_span"><code>live_span</code></a> - (Required) The timeframe to use when displaying the widget. One of &quot;10m&quot;, &quot;30m&quot;, &quot;1h&quot;, &quot;4h&quot;, &quot;1d&quot;, &quot;2d&quot;, &quot;1w&quot;.
+</li>
+</ul>
+<h3 id="nested-widget-params-blocks">
+  <a name="nested-widget-params-blocks" class="anchor" href="#nested-widget-params-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>params</code> blocks
+</h3>
+<p>Only for widgets of type &quot;manage_status&quot;.</p>
+<p>Nested <code>widget</code> <code>params</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="sort" /><a href="#sort"><code>sort</code></a> - (Optional) The method to use to sort monitors. Example: &quot;status,asc&quot;.
+</li>
+<li><a name="text-1" /><a href="#text-1"><code>text</code></a> - (Optional) The query to use to get monitors. Example: &quot;status:alert&quot;.
+</li>
+<li><a name="count" /><a href="#count"><code>count</code></a> - (Optional) The number of monitors to display.
+</li>
+<li><a name="start" /><a href="#start"><code>start</code></a> - (Optional) The start of the list. Typically 0.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-blocks">
+  <a name="nested-widget-tile_def-blocks" class="anchor" href="#nested-widget-tile_def-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> blocks
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;hostmap&quot;, &quot;change&quot;, &quot;toplist&quot;, &quot;process&quot;.</p>
+<p>Nested <code>widget</code> <code>tile_def</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="viz" /><a href="#viz"><code>viz</code></a> - (Required) Should be the same as the widget&#39;s type. One of &quot;timeseries&quot;, &quot;query_value&quot;, &quot;hostmap&quot;, &quot;change&quot;, &quot;toplist&quot;, &quot;process&quot;.
+</li>
+<li><a name="request" /><a href="#request"><code>request</code></a> - (Required) Nested block describing the request to use when displaying the widget. The structure of this block is described below. Multiple request blocks are allowed within a given tile_def block.
+</li>
+<li><a name="marker" /><a href="#marker"><code>marker</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;) Nested block describing the marker to use when displaying the widget. The structure of this block is described below. Multiple marker blocks are allowed within a given tile_def block.
+</li>
+<li><a name="event" /><a href="#event"><code>event</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;) Nested block describing the event overlays to use when displaying the widget. The structure of this block is described below. At most one such block should be present in a given tile_def block.
+</li>
+<li><a name="custom_unit" /><a href="#custom_unit"><code>custom_unit</code></a> - (Optional, only for widgets of type &quot;query_value&quot;) The unit for the value displayed in the widget
+</li>
+<li><a name="autoscale" /><a href="#autoscale"><code>autoscale</code></a> - (Optional, only for widgets of type &quot;query_value&quot;) Boolean indicating whether to automatically scale the tile.
+</li>
+<li><a name="precision-1" /><a href="#precision-1"><code>precision</code></a> - (Optional, only for widgets of type &quot;query_value&quot;) The precision to use when displaying the tile.
+</li>
+<li><a name="text_align-1" /><a href="#text_align-1"><code>text_align</code></a> - (Optional, only for widgets of type &quot;query_value&quot;) The alignment of the text.
+</li>
+<li><a name="node_type" /><a href="#node_type"><code>node_type</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) The type of node used. Either &quot;host&quot; or &quot;container&quot;.
+</li>
+<li><a name="scope" /><a href="#scope"><code>scope</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) The list of tags to filter nodes by.
+</li>
+<li><a name="group-1" /><a href="#group-1"><code>group</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) The list of tags to group nodes by.
+</li>
+<li><a name="no_group_host" /><a href="#no_group_host"><code>no_group_host</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) Boolean indicating whether to show ungrouped nodes.
+</li>
+<li><a name="no_metric_host" /><a href="#no_metric_host"><code>no_metric_host</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) Boolean indicating whether to show nodes with no metrics.
+</li>
+<li><a name="style" /><a href="#style"><code>style</code></a> - (Optional, only for widgets of type &quot;hostmap&quot;) Nested block describing how to display the widget. The structure of this block is described below. At most one such block should be present in a given tile_def block.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-style-blocks">
+  <a name="nested-widget-tile_def-style-blocks" class="anchor" href="#nested-widget-tile_def-style-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>style</code> blocks
+</h3>
+<p>Only for widgets of type &quot;hostmap&quot;.</p>
+<p>Nested <code>widget</code> <code>tile_def</code> <code>style</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="palette" /><a href="#palette"><code>palette</code></a> - (Optional) Color set to use to display nodes. One of &quot;green_to_orange&quot;, &quot;yellow_to_green&quot;, &quot;YlOrRd&quot; (warm), &quot;hostmap_blues&quot; (cool).
+</li>
+<li><a name="palette_flip" /><a href="#palette_flip"><code>palette_flip</code></a> - (Optional) Boolean indicating whether to flip how the hostmap is rendered. For example, with the default palette, low values are represented as green, with high values as orange. If palette_flip is &quot;true&quot;, then low values will be orange, and high values will be green.
+</li>
+<li><a name="fill_min" /><a href="#fill_min"><code>fill_min</code></a> - (Optional) Metric value corresponding to minimum color fill.
+</li>
+<li><a name="fill_max" /><a href="#fill_max"><code>fill_max</code></a> - (Optional) Metric value corresponding to maximum color fill.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-marker-blocks">
+  <a name="nested-widget-tile_def-marker-blocks" class="anchor" href="#nested-widget-tile_def-marker-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>marker</code> blocks
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;.</p>
+<p>Nested <code>widget</code> <code>tile_def</code> <code>marker</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="type-1" /><a href="#type-1"><code>type</code></a> - (Required) How the marker lines will look. Possible values are {&quot;error&quot;, &quot;warning&quot;, &quot;info&quot;, &quot;ok&quot;} {&quot;dashed&quot;, &quot;solid&quot;, &quot;bold&quot;}. Example: &quot;error dashed&quot;.
+</li>
+<li><a name="value" /><a href="#value"><code>value</code></a> - (Required) Mathematical expression describing the marker. Examples: &quot;y &gt; 1&quot;, &quot;-5 &lt; y &lt; 0&quot;, &quot;y = 19&quot;.
+</li>
+<li><a name="label" /><a href="#label"><code>label</code></a> - (Optional) A label for the line or range.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-event-block">
+  <a name="nested-widget-tile_def-event-block" class="anchor" href="#nested-widget-tile_def-event-block">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>event</code> block
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;.</p>
+<p>Nested <code>widget</code> <code>tile_def</code> <code>event</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="q" /><a href="#q"><code>q</code></a> - (Required) The search query for event overlays.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-request-blocks">
+  <a name="nested-widget-tile_def-request-blocks" class="anchor" href="#nested-widget-tile_def-request-blocks">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>request</code> blocks
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, &quot;change&quot;, &quot;hostmap&quot;, &quot;process&quot;.</p>
+<p>Nested <code>widget</code> <code>tile_def</code> <code>request</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="q-1" /><a href="#q-1"><code>q</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, &quot;change&quot;, &quot;hostmap&quot;) The query of the request. Pro tip: Use the JSON tab inside the Datadog UI to help build you query strings.
+</li>
+<li><a name="type-2" /><a href="#type-2"><code>type</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;hostmap&quot;) Choose the type of representation to use for this query. For widgets of type &quot;timeseries&quot; and &quot;query_value&quot;, use one of &quot;line&quot;, &quot;bars&quot; or &quot;area&quot;. For widgets of type &quot;hostmap&quot;, use &quot;fill&quot; or &quot;size&quot;.
+</li>
+<li><a name="query_type" /><a href="#query_type"><code>query_type</code></a> - (Optional, only for widgets of type &quot;process&quot;) Use &quot;process&quot;.
+</li>
+<li><a name="metric" /><a href="#metric"><code>metric</code></a> - (Optional, only for widgets of type &quot;process&quot;) The metric you want to use for the widget.
+</li>
+<li><a name="text_filter" /><a href="#text_filter"><code>text_filter</code></a> - (Optional, only for widgets of type &quot;process&quot;) The search query for the widget.
+</li>
+<li><a name="tag_filters" /><a href="#tag_filters"><code>tag_filters</code></a> - (Optional, only for widgets of type &quot;process&quot;) Tags to use for filtering.
+</li>
+<li><a name="limit" /><a href="#limit"><code>limit</code></a> - (Optional, only for widgets of type &quot;process&quot;) Integer indicating the number of hosts to limit to.
+</li>
+<li><a name="aggregator" /><a href="#aggregator"><code>aggregator</code></a> - (Optional, only for widgets of type &quot;query_value&quot;) The aggregator to use for time aggregation. One of &quot;avg&quot;, &quot;min&quot;, &quot;max&quot;, &quot;sum&quot;, &quot;last&quot;.
+</li>
+<li><a name="compare_to" /><a href="#compare_to"><code>compare_to</code></a> - (Optional, only for widgets of type &quot;change&quot;) Choose from when to compare current data to. One of &quot;hour_before&quot;, &quot;day_before&quot;, &quot;week_before&quot; or &quot;month_before&quot;.
+</li>
+<li><a name="change_type" /><a href="#change_type"><code>change_type</code></a> - (Optional, only for widgets of type &quot;change&quot;) Whether to show absolute or relative change. One of &quot;absolute&quot;, &quot;relative&quot;.
+</li>
+<li><a name="order_by" /><a href="#order_by"><code>order_by</code></a> - (Optional, only for widgets of type &quot;change&quot;) One of &quot;change&quot;, &quot;name&quot;, &quot;present&quot; (present value) or &quot;past&quot; (past value).
+</li>
+<li><a name="order_dir" /><a href="#order_dir"><code>order_dir</code></a> - (Optional, only for widgets of type &quot;change&quot;) Either &quot;asc&quot; (ascending) or &quot;desc&quot; (descending).
+</li>
+<li><a name="extra_col" /><a href="#extra_col"><code>extra_col</code></a> - (Optional, only for widgets of type &quot;change&quot;) If set to &quot;present&quot;, displays current value. Can be left empty otherwise.
+</li>
+<li><a name="increase_good" /><a href="#increase_good"><code>increase_good</code></a> - (Optional, only for widgets of type &quot;change&quot;) Boolean indicating whether an increase in the value is good (thus displayed in green) or not (thus displayed in red).
+</li>
+<li><a name="style-1" /><a href="#style-1"><code>style</code></a> - (Optional, only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, &quot;process&quot;) describing how to display the widget. The structure of this block is described below. At most one such block should be present in a given request block.
+</li>
+<li><a name="conditional_format" /><a href="#conditional_format"><code>conditional_format</code></a> - (Optional) Nested block to customize the style if certain conditions are met. Currently only applies to <code>Query Value</code> and <code>Top List</code> type graphs.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-request-style-block">
+  <a name="nested-widget-tile_def-request-style-block" class="anchor" href="#nested-widget-tile_def-request-style-block">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>request</code> <code>style</code> block
+</h3>
+<p>Only for widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, &quot;process&quot;.</p>
+<p>The nested <code>style</code> blocks has the following structure:</p>
+
+<ul>
+<li><a name="palette-1" /><a href="#palette-1"><code>palette</code></a> - (Optional) Color of the line drawn. For widgets of type &quot;timeseries&quot;, &quot;query_value&quot;, &quot;toplist&quot;, one of: &quot;classic&quot;, &quot;cool&quot;, &quot;warm&quot;, &quot;purple&quot;, &quot;orange&quot; or &quot;gray&quot;. For widgets of type &quot;process&quot;, one of: &quot;dog_classic_area&quot;, &quot;YlOrRd&quot;, &quot;GnBu&quot;, &quot;Reds&quot;, &quot;Oranges&quot;, &quot;Greens&quot;, &quot;Blues&quot;, &quot;Purples&quot;.
+</li>
+<li><a name="width-2" /><a href="#width-2"><code>width</code></a> - (Optional) Line width. Possible values: &quot;thin&quot;, &quot;normal&quot;, &quot;thick&quot;. Default: &quot;normal&quot;.
+</li>
+<li><a name="type-3" /><a href="#type-3"><code>type</code></a> - (Optional) Type of line drawn. Possible values: &quot;dashed&quot;, &quot;solid&quot;, &quot;dotted&quot;. Default: &quot;solid&quot;.
+</li>
+</ul>
+<h3 id="nested-widget-tile_def-request-conditional_format-block">
+  <a name="nested-widget-tile_def-request-conditional_format-block" class="anchor" href="#nested-widget-tile_def-request-conditional_format-block">&raquo;</a>
+  Nested <code>widget</code> <code>tile_def</code> <code>request</code> <code>conditional_format</code> block
+</h3>
+<p>The nested <code>conditional_format</code> blocks has the following structure:</p>
+
+<ul>
+<li><a name="palette-2" /><a href="#palette-2"><code>palette</code></a> - (Optional) Color scheme to be used if the condition is met. One of: &quot;red_on_white&quot;, &quot;white_on_red&quot;, &quot;yellow_on_white&quot;, &quot;white_on_yellow&quot;, &quot;green_on_white&quot;, &quot;white_on_green&quot;, &quot;gray_on_white&quot;, &quot;white_on_gray&quot;, &quot;custom_text&quot;, &quot;custom_bg&quot;, &quot;custom_image&quot;.
+</li>
+<li><a name="comparator" /><a href="#comparator"><code>comparator</code></a> - (Required) Comparison operator. Example: &quot;&gt;&quot;, &quot;&lt;&quot;.
+</li>
+<li><a name="value-1" /><a href="#value-1"><code>value</code></a> - (Optional) Value that is the threshold for the conditional format.
+</li>
+<li><a name="color-1" /><a href="#color-1"><code>color</code></a> - (Optional) Custom color (e.g., #205081).
+</li>
+<li><a name="invert" /><a href="#invert"><code>invert</code></a> - (Optional) Boolean indicating whether to invert color scheme.
+</li>
+</ul>
+<h3 id="nested-template_variable-blocks">
+  <a name="nested-template_variable-blocks" class="anchor" href="#nested-template_variable-blocks">&raquo;</a>
+  Nested <code>template_variable</code> blocks
+</h3>
+<p>Nested <code>template_variable</code> blocks have the following structure:</p>
+
+<ul>
+<li><a name="name" /><a href="#name"><code>name</code></a> - (Required) The variable name. Can be referenced as $name in <code>graph</code> <code>request</code> <code>q</code> query strings.
+</li>
+<li><a name="prefix" /><a href="#prefix"><code>prefix</code></a> - (Optional) The tag group. Default: no tag group.
+</li>
+<li><a name="default" /><a href="#default"><code>default</code></a> - (Optional) The default tag. Default: &quot;*&quot; (match all).
+</li>
+</ul>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported:</p>
+
+<ul>
+<li><a name="id" /><a href="#id"><code>id</code></a> - The unique ID of this screenboard in your Datadog account. The web interface URL to this screenboard can be generated by appending this ID to <code>https://app.datadoghq.com/screen/</code>
+</li>
+</ul>
+<h2 id="import">
+  <a name="import" class="anchor" href="#import">&raquo;</a>
+  Import
+</h2>
+<p>screenboards can be imported using their numeric ID, e.g.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform import datadog_screenboard.my_service_screenboard 2081
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

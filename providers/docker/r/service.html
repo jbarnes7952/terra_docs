@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manages the lifecycle of a Docker service.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/docker/r/service.html" />
+    <meta property="og:title" content="Docker: docker_service - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Manages the lifecycle of a Docker service." />
+
+    <title>Docker: docker_service - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-docker-resource-service" class="layout-docker page-docker-docker-service">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+        <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li>
+          <a href="/docs/providers/docker/index.html">Docker Provider</a>
+        </li>
+
+        <li>
+          <a href="#">Data Sources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/docker/d/registry_image.html">docker_registry_image</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="active">
+          <a href="#">Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/docker/r/container.html">docker_container</a>
+            </li>
+
+            <li>
+              <a href="/docs/providers/docker/r/image.html">docker_image</a>
+            </li>
+
+            <li>
+              <a href="/docs/providers/docker/r/network.html">docker_network</a>
+                        </li>
+
+            <li>
+               <a href="/docs/providers/docker/r/volume.html">docker_volume</a>
+                        </li>
+          </ul>
+        </li>
+        <li>
+            <a href="#">Swarm Resources</a>
+            <ul class="nav nav-visible">
+              <li>
+                <a href="/docs/providers/docker/r/config.html">docker_config</a>
+              </li>
+              
+              <li>
+                <a href="/docs/providers/docker/r/secret.html">docker_secret</a>
+              </li>
+              
+              <li class="active">
+                <a href="/docs/providers/docker/r/service.html">docker_service</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="docker_service">
+  <a name="docker_service" class="anchor" href="#docker_service">&raquo;</a>
+  docker_service
+</h1>
+<p>This resource manages the lifecycle of a Docker service. By default, the creation, update and delete of services are detached.</p>
+<p>With the <a href="#convergeconfig">Converge Config</a> the behavior of the <code>docker cli</code> is imitated to guarantee that
+for example, all tasks of a service are running or successfully updated or to inform <code>terraform</code> that a service could not
+be updated and was successfully rolled back.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<p>The following examples show the basic and advanced usage of the
+Docker Service resource assuming the host machine is already part of a Swarm.</p>
+<h3 id="basic">
+  <a name="basic" class="anchor" href="#basic">&raquo;</a>
+  Basic
+</h3>
+<p>The following configuration starts a Docker Service with 
+- the given image, 
+- 1 replica
+- exposes the port <code>8080</code> in <code>vip</code> mode to the host machine
+- moreover, uses the <code>container</code> runtime</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"docker_service"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+    <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"foo-service"</span>
+    <span class="n">task_spec</span> <span class="p">{</span>
+        <span class="n">container_spec</span> <span class="p">{</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="s2">"repo.mycompany.com:8080/foo-service:v1"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">endpoint_spec</span> <span class="p">{</span>
+      <span class="n">ports</span> <span class="p">{</span>
+        <span class="n">target_port</span> <span class="o">=</span> <span class="s2">"8080"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The following command is the equivalent:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>docker service create <span class="nt">-d</span> <span class="nt">-p</span> 8080 <span class="nt">--name</span> foo-service repo.mycompany.com:8080/foo-service:v1
+</code></pre></div><h3 id="advanced">
+  <a name="advanced" class="anchor" href="#advanced">&raquo;</a>
+  Advanced
+</h3>
+<p>The following configuration shows the full capabilities of a Docker Service. Currently, the <a href="https://docs.docker.com/engine/api/v1.32">Docker API 1.32</a> is implemented.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"docker_volume"</span> <span class="s2">"test_volume"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"tftest-volume"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"docker_config"</span> <span class="s2">"service_config"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"tftest-full-myconfig"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">"ewogICJwcmVmaXgiOiAiMTIzIgp9"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"docker_secret"</span> <span class="s2">"service_secret"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"tftest-mysecret"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">"ewogICJrZXkiOiAiUVdFUlRZIgp9"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"docker_network"</span> <span class="s2">"test_network"</span> <span class="p">{</span>
+    <span class="nb">name</span>   <span class="o">=</span> <span class="s2">"tftest-network"</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="s2">"overlay"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"docker_service"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"tftest-service-basic"</span>
+
+    <span class="n">task_spec</span> <span class="p">{</span>
+        <span class="n">container_spec</span> <span class="p">{</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="s2">"repo.mycompany.com:8080/foo-service:v1"</span>
+
+            <span class="n">labels</span> <span class="p">{</span>
+                <span class="n">foo</span> <span class="o">=</span> <span class="s2">"bar"</span>
+            <span class="p">}</span>
+
+            <span class="n">command</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">"ls"</span><span class="p">]</span>
+            <span class="n">args</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"-las"</span><span class="p">]</span>
+            <span class="n">hostname</span> <span class="o">=</span> <span class="s2">"my-fancy-service"</span>
+
+            <span class="n">env</span> <span class="p">{</span>
+                <span class="no">MYFOO</span> <span class="o">=</span> <span class="s2">"BAR"</span>
+            <span class="p">}</span>
+
+            <span class="n">dir</span>    <span class="o">=</span> <span class="s2">"/root"</span>
+            <span class="n">user</span>   <span class="o">=</span> <span class="s2">"root"</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"foogroup"</span><span class="p">]</span>
+
+            <span class="n">privileges</span> <span class="p">{</span>
+                <span class="n">se_linux_context</span> <span class="p">{</span>
+                    <span class="n">disable</span> <span class="o">=</span> <span class="kp">true</span>
+                    <span class="n">user</span>    <span class="o">=</span> <span class="s2">"user-label"</span>
+                    <span class="n">role</span>    <span class="o">=</span> <span class="s2">"role-label"</span>
+                    <span class="n">type</span>    <span class="o">=</span> <span class="s2">"type-label"</span>
+                    <span class="n">level</span>   <span class="o">=</span> <span class="s2">"level-label"</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="n">read_only</span> <span class="o">=</span> <span class="kp">true</span>
+
+            <span class="n">mounts</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="n">target</span>      <span class="o">=</span> <span class="s2">"/mount/test"</span>
+                    <span class="n">source</span>      <span class="o">=</span> <span class="s2">"${docker_volume.test_volume.name}"</span>
+                    <span class="n">type</span>        <span class="o">=</span> <span class="s2">"volume"</span>
+                    <span class="n">read_only</span>   <span class="o">=</span> <span class="kp">true</span>
+
+                    <span class="n">bind_options</span> <span class="p">{</span>
+                        <span class="n">propagation</span> <span class="o">=</span> <span class="s2">"private"</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+
+            <span class="n">stop_signal</span>       <span class="o">=</span> <span class="s2">"SIGTERM"</span>
+            <span class="n">stop_grace_period</span> <span class="o">=</span> <span class="s2">"10s"</span>
+
+            <span class="n">healthcheck</span> <span class="p">{</span>
+                <span class="nb">test</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"CMD"</span><span class="p">,</span> <span class="s2">"curl"</span><span class="p">,</span> <span class="s2">"-f"</span><span class="p">,</span> <span class="s2">"http://localhost:8080/health"</span><span class="p">]</span>
+                <span class="n">interval</span> <span class="o">=</span> <span class="s2">"5s"</span>
+                <span class="n">timeout</span>  <span class="o">=</span> <span class="s2">"2s"</span>
+                <span class="n">retries</span>  <span class="o">=</span> <span class="mi">4</span>
+            <span class="p">}</span>
+
+            <span class="n">hosts</span> <span class="p">{</span>
+                <span class="n">host</span> <span class="o">=</span> <span class="s2">"testhost"</span>
+                <span class="n">ip</span>   <span class="o">=</span> <span class="s2">"10.0.1.0"</span>
+            <span class="p">}</span>
+
+            <span class="n">dns_config</span> <span class="p">{</span>
+                <span class="n">nameservers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"8.8.8.8"</span><span class="p">]</span>
+                <span class="n">search</span>      <span class="o">=</span> <span class="p">[</span><span class="s2">"example.org"</span><span class="p">]</span>
+                <span class="n">options</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"timeout:3"</span><span class="p">]</span>
+            <span class="p">}</span>
+
+            <span class="n">secrets</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="n">secret_id</span>   <span class="o">=</span> <span class="s2">"${docker_secret.service_secret.id}"</span>
+                    <span class="n">secret_name</span> <span class="o">=</span> <span class="s2">"${docker_secret.service_secret.name}"</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="s2">"/secrets.json"</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+
+            <span class="n">configs</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="n">config_id</span>   <span class="o">=</span> <span class="s2">"${docker_config.service_config.id}"</span>
+                    <span class="n">config_name</span> <span class="o">=</span> <span class="s2">"${docker_config.service_config.name}"</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="s2">"/configs.json"</span>
+                <span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">resources</span> <span class="p">{</span>
+            <span class="n">limits</span> <span class="p">{</span>
+                <span class="n">nano_cpus</span>    <span class="o">=</span> <span class="mi">1000000</span>
+                <span class="n">memory_bytes</span> <span class="o">=</span> <span class="mi">536870912</span>
+
+                <span class="n">generic_resources</span> <span class="p">{</span>
+                    <span class="n">named_resources_spec</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="s2">"GPU=UUID1"</span>
+                    <span class="p">]</span>
+
+                    <span class="n">discrete_resources_spec</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="s2">"SSD=3"</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="n">reservation</span> <span class="p">{</span>
+                <span class="n">nano_cpus</span>    <span class="o">=</span> <span class="mi">1000000</span>
+                <span class="n">memory_bytes</span> <span class="o">=</span> <span class="mi">536870912</span>
+
+                <span class="n">generic_resources</span> <span class="p">{</span>
+                    <span class="n">named_resources_spec</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="s2">"GPU=UUID1"</span>
+                    <span class="p">}</span>
+
+                    <span class="n">discrete_resources_spec</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="s2">"SSD=3"</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">restart_policy</span> <span class="p">{</span>
+            <span class="n">condition</span>    <span class="o">=</span> <span class="s2">"on-failure"</span>
+            <span class="n">delay</span>        <span class="o">=</span> <span class="s2">"3s"</span>
+            <span class="n">max_attempts</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="n">window</span>       <span class="o">=</span> <span class="s2">"10s"</span>
+        <span class="p">}</span>
+
+        <span class="n">placement</span> <span class="p">{</span>
+            <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">"node.role==manager"</span><span class="p">,</span>
+            <span class="p">]</span>
+
+            <span class="n">prefs</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="s2">"spread=node.role.manager"</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="n">force_update</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">runtime</span>      <span class="o">=</span> <span class="s2">"container"</span>
+        <span class="n">networks</span>     <span class="o">=</span> <span class="p">[</span><span class="s2">"${docker_network.test_network.id}"</span><span class="p">]</span>
+
+        <span class="n">log_driver</span> <span class="p">{</span>
+            <span class="nb">name</span> <span class="o">=</span> <span class="s2">"json-file"</span>
+
+            <span class="n">options</span> <span class="p">{</span>
+                <span class="n">max</span><span class="o">-</span><span class="n">size</span> <span class="o">=</span> <span class="s2">"10m"</span>
+                <span class="n">max</span><span class="o">-</span><span class="n">file</span> <span class="o">=</span> <span class="s2">"3"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">mode</span> <span class="p">{</span>
+        <span class="n">replicated</span> <span class="p">{</span>
+            <span class="n">replicas</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">update_config</span> <span class="p">{</span>
+        <span class="n">parallelism</span>       <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">delay</span>             <span class="o">=</span> <span class="s2">"10s"</span>
+        <span class="n">failure_action</span>    <span class="o">=</span> <span class="s2">"pause"</span>
+        <span class="n">monitor</span>           <span class="o">=</span> <span class="s2">"5s"</span>
+        <span class="n">max_failure_ratio</span> <span class="o">=</span> <span class="s2">"0.1"</span>
+        <span class="n">order</span>             <span class="o">=</span> <span class="s2">"start-first"</span>
+    <span class="p">}</span>
+
+    <span class="n">rollback_config</span> <span class="p">{</span>
+        <span class="n">parallelism</span>       <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">delay</span>             <span class="o">=</span> <span class="s2">"5ms"</span>
+        <span class="n">failure_action</span>    <span class="o">=</span> <span class="s2">"pause"</span>
+        <span class="n">monitor</span>           <span class="o">=</span> <span class="s2">"10h"</span>
+        <span class="n">max_failure_ratio</span> <span class="o">=</span> <span class="s2">"0.9"</span>
+        <span class="n">order</span>             <span class="o">=</span> <span class="s2">"stop-first"</span>
+    <span class="p">}</span>
+
+    <span class="n">endpoint_spec</span> <span class="p">{</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s2">"vip"</span>
+
+        <span class="n">ports</span> <span class="p">{</span>
+            <span class="nb">name</span>           <span class="o">=</span> <span class="s2">"random"</span>
+            <span class="n">protocol</span>       <span class="o">=</span> <span class="s2">"tcp"</span>
+            <span class="n">target_port</span>    <span class="o">=</span> <span class="s2">"8080"</span>
+            <span class="n">published_port</span> <span class="o">=</span> <span class="s2">"8080"</span>
+            <span class="n">publish_mode</span>   <span class="o">=</span> <span class="s2">"ingress"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>See also the <code>TestAccDockerService_full</code> test or all the other tests for a complete overview.</p>
+<h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="auth" /><a href="#auth"><code>auth</code></a> - (Optional, block) See <a href="#auth">Auth</a> below for details.
+</li>
+<li><a name="name" /><a href="#name"><code>name</code></a> - (Required, string) The name of the Docker service.
+</li>
+<li><a name="task_spec" /><a href="#task_spec"><code>task_spec</code></a> - (Required, block) See <a href="#task-spec">TaskSpec</a> below for details.
+</li>
+<li><a name="mode" /><a href="#mode"><code>mode</code></a> - (Optional, block) See <a href="#mode">Mode</a> below for details.
+</li>
+<li><a name="update_config" /><a href="#update_config"><code>update_config</code></a> - (Optional, block) See <a href="#update-rollback-config">UpdateConfig</a> below for details.
+</li>
+<li><a name="rollback_config" /><a href="#rollback_config"><code>rollback_config</code></a> - (Optional, block) See <a href="#update-rollback-config">RollbackConfig</a> below for details.
+</li>
+<li><a name="endpoint_spec" /><a href="#endpoint_spec"><code>endpoint_spec</code></a> - (Optional, block) See <a href="#endpoint-spec">EndpointSpec</a> below for details.
+</li>
+<li><a name="converge_config" /><a href="#converge_config"><code>converge_config</code></a> - (Optional, block) See <a href="#converge-config">Converge Config</a> below for details.
+</li>
+</ul>
+<p><a id="auth"></a></p>
+<h3 id="auth-1">
+  <a name="auth-1" class="anchor" href="#auth-1">&raquo;</a>
+  Auth
+</h3>
+<p><code>auth</code> can be used additionally to the <code>registry_auth</code>. If both properties are given the <code>auth</code> wins and overwrites the auth of the provider.</p>
+
+<ul>
+<li><a name="server_address" /><a href="#server_address"><code>server_address</code></a> - (Required, string) The address of the registry server
+</li>
+<li><a name="username" /><a href="#username"><code>username</code></a> - (Optional, string) The username to use for authenticating to the registry. If this is blank, the <code>DOCKER_REGISTRY_USER</code> is also be checked. 
+</li>
+<li><a name="password" /><a href="#password"><code>password</code></a> - (Optional, string) The password to use for authenticating to the registry. If this is blank, the <code>DOCKER_REGISTRY_PASS</code> is also be checked.
+</li>
+</ul>
+<!-- start task-spec -->
+<p><a id="task-spec"></a></p>
+<h3 id="taskspec">
+  <a name="taskspec" class="anchor" href="#taskspec">&raquo;</a>
+  TaskSpec
+</h3>
+<p><code>task_spec</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>task_spec</code> block is the user modifiable task configuration and supports the following:</p>
+
+<ul>
+<li><a name="container_spec" /><a href="#container_spec"><code>container_spec</code></a> (Required, block) See <a href="#container-spec">ContainerSpec</a> below for details.
+</li>
+<li><a name="resources" /><a href="#resources"><code>resources</code></a> (Optional, block) See <a href="#resources">Resources</a> below for details.
+</li>
+<li><a name="restart_policy" /><a href="#restart_policy"><code>restart_policy</code></a> (Optional, block) See <a href="#restart-policy">Restart Policy</a> below for details.
+</li>
+<li><a name="placement" /><a href="#placement"><code>placement</code></a> (Optional, block) See <a href="#placement">Placement</a> below for details.
+</li>
+<li><a name="force_update" /><a href="#force_update"><code>force_update</code></a> (Optional, int) A counter that triggers an update even if no relevant parameters have been changed. See <a href="https://github.com/docker/swarmkit/blob/master/api/specs.proto#L126">Docker Spec</a>.
+</li>
+<li><a name="runtime" /><a href="#runtime"><code>runtime</code></a> (Optional, string) Runtime is the type of runtime specified for the task executor. See <a href="https://github.com/moby/moby/blob/master/api/types/swarm/runtime.go">Docker Runtime</a>.
+</li>
+<li><a name="networks" /><a href="#networks"><code>networks</code></a> - (Optional, set of strings) Ids of the networks in which the container will be put in.
+</li>
+<li><a name="log_driver" /><a href="#log_driver"><code>log_driver</code></a> - (Optional, block) See <a href="#log-driver">Log Driver</a> below for details.
+</li>
+</ul>
+<!-- start task-container-spec -->
+<p><a id="container-spec"></a></p>
+<h4 id="containerspec">
+  <a name="containerspec" class="anchor" href="#containerspec">&raquo;</a>
+  ContainerSpec
+</h4>
+<p><code>container_spec</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>container_spec</code> block is the spec for each container and supports the following:</p>
+
+<ul>
+<li><a name="image" /><a href="#image"><code>image</code></a> - (Required, string) The image used to create the Docker service.
+</li>
+<li><a name="labels" /><a href="#labels"><code>labels</code></a> - (Optional, map of string/string key/value pairs) User-defined key/value metadata.
+</li>
+<li><a name="command" /><a href="#command"><code>command</code></a> - (Optional, list of strings) The command to be run in the image.
+</li>
+<li><a name="args" /><a href="#args"><code>args</code></a> - (Optional, list of strings) Arguments to the command.
+</li>
+<li><a name="hostname" /><a href="#hostname"><code>hostname</code></a> - (Optional, string) The hostname to use for the container, as a valid RFC 1123 hostname.
+</li>
+<li><a name="env" /><a href="#env"><code>env</code></a> - (Optional, map of string/string) A list of environment variables in the form VAR=value.
+</li>
+<li><a name="dir" /><a href="#dir"><code>dir</code></a> - (Optional, string) The working directory for commands to run in.
+</li>
+<li><a name="user" /><a href="#user"><code>user</code></a> - (Optional, string) The user inside the container.
+</li>
+<li><a name="groups" /><a href="#groups"><code>groups</code></a> - (Optional, list of strings) A list of additional groups that the container process will run as.
+</li>
+<li><a name="privileges" /><a href="#privileges"><code>privileges</code></a> (Optional, block) See <a href="#privileges">Privileges</a> below for details.
+</li>
+<li><a name="read_only" /><a href="#read_only"><code>read_only</code></a> - (Optional, bool) Mount the container&#39;s root filesystem as read only.
+</li>
+<li><a name="mounts" /><a href="#mounts"><code>mounts</code></a> - (Optional, set of blocks) See <a href="#mounts">Mounts</a> below for details.
+</li>
+<li><a name="stop_signal" /><a href="#stop_signal"><code>stop_signal</code></a> - (Optional, string) Signal to stop the container.
+</li>
+<li><a name="stop_grace_period" /><a href="#stop_grace_period"><code>stop_grace_period</code></a> - (Optional, string) Amount of time to wait for the container to terminate before forcefully removing it <code>(ms|s|m|h)</code>.
+</li>
+<li><a name="healthcheck" /><a href="#healthcheck"><code>healthcheck</code></a> - (Optional, block) See <a href="#healthcheck">Healthcheck</a> below for details.
+</li>
+<li><a name="host-1" /><a href="#host-1"><code>host</code></a> - (Optional, map of string/string) A list of hostname/IP mappings to add to the container&#39;s hosts file.
+
+<ul>
+<li><a name="ip" /><a href="#ip"><code>ip</code></a> - (Required string) The ip
+</li>
+<li><a name="host" /><a href="#host"><code>host</code></a> - (Required string) The hostname
+</li>
+</ul>
+</li>
+<li><a name="dns_config" /><a href="#dns_config"><code>dns_config</code></a> - (Optional, block) See <a href="#dnsconfig">DNS Config</a> below for details.
+</li>
+<li><a name="secrets" /><a href="#secrets"><code>secrets</code></a> - (Optional, set of blocks) See <a href="#secrets">Secrets</a> below for details.
+</li>
+<li><a name="configs" /><a href="#configs"><code>configs</code></a> - (Optional, set of blocks) See <a href="#configs">Configs</a> below for details.
+</li>
+<li><a name="isolation" /><a href="#isolation"><code>isolation</code></a> - (Optional, string) Isolation technology of the containers running the service. (Windows only). Valid values are: <code>default|process|hyperv</code>
+</li>
+</ul>
+<p><a id="privileges"></a></p>
+<h4 id="privileges-1">
+  <a name="privileges-1" class="anchor" href="#privileges-1">&raquo;</a>
+  Privileges
+</h4>
+<p><code>privileges</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>privileges</code> block holds the security options for the container and supports the following:</p>
+
+<ul>
+<li><a name="credential_spec" /><a href="#credential_spec"><code>credential_spec</code></a> - (Optional, block) For managed service account (Windows only)
+
+<ul>
+<li><a name="file" /><a href="#file"><code>file</code></a> - (Optional, string) Load credential spec from this file.
+</li>
+<li><a name="registry" /><a href="#registry"><code>registry</code></a> - (Optional, string) Load credential spec from this value in the Windows registry.
+</li>
+</ul>
+</li>
+<li><a name="se_linux_context" /><a href="#se_linux_context"><code>se_linux_context</code></a> - (Optional, block) SELinux labels of the container
+
+<ul>
+<li><a name="disable" /><a href="#disable"><code>disable</code></a> - (Optional, bool) Disable SELinux
+</li>
+<li><a name="user-1" /><a href="#user-1"><code>user</code></a> - (Optional, string) SELinux user label
+</li>
+<li><a name="role" /><a href="#role"><code>role</code></a> - (Optional, string) SELinux role label
+</li>
+<li><a name="type" /><a href="#type"><code>type</code></a> - (Optional, string) SELinux type label
+</li>
+<li><a name="level" /><a href="#level"><code>level</code></a> - (Optional, string) SELinux level label
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="mounts"></a></p>
+<h4 id="mounts-1">
+  <a name="mounts-1" class="anchor" href="#mounts-1">&raquo;</a>
+  Mounts
+</h4>
+<p><code>mount</code> is a block within the configuration that can be repeated to specify
+the extra mount mappings for the container. Each <code>mount</code> block is the Specification for mounts to be added to containers created as part of the service and supports
+the following:</p>
+
+<ul>
+<li><a name="target" /><a href="#target"><code>target</code></a> - (Required, string) The container path.
+</li>
+<li><a name="source" /><a href="#source"><code>source</code></a> - (Required, string) The mount source (e.g., a volume name, a host path)
+</li>
+<li><a name="type-1" /><a href="#type-1"><code>type</code></a> - (Required, string) The mount type: valid values are <code>bind|volume|tmpfs</code>.
+</li>
+<li><a name="read_only-1" /><a href="#read_only-1"><code>read_only</code></a> - (Optional, string) Whether the mount should be read-only
+</li>
+<li><a name="bind_options" /><a href="#bind_options"><code>bind_options</code></a> - (Optional, map) Optional configuration for the <code>bind</code> type.
+
+<ul>
+<li><a name="propagation" /><a href="#propagation"><code>propagation</code></a> - (Optional, string) A propagation mode with the value.
+</li>
+</ul>
+</li>
+<li><a name="volume_options" /><a href="#volume_options"><code>volume_options</code></a> - (Optional, map) Optional configuration for the <code>volume</code> type.
+
+<ul>
+<li><a name="no_copy" /><a href="#no_copy"><code>no_copy</code></a> - (Optional, string) Whether to populate volume with data from the target.
+</li>
+<li><a name="labels-1" /><a href="#labels-1"><code>labels</code></a> - (Optional, map of key/value pairs) Adding labels.
+</li>
+<li><a name="driver_config" /><a href="#driver_config"><code>driver_config</code></a> - (Optional, map) The name of the driver to create the volume.
+</li>
+<li><a name="name-1" /><a href="#name-1"><code>name</code></a> - (Optional, string) The name of the driver to create the volume.
+</li>
+<li><a name="options" /><a href="#options"><code>options</code></a> - (Optional, map of key/value pairs) Options for the driver.
+</li>
+</ul>
+</li>
+<li><a name="tmpf_options" /><a href="#tmpf_options"><code>tmpf_options</code></a> - (Optional, map) Optional configuration for the <code>tmpf</code> type.
+
+<ul>
+<li><a name="size_bytes" /><a href="#size_bytes"><code>size_bytes</code></a> - (Optional, int) The size for the tmpfs mount in bytes. 
+</li>
+<li><a name="mode-1" /><a href="#mode-1"><code>mode</code></a> - (Optional, int) The permission mode for the tmpfs mount in an integer.
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="healthcheck"></a></p>
+<h4 id="healthcheck-1">
+  <a name="healthcheck-1" class="anchor" href="#healthcheck-1">&raquo;</a>
+  Healthcheck
+</h4>
+<p><code>healthcheck</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the extra healthcheck configuration for the containers of the service. The <code>healthcheck</code> block is a test to perform to check that the container is healthy and supports the following:</p>
+
+<ul>
+<li><a name="test" /><a href="#test"><code>test</code></a> - (Required, list of strings) Command to run to check health. For example, to run <code>curl -f http://localhost/health</code> set the
+command to be <code>[&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://localhost/health&quot;]</code>.
+</li>
+<li><a name="interval" /><a href="#interval"><code>interval</code></a> - (Optional, string) Time between running the check <code>(ms|s|m|h)</code>. Default: <code>0s</code>.
+</li>
+<li><a name="timeout" /><a href="#timeout"><code>timeout</code></a> - (Optional, string) Maximum time to allow one check to run <code>(ms|s|m|h)</code>. Default: <code>0s</code>.
+</li>
+<li><a name="start_period" /><a href="#start_period"><code>start_period</code></a> - (Optional, string) Start period for the container to initialize before counting retries towards unstable <code>(ms|s|m|h)</code>. Default: <code>0s</code>.
+</li>
+<li><a name="start_period-1" /><a href="#start_period-1"><code>start_period</code></a> - Start period for the container to initialize before counting retries towards unstable <code>(ms|s|m|h)</code>. Default: <code>0s</code>.
+</li>
+<li><a name="retries" /><a href="#retries"><code>retries</code></a> - (Optional, int) Consecutive failures needed to report unhealthy. Default: <code>0</code>.
+</li>
+</ul>
+<p><a id="dnsconfig"></a></p>
+<h3 id="dns-config">
+  <a name="dns-config" class="anchor" href="#dns-config">&raquo;</a>
+  DNS Config
+</h3>
+<p><code>dns_config</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the extra DNS configuration for the containers of the service. The <code>dns_config</code> block supports the following:</p>
+
+<ul>
+<li><a name="nameservers" /><a href="#nameservers"><code>nameservers</code></a> - (Required, list of strings) The IP addresses of the name servers, for example, <code>8.8.8.8</code>
+</li>
+<li><a name="search" /><a href="#search"><code>search</code></a> - (Optional, list of strings)A search list for host-name lookup.
+</li>
+<li><a name="options-1" /><a href="#options-1"><code>options</code></a> - (Optional, list of strings) A list of internal resolver variables to be modified, for example, <code>debug</code>, <code>ndots:3</code>
+</li>
+</ul>
+<p><a id="secrets"></a></p>
+<h3 id="secrets-1">
+  <a name="secrets-1" class="anchor" href="#secrets-1">&raquo;</a>
+  Secrets
+</h3>
+<p><code>secrets</code> is a block within the configuration that can be repeated to specify
+the extra mount mappings for the container. Each <code>secrets</code> block is a reference to a secret that will be exposed to the service and supports the following:</p>
+
+<ul>
+<li><a name="secret_id" /><a href="#secret_id"><code>secret_id</code></a> - (Required, string) ConfigID represents the ID of the specific secret.
+</li>
+<li><a name="secret_name" /><a href="#secret_name"><code>secret_name</code></a> - (Optional, string) The name of the secret that this references, but internally it is just provided for lookup/display purposes
+</li>
+<li><a name="file_name" /><a href="#file_name"><code>file_name</code></a> - (Required, string) Represents the final filename in the filesystem. The specific target file that the secret data is written within the docker container, e.g. <code>/root/secret/secret.json</code>
+</li>
+</ul>
+<p><a id="configs"></a></p>
+<h3 id="configs-1">
+  <a name="configs-1" class="anchor" href="#configs-1">&raquo;</a>
+  Configs
+</h3>
+<p><code>configs</code> is a block within the configuration that can be repeated to specify
+the extra mount mappings for the container. Each <code>configs</code> is a reference to a secret that is exposed to the service and supports the following:</p>
+
+<ul>
+<li><a name="config_id" /><a href="#config_id"><code>config_id</code></a> - (Required, string) ConfigID represents the ID of the specific config.
+</li>
+<li><a name="config_name" /><a href="#config_name"><code>config_name</code></a> - (Optional, string) The name of the config that this references, but internally it is just provided for lookup/display purposes
+</li>
+<li><a name="file_name-1" /><a href="#file_name-1"><code>file_name</code></a> - (Required, string) Represents the final filename in the filesystem. The specific target file that the config data is written within the docker container, e.g. <code>/root/config/config.json</code>
+</li>
+</ul>
+<!-- end task-container-spec -->
+<!-- start task-resources-spec -->
+<p><a id="resources"></a></p>
+<h4 id="resources-1">
+  <a name="resources-1" class="anchor" href="#resources-1">&raquo;</a>
+  Resources
+</h4>
+<p><code>resources</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>resources</code> block represents the requirements which apply to each container created as part of the service and supports the following:</p>
+
+<ul>
+<li><a name="limits" /><a href="#limits"><code>limits</code></a> - (Optional, list of strings) Describes the resources which can be advertised by a node and requested by a task.
+
+<ul>
+<li><a name="nano_cpus" /><a href="#nano_cpus"><code>nano_cpus</code></a> (Optional, int) CPU shares in units of 1/1e9 (or 10<sup>-9)</sup> of the CPU. Should be at least 1000000
+</li>
+<li><a name="memory_bytes" /><a href="#memory_bytes"><code>memory_bytes</code></a> (Optional, int) The amount of memory in bytes the container allocates
+</li>
+<li><a name="generic_resources" /><a href="#generic_resources"><code>generic_resources</code></a> (Optional, map) User-defined resources can be either Integer resources (e.g, SSD=3) or String resources (e.g, GPU=UUID1)
+</li>
+<li><a name="named_resources_spec" /><a href="#named_resources_spec"><code>named_resources_spec</code></a> (Optional, set of string) The String resources, delimited by <code>=</code>
+</li>
+<li><a name="discrete_resources_spec" /><a href="#discrete_resources_spec"><code>discrete_resources_spec</code></a> (Optional, set of string) The Integer resources, delimited by <code>=</code>
+</li>
+</ul>
+</li>
+<li><a name="reservation" /><a href="#reservation"><code>reservation</code></a> - (Optional, list of strings) An object describing the resources which can be advertised by a node and requested by a task.
+
+<ul>
+<li><a name="nano_cpus-1" /><a href="#nano_cpus-1"><code>nano_cpus</code></a> (Optional, int) CPU shares in units of 1/1e9 (or 10<sup>-9)</sup> of the CPU. Should be at least 1000000
+</li>
+<li><a name="memory_bytes-1" /><a href="#memory_bytes-1"><code>memory_bytes</code></a> (Optional, int) The amount of memory in bytes the container allocates
+</li>
+<li><a name="generic_resources-1" /><a href="#generic_resources-1"><code>generic_resources</code></a> (Optional, map) User-defined resources can be either Integer resources (e.g, SSD=3) or String resources (e.g, GPU=UUID1)
+</li>
+<li><a name="named_resources_spec-1" /><a href="#named_resources_spec-1"><code>named_resources_spec</code></a> (Optional, set of string) The String resources
+</li>
+<li><a name="discrete_resources_spec-1" /><a href="#discrete_resources_spec-1"><code>discrete_resources_spec</code></a> (Optional, set of string) The Integer resources
+</li>
+</ul>
+</li>
+</ul>
+<!-- end task-resources-spec -->
+<!-- start task-restart-policy-spec -->
+<p><a id="restart_policy"></a></p>
+<h4 id="restart-policy">
+  <a name="restart-policy" class="anchor" href="#restart-policy">&raquo;</a>
+  Restart Policy
+</h4>
+<p><code>restart_policy</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>restart_policy</code> block specifies the restart policy which applies to containers created as part of this service and supports the following:</p>
+
+<ul>
+<li><a name="condition" /><a href="#condition"><code>condition</code></a> (Optional, string) Condition for restart: <code>(none|on-failure|any)</code>
+</li>
+<li><a name="delay" /><a href="#delay"><code>delay</code></a> (Optional, string) Delay between restart attempts <code>(ms|s|m|h)</code>
+</li>
+<li><a name="max_attempts" /><a href="#max_attempts"><code>max_attempts</code></a> (Optional, string) Maximum attempts to restart a given container before giving up (default value is <code>0</code>, which is ignored)
+</li>
+<li><a name="window" /><a href="#window"><code>window</code></a> (Optional, string) The time window used to evaluate the restart policy (default value is <code>0</code>, which is unbounded) <code>(ms|s|m|h)</code>
+</li>
+</ul>
+<!-- end task-restart-policy-spec -->
+<!-- start task-placement-spec -->
+<p><a id="placement"></a></p>
+<h4 id="placement-1">
+  <a name="placement-1" class="anchor" href="#placement-1">&raquo;</a>
+  Placement
+</h4>
+<p><code>placement</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>placement</code> block specifies the placement preferences and supports the following:</p>
+
+<ul>
+<li><a name="constraints" /><a href="#constraints"><code>constraints</code></a> (Optional, set of strings) An array of constraints. e.g.: <code>node.role==manager</code>
+</li>
+<li><a name="prefs" /><a href="#prefs"><code>prefs</code></a> (Optional, set of string) Preferences provide a way to make the scheduler aware of factors such as topology. They are provided in order from highest to lowest precedence, e.g.: <code>spread=node.role.manager</code>
+</li>
+<li><a name="platforms" /><a href="#platforms"><code>platforms</code></a> (Optional, set of) Platforms stores all the platforms that the service&#39;s image can run on
+
+<ul>
+<li><a name="architecture" /><a href="#architecture"><code>architecture</code></a> (Required, string) The architecture, e.g., <code>amd64</code>
+</li>
+<li><a name="os" /><a href="#os"><code>os</code></a> (Required, string) The operation system, e.g., <code>linux</code>
+</li>
+</ul>
+</li>
+</ul>
+<!-- end task-placement-spec -->
+<!-- end log-driver-spec -->
+<p><a id="log-driver"></a></p>
+<h3 id="log-driver">
+  <a name="log-driver" class="anchor" href="#log-driver">&raquo;</a>
+  Log Driver
+</h3>
+<p><code>log_driver</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the extra log_driver configuration for the containers of the service. The <code>log_driver</code> specifies the log driver to use for tasks created from this spec. If not present, the default one for the swarm will be used, finally falling back to the engine default if not specified. The block supports the following:</p>
+
+<ul>
+<li><a name="name-2" /><a href="#name-2"><code>name</code></a> - (Required, string) The logging driver to use. Either <code>(none|json-file|syslog|journald|gelf|fluentd|awslogs|splunk|etwlogs|gcplogs)</code>.
+</li>
+<li><a name="options-2" /><a href="#options-2"><code>options</code></a> - (Optional, a map of strings and strings) The options for the logging driver, e.g.
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">options</span> <span class="p">{</span>
+  <span class="n">awslogs</span><span class="o">-</span><span class="n">region</span> <span class="o">=</span> <span class="s2">"us-west-2"</span>
+  <span class="n">awslogs</span><span class="o">-</span><span class="n">group</span>  <span class="o">=</span> <span class="s2">"dev/foo-service"</span>
+<span class="p">}</span>
+</code></pre></div><!-- end log-driver-spec -->
+<!-- end task-spec -->
+<p><a id="mode"></a></p>
+<h3 id="mode-2">
+  <a name="mode-2" class="anchor" href="#mode-2">&raquo;</a>
+  Mode
+</h3>
+<p><code>mode</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the mode configuration for the service. The <code>mode</code> block supports the following:</p>
+
+<ul>
+<li><a name="global" /><a href="#global"><code>global</code></a> - (Optional, bool) set it to <code>true</code> to run the service in the global mode
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"docker_service"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="n">mode</span> <span class="p">{</span>
+    <span class="n">global</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a name="replicated" /><a href="#replicated"><code>replicated</code></a> - (Optional, map), which contains atm only the amount of <code>replicas</code>
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"docker_service"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+  <span class="o">...</span>
+  <span class="n">mode</span> <span class="p">{</span>
+    <span class="n">replicated</span> <span class="p">{</span>
+      <span class="n">replicas</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div><div class="alert alert-warning" role="alert">
+<p><strong>NOTE on <code>mode</code>:</strong> if neither <code>global</code> nor <code>replicated</code> is specified, the service
+is started in <code>replicated</code> mode with 1 replica. A change of service mode is not possible. The service has to be destroyed an recreated in the new mode.</p>
+</div>
+<p><a id="update-rollback-config"></a></p>
+<h3 id="updateconfig-and-rollbackconfig">
+  <a name="updateconfig-and-rollbackconfig" class="anchor" href="#updateconfig-and-rollbackconfig">&raquo;</a>
+  UpdateConfig and RollbackConfig
+</h3>
+<p><code>update_config</code> or <code>rollback_config</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the extra update configuration for the containers of the service. The <code>update_config</code> <code>rollback_config</code> block supports the following:</p>
+
+<ul>
+<li><a name="parallelism" /><a href="#parallelism"><code>parallelism</code></a> - (Optional, int) The maximum number of tasks to be updated in one iteration simultaneously (0 to update all at once).
+</li>
+<li><a name="delay-1" /><a href="#delay-1"><code>delay</code></a> - (Optional, int) Delay between updates <code>(ns|us|ms|s|m|h)</code>, e.g. <code>5s</code>.
+</li>
+<li><a name="failure_action" /><a href="#failure_action"><code>failure_action</code></a> - (Optional, int) Action on update failure: <code>pause|continue|rollback</code>.
+</li>
+<li><a name="monitor" /><a href="#monitor"><code>monitor</code></a> - (Optional, int) Duration after each task update to monitor for failure <code>(ns|us|ms|s|m|h)</code>
+</li>
+<li><a name="max_failure_ratio" /><a href="#max_failure_ratio"><code>max_failure_ratio</code></a> - (Optional, string) The failure rate to tolerate during an update as <code>float</code>. <strong>Important:</strong> the <code>float</code>need to be wrapped in a <code>string</code> to avoid internal
+casting and precision errors.
+</li>
+<li><a name="order" /><a href="#order"><code>order</code></a> - (Optional, int) Update order either &#39;stop-first&#39; or &#39;start-first&#39;.
+</li>
+</ul>
+<p><a id="endpoint-spec"></a></p>
+<h3 id="endpointspec">
+  <a name="endpointspec" class="anchor" href="#endpointspec">&raquo;</a>
+  EndpointSpec
+</h3>
+<p><code>endpoint_spec</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify properties that can be configured to access and load balance a service. The block supports the following:</p>
+
+<ul>
+<li><a name="mode-3" /><a href="#mode-3"><code>mode</code></a> - (Optional, string) The mode of resolution to use for internal load balancing between tasks. <code>(vip|dnsrr)</code>. Default: <code>vip</code>.
+</li>
+<li><a name="ports" /><a href="#ports"><code>ports</code></a> - (Optional, block) See <a href="#ports">Ports</a> below for details.
+</li>
+</ul>
+<p><a id="ports"></a></p>
+<h4 id="ports-1">
+  <a name="ports-1" class="anchor" href="#ports-1">&raquo;</a>
+  Ports
+</h4>
+<p><code>ports</code> is a block within the configuration that can be repeated to specify
+the port mappings of the container. Each <code>ports</code> block supports
+the following:</p>
+
+<ul>
+<li><a name="name-3" /><a href="#name-3"><code>name</code></a> - (Optional, string) A random name for the port.
+</li>
+<li><a name="protocol" /><a href="#protocol"><code>protocol</code></a> - (Optional, string) Protocol that can be used over this port: <code>tcp|udp|sctp</code>. Default: <code>tcp</code>.
+</li>
+<li><a name="target_port" /><a href="#target_port"><code>target_port</code></a> - (Required, int) Port inside the container.
+</li>
+<li><a name="published_port" /><a href="#published_port"><code>published_port</code></a> - (Required, int) The port on the swarm hosts. If not set the value of <code>target_port</code> will be used.
+</li>
+<li><a name="publish_mode" /><a href="#publish_mode"><code>publish_mode</code></a> - (Optional, string) Represents the mode in which the port is to be published: <code>ingress|host</code>
+</li>
+</ul>
+<p><a id="converge-config"></a></p>
+<h3 id="converge-config">
+  <a name="converge-config" class="anchor" href="#converge-config">&raquo;</a>
+  Converge Config
+</h3>
+<p><code>converge_config</code> is a block within the configuration that can be repeated only <strong>once</strong> to specify the extra Converging configuration for the containers of the service. This is the same behavior as the <code>docker cli</code>. By adding this configuration, it is monitored with the
+given interval that, e.g., all tasks/replicas of a service are up and healthy</p>
+<p>The <code>converge_config</code> block supports the following:</p>
+
+<ul>
+<li><a name="delay-2" /><a href="#delay-2"><code>delay</code></a> - (Optional, string) Time between each the check to check docker endpoint <code>(ms|s|m|h)</code>. For example, to check if
+all tasks are up when a service is created, or to check if all tasks are successfully updated on an update. Default: <code>7s</code>.
+</li>
+<li><a name="timeout-1" /><a href="#timeout-1"><code>timeout</code></a> - (Optional, string) The timeout of the service to reach the desired state <code>(s|m)</code>. Default: <code>3m</code>.
+</li>
+</ul>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported in addition to the above configuration:</p>
+
+<ul>
+<li><a name="id" /><a href="#id"><code>id</code></a> (string)
+</li>
+</ul>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

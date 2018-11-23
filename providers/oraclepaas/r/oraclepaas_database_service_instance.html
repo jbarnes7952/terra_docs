@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creates and manages an Oracle Database Cloud Service instance on the Oracle Cloud Platform.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/oraclepaas/r/oraclepaas_database_service_instance.html" />
+    <meta property="og:title" content="Oracle: oraclepaas_database_service_instance - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Creates and manages an Oracle Database Cloud Service instance on the Oracle Cloud Platform." />
+
+    <title>Oracle: oraclepaas_database_service_instance - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-oraclepaas-resource-service-instance" class="layout-oraclepaas page-oracle-oraclepaas-database-service-instance">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+              <div class="docs-sidebar hidden-print affix-top" role="complementary">
+            <ul class="nav docs-sidenav">
+                <li>
+                    <a href="/docs/providers/index.html">All Providers</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/oraclepaas/index.html">Oracle Cloud Platform Provider</a>
+                </li>
+                <li>
+                <a href="#">PaaS Data Sources</a>
+                    <ul class="nav nav-visible">
+                        <li>
+                            <a href="/docs/providers/oraclepaas/d/oraclepaas_database_service_instance.html">oraclepaas_database_service_instance</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                <a href="#">PaaS Resources</a>
+                    <ul class="nav nav-visible">
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_application_container.html">oraclepaas_application_container</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_database_service_instance.html">oraclepaas_database_service_instance</a>
+                        </li>
+                        <li>
+                           <a href="/docs/providers/oraclepaas/r/oraclepaas_java_service_instance.html">oraclepaas_java_service_instance</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_mysql_service_instance.html">oraclepaas_mysql_service_instance</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_database_access_rule.html">oraclepaas_database_access_rule</a>
+                        </li>                        
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_java_access_rule.html">oraclepaas_java_access_rule</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/oraclepaas/r/oraclepaas_mysql_access_rule.html">oraclepaas_mysql_access_rule</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+    <h1 id="oraclepaas_database_service_instance">
+  <a name="oraclepaas_database_service_instance" class="anchor" href="#oraclepaas_database_service_instance">&raquo;</a>
+  oraclepaas_database_service_instance
+</h1>
+<p>The <code>oraclepaas_database_service_instance</code> resource creates and manages a an Oracle Database Cloud Service instance on the Oracle Cloud Platform.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"oraclepaas_database_service_instance"</span> <span class="s2">"default"</span> <span class="p">{</span>
+  <span class="nb">name</span>        <span class="o">=</span> <span class="s2">"database-service-instance"</span>
+  <span class="n">description</span> <span class="o">=</span> <span class="s2">"This is a description for an service instance"</span>
+
+  <span class="n">edition</span>           <span class="o">=</span> <span class="s2">"EE"</span>
+  <span class="n">shape</span>             <span class="o">=</span> <span class="s2">"oc1m"</span>
+  <span class="n">subscription_type</span> <span class="o">=</span> <span class="s2">"HOURLY"</span>
+  <span class="n">version</span>           <span class="o">=</span> <span class="s2">"12.2.0.1"</span>
+  <span class="n">vm_public_key</span>     <span class="o">=</span> <span class="s2">"An ssh public key"</span>
+
+  <span class="n">database_configuration</span> <span class="p">{</span>
+      <span class="n">admin_password</span>     <span class="o">=</span> <span class="s2">"Pa55_Word"</span>
+      <span class="n">sid</span>                <span class="o">=</span> <span class="s2">"BOTH"</span>
+      <span class="n">backup_destination</span> <span class="o">=</span> <span class="s2">"NONE"</span>
+      <span class="n">usable_storage</span>     <span class="o">=</span> <span class="mi">15</span>
+  <span class="p">}</span>
+
+  <span class="n">backups</span> <span class="p">{</span>
+      <span class="n">cloud_storage_container</span> <span class="o">=</span> <span class="s2">"Storage-${var.domain}/database-service-instance-backup"</span>
+      <span class="n">auto_generate</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><p><a name="name" /><a href="#name"><code>name</code></a> - (Required) The name of the Service Instance.</p>
+</li>
+<li><p><a name="edition" /><a href="#edition"><code>edition</code></a> - (Required) Database edition for the service instance. Possible values are <code>SE</code>, <code>EE</code>, <code>EE_HP</code>, or <code>EE_EP</code>.</p>
+</li>
+<li><p><a name="level" /><a href="#level"><code>level</code></a> - (Required) Service level for the service instance. Possible values are <code>BASIC</code> or <code>PAAS</code>.</p>
+</li>
+<li><p><a name="shape" /><a href="#shape"><code>shape</code></a> - (Required) Desired compute shape. Possible values are <code>oc3</code>, <code>oc4</code>, <code>oc5</code>, <code>oc6</code>, <code>oc1m</code>, <code>oc2m</code>, <code>oc3m</code>, or <code>oc4m</code>.</p>
+</li>
+<li><p><a name="subscription_type" /><a href="#subscription_type"><code>subscription_type</code></a> - (Required) Billing unit. Possible values are <code>HOURLY</code> or <code>MONTHLY</code>.</p>
+</li>
+<li><p><a name="version" /><a href="#version"><code>version</code></a> - (Required) Oracle Database software version; one of: <code>12.2.0.1</code>, <code>12.1.0.2</code>, or <code>11.2.0.4</code>.</p>
+</li>
+<li><p><a name="vm_public_key" /><a href="#vm_public_key"><code>vm_public_key</code></a> - (Required) Public key for the secure shell (SSH). This key will be used for authentication when connecting to the Database Cloud Service instance using an SSH client.</p>
+</li>
+<li><p><a name="database_configuration" /><a href="#database_configuration"><code>database_configuration</code></a> - (Required) Specifies the details on how to configure the database. Database configuration is documented below.</p>
+</li>
+<li><p><a name="default_access_rules" /><a href="#default_access_rules"><code>default_access_rules</code></a> - (Optional) Specifies the details on which default access rules are enable or disabled. Default Access Rules
+are configured below.</p>
+</li>
+<li><p><a name="desired_state" /><a href="#desired_state"><code>desired_state</code></a> - (Optional) Specifies the desired state of the service instance. Allowed values are <code>start</code>, <code>stop</code>,
+and <code>restart</code>.</p>
+</li>
+<li><p><a name="instantiate_from_backup" /><a href="#instantiate_from_backup"><code>instantiate_from_backup</code></a> - (Optional) Specify if the service instance&#39;s database should, after the instance is created, be replaced by a database
+stored in an existing cloud backup that was created using Oracle Database Backup Cloud Service. Instantiate from Backup is documented below.</p>
+</li>
+<li><p><a name="ip_network" /><a href="#ip_network"><code>ip_network</code></a> - (Optional) This attribute is only applicable to accounts where regions are supported. The three-part name of an IP network to which the service instance is added. For example: /Compute-identity_domain/user/object</p>
+</li>
+<li><p><a name="ip_reservations" /><a href="#ip_reservations"><code>ip_reservations</code></a> - (Optional) Groups one or more IP reservations in use on this service instance. This attribute is only applicable to accounts where regions are supported.</p>
+</li>
+<li><p><a name="backups" /><a href="#backups"><code>backups</code></a> - (Optional) Provides Cloud Storage information for how to implement service instance backups. Backups is documented below</p>
+</li>
+<li><p><a name="bring_your_own_license" /><a href="#bring_your_own_license"><code>bring_your_own_license</code></a> - (Optional) Specify if you want to use an existing perpetual license to Oracle Database to establish the right to use Oracle Database on the new instance.
+Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="description" /><a href="#description"><code>description</code></a> - (Optional) A description of the Service Instance.</p>
+</li>
+<li><p><a name="high_performance_storage" /><a href="#high_performance_storage"><code>high_performance_storage</code></a> - (Optional) Specifies whether the service instance will be provisioned with high performance storage.
+Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="hybrid_disastery_recovery" /><a href="#hybrid_disastery_recovery"><code>hybrid_disastery_recovery</code></a> - (Optional) Provides information about an Oracle Hybrid Disaster Recovery configuration. Hybrid Disaster Recovery is documented below.</p>
+</li>
+<li><p><a name="notification_email" /><a href="#notification_email"><code>notification_email</code></a> - (Optional)  The email address to send notifications around successful or unsuccessful completions of the instance-creation operation.</p>
+</li>
+<li><p><a name="region" /><a href="#region"><code>region</code></a> - (Optional) Specifies the location where the service instance is provisioned (only for accounts where regions are supported).</p>
+</li>
+<li><p><a name="standby" /><a href="#standby"><code>standby</code></a> - (Optional) Specifies the configuration details of the standby database. This is only applicable in Oracle Cloud Infrastructure Regions. <code>failover_database</code> and
+<code>disaster_recovery</code> inside the <code>database_configuration</code> block must be set to <code>true</code>. Standby is documented below.</p>
+</li>
+<li><p><a name="subnet" /><a href="#subnet"><code>subnet</code></a> - (Optional) Name of the subnet within the region where the Oracle Database Cloud Service instance is to be provisioned.</p>
+</li>
+</ul>
+<p>Database Configuration supports the following:</p>
+
+<ul>
+<li><p><a name="admin_password" /><a href="#admin_password"><code>admin_password</code></a> - (Required) Password for Oracle Database administrator users sys and system. The password must meet the following requirements: Starts with a letter. Is between 8 and 30 characters long. Contains letters, at least one number, and optionally, any number of these special characters: dollar sign <code>$</code>, pound sign <code>#</code>, and underscore <code>_</code>.</p>
+</li>
+<li><p><a name="usable_storage" /><a href="#usable_storage"><code>usable_storage</code></a> - (Required) Storage size for data (in GB). Minimum value is <code>15</code>. Maximum value depends on the backup destination: if <code>BOTH</code> is specified, the maximum value is <code>1200</code>; if <code>OSS</code> or <code>NONE</code> is specified, the maximum value is <code>2048</code>.</p>
+</li>
+<li><p><a name="availability_domain" /><a href="#availability_domain"><code>availability_domain</code></a> - (Optional) Name of the availability domain within the region where the Oracle Database Cloud Service instance is to be provisioned.</p>
+</li>
+<li><p><a name="backup_destination" /><a href="#backup_destination"><code>backup_destination</code></a> - (Optional) Backup Destination. Possible values are <code>BOTH</code>, <code>OSS</code>, <code>NONE</code>.This defaults to <code>NONE</code>.</p>
+</li>
+<li><p><a name="backup_storage_volume_size" /><a href="#backup_storage_volume_size"><code>backup_storage_volume_size</code></a> - (Optional) The size (in GB) for the backup storage volume.</p>
+</li>
+<li><p><a name="character_set" /><a href="#character_set"><code>character_set</code></a> - (Optional) Character Set for the Database Cloud Service Instance. Default value is <code>AL32UTF8</code>. Supported values are:</p>
+
+<ul>
+<li><a name="al32utf8" /><a href="#al32utf8"><code>AL32UTF8</code></a>, <code>AR8ADOS710</code>, <code>AR8ADOS720</code>, <code>AR8APTEC715</code>, <code>AR8ARABICMACS</code>, <code>AR8ASMO8X</code>, <code>AR8ISO8859P6</code>, <code>AR8MSWIN1256</code>, <code>AR8MUSSAD768</code>, <code>AR8NAFITHA711</code>, <code>AR8NAFITHA721</code>, <code>AR8SAKHR706</code>, <code>AR8SAKHR707</code>, <code>AZ8ISO8859P9E</code>, <code>BG8MSWIN</code>, <code>BG8PC437S</code>, <code>BLT8CP921</code>, <code>BLT8ISO8859P13</code>, <code>BLT8MSWIN1257</code>, <code>BLT8PC775</code>, <code>BN8BSCII</code>, <code>CDN8PC863</code>, <code>CEL8ISO8859P14</code>, <code>CL8ISO8859P5</code>, <code>CL8ISOIR111</code>, <code>CL8KOI8R</code>, <code>CL8KOI8U</code>, <code>CL8MACCYRILLICS</code>, <code>CL8MSWIN1251</code>, <code>EE8ISO8859P2</code>, <code>EE8MACCES</code>, <code>EE8MACCROATIANS</code>, <code>EE8MSWIN1250</code>, <code>EE8PC852</code>, <code>EL8DEC</code>, <code>EL8ISO8859P7</code>, <code>EL8MACGREEKS</code>, <code>EL8MSWIN1253</code>, <code>EL8PC437S</code>, <code>EL8PC851</code>, <code>EL8PC869</code>, <code>ET8MSWIN923</code>, <code>HU8ABMOD</code>, <code>HU8CWI2</code>, <code>IN8ISCII</code>, <code>IS8PC861</code>, <code>IW8ISO8859P8</code>, <code>IW8MACHEBREWS</code>, <code>IW8MSWIN1255</code>, <code>IW8PC1507</code>, <code>JA16EUC</code>, <code>JA16EUCTILDE</code>, <code>JA16SJIS</code>, <code>JA16SJISTILDE</code>, <code>JA16VMS</code>, <code>KO16KSC5601</code>, <code>KO16KSCCS</code>, <code>KO16MSWIN949</code>, <code>LA8ISO6937</code>, <code>LA8PASSPORT</code>, <code>LT8MSWIN921</code>, <code>LT8PC772</code>, <code>LT8PC774</code>, <code>LV8PC1117</code>, <code>LV8PC8LR</code>, <code>LV8RST104090</code>, <code>N8PC865</code>, <code>NE8ISO8859P10</code>, <code>NEE8ISO8859P4</code>, <code>RU8BESTA</code>, <code>RU8PC855</code>, <code>RU8PC866</code>, <code>SE8ISO8859P3</code>, <code>TH8MACTHAIS</code>, <code>TH8TISASCII</code>, <code>TR8DEC</code>, <code>TR8MACTURKISHS</code>, <code>TR8MSWIN1254</code>, <code>TR8PC857</code>, <code>US7ASCII</code>, <code>US8PC437</code>, <code>UTF8</code>, <code>VN8MSWIN1258</code>, <code>VN8VN3</code>, <code>WE8DEC</code>, <code>WE8DG</code>, <code>WE8ISO8859P1</code>, <code>WE8ISO8859P15</code>, <code>WE8ISO8859P9</code>, <code>WE8MACROMAN8S</code>, <code>WE8MSWIN1252</code>, <code>WE8NCR4970</code>, <code>WE8NEXTSTEP</code>, <code>WE8PC850</code>, <code>WE8PC858</code>, <code>WE8PC860</code>, <code>WE8ROMAN8</code>, <code>ZHS16CGB231280</code>, <code>ZHS16GBK</code>, <code>ZHT16BIG5</code>, <code>ZHT16CCDC</code>, <code>ZHT16DBT</code>, <code>ZHT16HKSCS</code>, <code>ZHT16MSWIN950</code>, <code>ZHT32EUC</code>, <code>ZHT32SOPS</code>, <code>ZHT32TRIS</code>.
+</li>
+</ul>
+</li>
+<li><p><a name="data_storage_volume_size" /><a href="#data_storage_volume_size"><code>data_storage_volume_size</code></a> - (Optional) The size (in GB) for the data storage volume.</p>
+</li>
+<li><p><a name="disaster_recovery" /><a href="#disaster_recovery"><code>disaster_recovery</code></a> - (Optional) Specify if an Oracle Data Guard configuration is created using the Disaster Recovery option or the High Availability option.
+Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="failover_database" /><a href="#failover_database"><code>failover_database</code></a> - (Optional) Specify if an Oracle Data Guard configuration comprising a primary database and a standby database is created.
+Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="golden_gate" /><a href="#golden_gate"><code>golden_gate</code></a> - (Optional) Specify if the database should be configured for use as the replication database of an Oracle GoldenGate Cloud Service instance.
+You cannot set <code>goldenGate</code> to <code>true</code> if either <code>is_rac</code> or <code>failoverDatabase</code> is set to <code>true</code>. Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="is_rac" /><a href="#is_rac"><code>is_rac</code></a> - (Optional) Specify if a cluster database using Oracle Real Application Clusters should be configured.
+Default value is <code>false</code>.</p>
+</li>
+<li><p><a name="national_character_set" /><a href="#national_character_set"><code>national_character_set</code></a> - (Optional) National Character Set for the Database Cloud Service instance. Valid values are <code>AL16UTF16</code> and <code>UTF8</code>.</p>
+</li>
+<li><p><a name="pdb_name" /><a href="#pdb_name"><code>pdb_name</code></a> - (Optional) This attribute is valid when Database Cloud Service instance is configured with version 12c. Pluggable Database Name for the Database Cloud Service instance. Default value is <code>pdb1</code>.</p>
+</li>
+<li><p><a name="sid" /><a href="#sid"><code>sid</code></a> - (Optional) Database Name for the Database Cloud Service instance. Default value is <code>ORCL</code>.</p>
+</li>
+<li><p><a name="source_service_name" /><a href="#source_service_name"><code>source_service_name</code></a> - (Optional) Indicates that the service instance should be created as a &quot;snapshot clone&quot; of another service instance. Provide the name of the existing service instance whose snapshot is to be used.</p>
+</li>
+<li><p><a name="snapshot_name" /><a href="#snapshot_name"><code>snapshot_name</code></a> - (Optional) The name of the snapshot of the service instance specified by sourceServiceName that is to be used to create a &quot;snapshot clone&quot;. This parameter is valid only if source_service_name is specified.</p>
+</li>
+<li><p><a name="timezone" /><a href="#timezone"><code>timezone</code></a> - (Optional) Time Zone for the Database Cloud Service instance. Default value is <code>UTC</code>.</p>
+</li>
+<li><p><a name="type" /><a href="#type"><code>type</code></a> - (Optional) Component type to which the set of parameters applies. Defaults to <code>db</code></p>
+</li>
+<li><p><a name="db_demo" /><a href="#db_demo"><code>db_demo</code></a> - (Optional) Indicates whether to include the Demos PDB.</p>
+</li>
+</ul>
+<p>Default Access Rules supports the following:</p>
+
+<ul>
+<li><p><a name="enable_ssh" /><a href="#enable_ssh"><code>enable_ssh</code></a> - (Optional) Indicates whether to enable the ssh access rule.</p>
+</li>
+<li><p><a name="enable_http" /><a href="#enable_http"><code>enable_http</code></a> - (Optional) Indicates whether to enable the http access rule. This is only configurable with a single instance.</p>
+</li>
+<li><p><a name="enable_https" /><a href="#enable_https"><code>enable_https</code></a> - (Optional) Indiciates whether to enable the http with ssl access rule. This is only configurable with a single instance.</p>
+</li>
+<li><p><a name="enable_db_console" /><a href="#enable_db_console"><code>enable_db_console</code></a> - (Optional) Indicates whether to enable the db console access rule. This is only configurable with a single instance.</p>
+</li>
+<li><p><a name="enable_db_express" /><a href="#enable_db_express"><code>enable_db_express</code></a> - (Optional) Indicates whether to enable the db express access rule. This is only configurable with a single instance.</p>
+</li>
+<li><p><a name="enable_db_listener" /><a href="#enable_db_listener"><code>enable_db_listener</code></a> - (Optional) Indicates whether to enable the db listener access rule. This is only configurable with a single instance</p>
+</li>
+<li><p><a name="enable_em_console" /><a href="#enable_em_console"><code>enable_em_console</code></a> - (Optional) Indicates whether to enable the em console access rule. This is only configurable with a RAC instance.</p>
+</li>
+<li><p><a name="enable_rac_db_listener" /><a href="#enable_rac_db_listener"><code>enable_rac_db_listener</code></a> - (Optional) Indicates whether to enable the rac db listene access rule. This is only configurable with a RAC instance</p>
+</li>
+<li><p><a name="enable_scan_listener" /><a href="#enable_scan_listener"><code>enable_scan_listener</code></a> - (Optional) Indicates whether to enable the scan listener access rule. This is only configurable with a RAC instance</p>
+</li>
+<li><p><a name="enable_rac_ons" /><a href="#enable_rac_ons"><code>enable_rac_ons</code></a> - (Optional) Indicates whether to enable the rac ons access rule. This is only configurable with a RAC instance.</p>
+</li>
+</ul>
+<p>Standby supports the following:</p>
+
+<ul>
+<li><p><a name="availability_domain-1" /><a href="#availability_domain-1"><code>availability_domain</code></a> - (Required) Name of the availability domain within the region where the standby database of the Oracle Database Cloud Service instance is to be provisioned.</p>
+</li>
+<li><p><a name="subnet-1" /><a href="#subnet-1"><code>subnet</code></a> - (Required) Name of the subnet within the region where the standby database of the Oracle Database Cloud Service instance is to be provisioned.</p>
+</li>
+</ul>
+<p>Instantiate from Backup supports the following:</p>
+
+<ul>
+<li><p><a name="cloud_storage_container" /><a href="#cloud_storage_container"><code>cloud_storage_container</code></a> - (Required) Name of the Oracle Storage Cloud Service container where the existing cloud backup is stored.</p>
+</li>
+<li><p><a name="cloud_storage_username" /><a href="#cloud_storage_username"><code>cloud_storage_username</code></a> - (Required) Username of the Oracle Cloud user.</p>
+</li>
+<li><p><a name="cloud_storage_password" /><a href="#cloud_storage_password"><code>cloud_storage_password</code></a> - (Required) Password of the Oracle Cloud user specified in <code>ibkup_cloud_storage_user</code>.</p>
+</li>
+<li><p><a name="database_id" /><a href="#database_id"><code>database_id</code></a> - (Required) Database id of the database from which the existing cloud backup was created.</p>
+</li>
+<li><p><a name="decryption_key" /><a href="#decryption_key"><code>decryption_key</code></a> - (Optional) Password used to create the existing, password-encrypted cloud backup. This password is used to decrypt the backup. Specify either <code>ibkup_decryption_key</code> or <code>ibkup_wallet_file_content</code> for decrypting the backup.</p>
+</li>
+<li><p><a name="on_premise" /><a href="#on_premise"><code>on_premise</code></a> - (Optional) Specify if the existing cloud backup being used to replace the database is from an on-premises database or another Database Cloud Service instance.
+The default value is false.</p>
+</li>
+<li><p><a name="service_id" /><a href="#service_id"><code>service_id</code></a> - (Optional) Oracle Database Cloud Service instance name from which the database of new Oracle Database Cloud Service instance should be created. This value is required if
+<code>on_premise</code> is set to true.</p>
+</li>
+<li><p><a name="wallet_file_content" /><a href="#wallet_file_content"><code>wallet_file_content</code></a> - (Optional) String containing the xsd:base64Binary representation of the cloud backup&#39;s wallet file. This wallet is used to decrypt the backup. Specify either <code>ibkup_decryption_key</code> or <code>ibkup_wallet_file_content</code> for decrypting the backup.</p>
+</li>
+</ul>
+<p>Backups support the following:</p>
+
+<ul>
+<li><p><a name="cloud_storage_container-1" /><a href="#cloud_storage_container-1"><code>cloud_storage_container</code></a> - (Required) Name of the Oracle Storage Cloud Service container used to provide storage for your service instance backups.
+Use the following format to specify the container name: <code>&lt;storageservicename&gt;-&lt;storageidentitydomain&gt;/&lt;containername&gt;</code></p>
+</li>
+<li><p><a name="cloud_storage_username-1" /><a href="#cloud_storage_username-1"><code>cloud_storage_username</code></a> - (Required) Username for the Oracle Storage Cloud Service administrator.</p>
+</li>
+<li><p><a name="cloud_storage_password-1" /><a href="#cloud_storage_password-1"><code>cloud_storage_password</code></a> - (Required) Password for the Oracle Storage Cloud Service administrator.</p>
+</li>
+<li><p><a name="create_if_missing" /><a href="#create_if_missing"><code>create_if_missing</code></a> - (Optional) Specify if the given cloud_storage_container is to be created if it does not already exist. Default value is <code>false</code>.</p>
+</li>
+</ul>
+<p>Hybrid Disaster Recovery supports the following:</p>
+
+<ul>
+<li><p><a name="cloud_storage_container-2" /><a href="#cloud_storage_container-2"><code>cloud_storage_container</code></a> - (Required) Name of the Oracle Storage Cloud Service container where the backup from on-premise instance is stored.
+Use the following format to specify the container name: <code>&lt;storageservicename&gt;-&lt;storageidentitydomain&gt;/&lt;containername&gt;</code></p>
+</li>
+<li><p><a name="cloud_storage_username-2" /><a href="#cloud_storage_username-2"><code>cloud_storage_username</code></a> - (Required) Username for the Oracle Storage Cloud Service administrator.</p>
+</li>
+<li><p><a name="cloud_storage_password-2" /><a href="#cloud_storage_password-2"><code>cloud_storage_password</code></a> - (Required) Password for the Oracle Storage Cloud Service administrator.</p>
+</li>
+</ul>
+<p>In addition to the above, the following values are exported:</p>
+
+<ul>
+<li><p><a name="compute_site_name" /><a href="#compute_site_name"><code>compute_site_name</code></a> - The Oracle Cloud location housing the service instance.</p>
+</li>
+<li><p><a name="dbaas_monitor_url" /><a href="#dbaas_monitor_url"><code>dbaas_monitor_url</code></a>- The URL to use to connect to Oracle DBaaS Monitor on the service instance.</p>
+</li>
+<li><p><a name="em_url" /><a href="#em_url"><code>em_url</code></a> - The URL to use to connect to Enterprise Manager on the service instance.</p>
+</li>
+<li><p><a name="glassfish_url" /><a href="#glassfish_url"><code>glassfish_url</code></a> - The URL to use to connect to the Oracle GlassFish Server Administration Console on the service instance.</p>
+</li>
+<li><p><a name="identity_domain" /><a href="#identity_domain"><code>identity_domain</code></a> - The identity domain housing the service instance.</p>
+</li>
+<li><p><a name="status" /><a href="#status"><code>status</code></a> - The status of the service instance.</p>
+</li>
+<li><p><a name="uri" /><a href="#uri"><code>uri</code></a> - The Uniform Resource Identifier for the Service Instance</p>
+</li>
+</ul>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

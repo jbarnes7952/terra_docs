@@ -1,0 +1,1601 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configures the specified Policy Definition at the specified Scope.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/azurerm/r/policy_assignment.html" />
+    <meta property="og:title" content="Azure Resource Manager: azurerm_policy_assignment - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Configures the specified Policy Definition at the specified Scope." />
+
+    <title>Azure Resource Manager: azurerm_policy_assignment - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-azurerm-resource-policy-assignment" class="layout-azurerm page-azure-resource-manager-azurerm-policy-assignment">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+              <div class="docs-sidebar hidden-print affix-top" role="complementary">
+          <ul class="nav docs-sidenav">
+            <li>
+              <a href="/docs/providers/index.html">All Providers</a>
+            </li>
+
+            <li>
+              <a href="/docs/providers/azurerm/index.html">Azure Provider</a>
+              <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/azurerm/authenticating_via_azure_cli.html">Authenticating via the Azure CLI</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/authenticating_via_service_principal.html">Authenticating via a Service Principal (Shared Account)</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/authenticating_via_msi.html">Authenticating via Managed Service Identity</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Upcoming Community Events</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/extend/community/events/2018/fall-gardening.html">Community Gardening - Fall 2018</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Data Sources</a>
+              <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/azurerm/d/api_management.html">azurerm_api_management</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/application_security_group.html">azurerm_application_security_group</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/app_service.html">azurerm_app_service</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/app_service_plan.html">azurerm_app_service_plan</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/d/azuread_application.html">azurerm_azuread_application</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/d/azuread_service_principal.html">azurerm_azuread_service_principal</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/builtin_role_definition.html">azurerm_builtin_role_definition</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/cdn_profile.html">azurerm_cdn_profile</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/client_config.html">azurerm_client_config</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/container_registry.html">azurerm_container_registry</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/cosmosdb_account.html">azurerm_cosmosdb_account</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/dns_zone.html">azurerm_dns_zone</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/data_lake_store.html">azurerm_data_lake_store</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/dev_test_lab.html">azurerm_dev_test_lab</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/eventhub_namespace.html">azurerm_eventhub_namespace</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/image.html">azurerm_image</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/key_vault.html">azurerm_key_vault</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/key_vault_access_policy.html">azurerm_key_vault_access_policy</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/key_vault_key.html">azurerm_key_vault_key</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/key_vault_secret.html">azurerm_key_vault_secret</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/kubernetes_cluster.html">azurerm_kubernetes_cluster</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/log_analytics_workspace.html">azurerm_log_analytics_workspace</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/logic_app_workflow.html">azurerm_logic_app_workflow</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/managed_disk.html">azurerm_managed_disk</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/management_group.html">azurerm_management_group</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/monitor_diagnostic_categories.html">azurerm_monitor_diagnostic_categories</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/d/monitor_log_profile.html">azurerm_monitor_log_profile</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/network_interface.html">azurerm_network_interface</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/network_security_group.html">azurerm_network_security_group</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/notification_hub_namespace.html">azurerm_notification_hub_namespace</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/platform_image.html">azurerm_platform_image</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/public_ip.html">azurerm_public_ip</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/public_ips.html">azurerm_public_ips</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/recovery_services_vault.html">azurerm_recovery_services_vault</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/resource_group.html">azurerm_resource_group</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/role_definition.html">azurerm_role_definition</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/route_table.html">azurerm_route_table</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/scheduler_job_collection.html">azurerm_scheduler_job_collection</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/shared_image.html">azurerm_shared_image</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/shared_image_gallery.html">azurerm_shared_image_gallery</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/shared_image_version.html">azurerm_shared_image_version</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/storage_account.html">azurerm_storage_account</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/storage_account_sas.html">azurerm_storage_account_sas</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/subnet.html">azurerm_subnet</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/subscription.html">azurerm_subscription</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/subscriptions.html">azurerm_subscriptions</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/traffic_manager_geographical_location.html">azurerm_traffic_manager_geographical_location</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/virtual_network.html">azurerm_virtual_network</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurerm/d/virtual_network_gateway.html">azurerm_virtual_network_gateway</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Base Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/resource_group.html">azurerm_resource_group</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">API Management Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/api_management.html">azurerm_api_management</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">App Service (Web Apps) Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/app_service.html">azurerm_app_service</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/app_service_plan.html">azurerm_app_service_plan</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/app_service_active_slot.html">azurerm_app_service_active_slot</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/app_service_custom_hostname_binding.html">azurerm_app_service_custom_hostname_binding</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/app_service_slot.html">azurerm_app_service_slot</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/function_app.html">azurerm_function_app</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Authorization Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/role_assignment.html">azurerm_role_assignment</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/role_definition.html">azurerm_role_definition</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/user_assigned_identity.html">azurerm_user_assigned_identity</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Azure Active Directory Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/azuread_application.html">azurerm_azuread_application</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/azuread_service_principal.html">azurerm_azuread_service_principal</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/azuread_service_principal_password.html">azurerm_azuread_service_principal_password</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Automation Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_account.html">azurerm_automation_account</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_credential.html">azurerm_automation_credential</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_dsc_configuration.html">azurerm_automation_dsc_configuration</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_dsc_nodeconfiguration.html">azurerm_automation_dsc_nodeconfiguration</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_module.html">azurerm_automation_module</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_runbook.html">azurerm_automation_runbook</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/automation_schedule.html">azurerm_automation_schedule</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Application Insights Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/application_insights.html">azurerm_application_insights</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">CDN Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/cdn_profile.html">azurerm_cdn_profile</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/cdn_endpoint.html">azurerm_cdn_endpoint</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Compute Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/availability_set.html">azurerm_availability_set</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/image.html">azurerm_image</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/managed_disk.html">azurerm_managed_disk</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/snapshot.html">azurerm_snapshot</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/shared_image.html">azurerm_shared_image</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/shared_image_gallery.html">azurerm_shared_image_gallery</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/shared_image_version.html">azurerm_shared_image_version</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_machine.html">azurerm_virtual_machine</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_machine_data_disk_attachment.html">azurerm_virtual_machine_data_disk_attachment</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_machine_extension.html">azurerm_virtual_machine_extension</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_machine_scale_set.html">azurerm_virtual_machine_scale_set</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Container Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/container_group.html">azurerm_container_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/container_registry.html">azurerm_container_registry</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/container_service.html">azurerm_container_service</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/kubernetes_cluster.html">azurerm_kubernetes_cluster</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Cognitive Services Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/cognitive_account.html">azurerm_cognitive_account</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">CosmosDB (DocumentDB) Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/cosmosdb_account.html">azurerm_cosmosdb_account</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Database Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mysql_configuration.html">azurerm_mysql_configuration</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mysql_database.html">azurerm_mysql_database</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mysql_firewall_rule.html">azurerm_mysql_firewall_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mysql_server.html">azurerm_mysql_server</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mysql_virtual_network_rule.html">azurerm_mysql_virtual_network_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/postgresql_configuration.html">azurerm_postgresql_configuration</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/postgresql_database.html">azurerm_postgresql_database</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/postgresql_firewall_rule.html">azurerm_postgresql_firewall_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/postgresql_server.html">azurerm_postgresql_server</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/postgresql_virtual_network_rule.html">azurerm_postgresql_virtual_network_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_database.html">azurerm_sql_database</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_active_directory_administrator.html">azurerm_sql_active_directory_administrator</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_elasticpool.html">azurerm_sql_elasticpool</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/mssql_elasticpool.html">azurerm_mssql_elasticpool</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_firewall_rule.html">azurerm_sql_firewall_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_server.html">azurerm_sql_server</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/sql_virtual_network_rule.html">azurerm_sql_virtual_network_rule</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Databricks Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/databricks_workspace.html">azurerm_databricks_workspace</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Data Lake Store Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/data_lake_store.html">azurerm_data_lake_store</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/data_lake_store_firewall_rule.html">azurerm_data_lake_store_firewall_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/data_lake_analytics_account.html">azurerm_data_lake_analytics_account</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/data_lake_analytics_firewall_rule.html">azurerm_data_lake_analytics_firewall_rule</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">DevSpace Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/devspace_controller.html">azurerm_devspace_controller</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Dev Test Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/dev_test_lab.html">azurerm_dev_test_lab</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/dev_test_linux_virtual_machine.html">azurerm_dev_test_linux_virtual_machine</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/dev_test_policy.html">azurerm_dev_test_policy</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/dev_test_virtual_network.html">azurerm_dev_test_virtual_network</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/dev_test_windows_virtual_machine.html">azurerm_dev_test_windows_virtual_machine</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+                <a href="#">DNS Resources</a>
+                <ul class="nav nav-visible">
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_a_record.html">azurerm_dns_a_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_aaaa_record.html">azurerm_dns_aaaa_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_caa_record.html">azurerm_dns_caa_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_cname_record.html">azurerm_dns_cname_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_mx_record.html">azurerm_dns_mx_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_ns_record.html">azurerm_dns_ns_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_ptr_record.html">azurerm_dns_ptr_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_srv_record.html">azurerm_dns_srv_record</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/dns_txt_record.html">azurerm_dns_txt_record</a>
+                  </li>
+
+                  <li>
+                      <a href="/docs/providers/azurerm/r/dns_zone.html">azurerm_dns_zone</a>
+                  </li>
+
+                </ul>
+            </li>
+
+            <li>
+              <a href="#">Key Vault Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/key_vault.html">azurerm_key_vault</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/key_vault_access_policy.html">azurerm_key_vault_access_policy</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/key_vault_certificate.html">azurerm_key_vault_certificate</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/key_vault_key.html">azurerm_key_vault_key</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/key_vault_secret.html">azurerm_key_vault_secret</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Load Balancer Resources</a>
+              <ul class="nav nav-visible">
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer.html">azurerm_lb</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer_backend_address_pool.html">azurerm_lb_backend_address_pool</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer_rule.html">azurerm_lb_rule</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer_nat_rule.html">azurerm_lb_nat_rule</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer_nat_pool.html">azurerm_lb_nat_pool</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurerm/r/loadbalancer_probe.html">azurerm_lb_probe</a>
+                  </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Logic App Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_action_custom.html">azurerm_logic_app_action_custom</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_action_http.html">azurerm_logic_app_action_http</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_trigger_custom.html">azurerm_logic_app_trigger_custom</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_trigger_http_request.html">azurerm_logic_app_trigger_http_request</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_trigger_recurrence.html">azurerm_logic_app_trigger_recurrence</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/logic_app_workflow.html">azurerm_logic_app_workflow</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Management Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/management_lock.html">azurerm_management_lock</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Messaging Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/eventgrid_topic.html">azurerm_eventgrid_topic</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/eventhub.html">azurerm_eventhub</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/eventhub_authorization_rule.html">azurerm_eventhub_authorization_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/eventhub_consumer_group.html">azurerm_eventhub_consumer_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/eventhub_namespace.html">azurerm_eventhub_namespace</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/iothub.html">azurerm_iothub</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/iothub_consumer_group.html">azurerm_iothub_consumer_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/notification_hub.html">azurerm_notification_hub</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/notification_hub_authorization_rule.html">azurerm_notification_hub_authorization_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/notification_hub_namespace.html">azurerm_notification_hub_namespace</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/relay_namespace.html">azurerm_relay_namespace</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_namespace.html">azurerm_servicebus_namespace</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_namespace_authorization_rule.html">azurerm_servicebus_namespace_authorization_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_queue.html">azurerm_servicebus_queue</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_queue_authorization_rule.html">azurerm_servicebus_queue_authorization_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_subscription.html">azurerm_servicebus_subscription</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_subscription_rule.html">azurerm_servicebus_subscription_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_topic.html">azurerm_servicebus_topic</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/servicebus_topic_authorization_rule.html">azurerm_servicebus_topic_authorization_rule</a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li>
+              <a href="#">Monitor Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/autoscale_setting.html">azurerm_autoscale_setting</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/metric_alertrule.html">azurerm_metric_alertrule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/monitor_action_group.html">azurerm_monitor_action_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/monitor_activity_log_alert.html">azurerm_monitor_activity_log_alert</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/monitor_diagnostic_setting.html">azurerm_monitor_diagnostic_setting</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/monitor_log_profile.html">azurerm_monitor_log_profile</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/monitor_metric_alert.html">azurerm_monitor_metric_alert</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Network Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/application_gateway.html">azurerm_application_gateway</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/application_security_group.html">azurerm_application_security_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/express_route_circuit.html">azurerm_express_route_circuit</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/express_route_circuit_authorization.html">azurerm_express_route_circuit_authorization</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/express_route_circuit_peering.html">azurerm_express_route_circuit_peering</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/firewall.html">azurerm_firewall</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/firewall_network_rule_collection.html">azurerm_firewall_network_rule_collection</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/local_network_gateway.html">azurerm_local_network_gateway</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_interface.html">azurerm_network_interface</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_interface_application_gateway_backend_address_pool_association.html">azurerm_network_interface_application_gateway_backend_address_pool_association</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_interface_backend_address_pool_association.html">azurerm_network_interface_backend_address_pool_association</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_interface_nat_rule_association.html">azurerm_network_interface_nat_rule_association</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_security_group.html">azurerm_network_security_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_security_rule.html">azurerm_network_security_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/network_watcher.html">azurerm_network_watcher</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/packet_capture.html">azurerm_packet_capture</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/public_ip.html">azurerm_public_ip</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/route.html">azurerm_route</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/route_table.html">azurerm_route_table</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/subnet.html">azurerm_subnet</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/subnet_network_security_group_association.html">azurerm_subnet_network_security_group_association</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/subnet_route_table_association.html">azurerm_subnet_route_table_association</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/traffic_manager_endpoint.html">azurerm_traffic_manager_endpoint</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/traffic_manager_profile.html">azurerm_traffic_manager_profile</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_network.html">azurerm_virtual_network</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_network_gateway.html">azurerm_virtual_network_gateway</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_network_gateway_connection.html">azurerm_virtual_network_gateway_connection</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/virtual_network_peering.html">azurerm_virtual_network_peering</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Management Group Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/management_group.html">azurerm_management_group</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">OMS Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/log_analytics_solution.html">azurerm_log_analytics_solution</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/log_analytics_workspace.html">azurerm_log_analytics_workspace</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/log_analytics_workspace_linked_service.html">azurerm_log_analytics_workspace_linked_service</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Policy Resources</a>
+              <ul class="nav nav-visible">
+                <li class="active">
+                  <a href="/docs/providers/azurerm/r/policy_assignment.html">azurerm_policy_assignment</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/policy_definition.html">azurerm_policy_definition</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Recovery Services</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/recovery_services_protection_policy_vm.html">azurerm_recovery_services_protection_policy_vm</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/recovery_services_protected_vm.html">azurerm_recovery_services_protected_vm</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/recovery_services_vault.html">azurerm_recovery_services_vault</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Redis Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/redis_cache.html">azurerm_redis_cache</a>
+                </li>
+                <li>
+                  <a href="/docs/providers/azurerm/r/redis_firewall_rule.html">azurerm_redis_firewall_rule</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Search Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/search_service.html">azurerm_search_service</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Security Center Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/security_center_contact.html">azurerm_security_center_contact</a>
+                </li>
+              </ul>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/security_center_subscription_pricing.html">azurerm_security_center_subscription_pricing</a>
+                </li>
+              </ul>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/security_center_workspace.html">azurerm_security_center_workspace</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Scheduler Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/scheduler_job_collection.html">azurerm_scheduler_job_collection</a>
+                </li>
+              </ul>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/scheduler_job.html">azurerm_scheduler_job</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Service Fabric Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/service_fabric_cluster.html">azurerm_service_fabric_cluster</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Storage Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_account.html">azurerm_storage_account</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_container.html">azurerm_storage_container</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_blob.html">azurerm_storage_blob</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_queue.html">azurerm_storage_queue</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_share.html">azurerm_storage_share</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurerm/r/storage_table.html">azurerm_storage_table</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Template Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurerm/r/template_deployment.html">azurerm_template_deployment</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+    <h1 id="azurerm_policy_assignment">
+  <a name="azurerm_policy_assignment" class="anchor" href="#azurerm_policy_assignment">&raquo;</a>
+  azurerm_policy_assignment
+</h1>
+<p>Configures the specified Policy Definition at the specified Scope.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"azurerm_policy_definition"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>         <span class="o">=</span> <span class="s2">"my-policy-definition"</span>
+  <span class="n">policy_type</span>  <span class="o">=</span> <span class="s2">"Custom"</span>
+  <span class="n">mode</span>         <span class="o">=</span> <span class="s2">"All"</span>
+  <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"acctestpol-%d"</span>
+
+  <span class="n">policy_rule</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">POLICY_RULE</span><span class="sh">
+    {
+    "if": {
+      "not": {
+        "field": "location",
+        "in": "[parameters('allowedLocations')]"
+      }
+    },
+    "then": {
+      "effect": "audit"
+    }
+  }
+</span><span class="no">POLICY_RULE</span>
+
+  <span class="n">parameters</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">PARAMETERS</span><span class="sh">
+    {
+    "allowedLocations": {
+      "type": "Array",
+      "metadata": {
+        "description": "The list of allowed locations for resources.",
+        "displayName": "Allowed locations",
+        "strongType": "location"
+      }
+    }
+  }
+</span><span class="no">PARAMETERS</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurerm_resource_group"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"test-resources"</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="s2">"West Europe"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurerm_policy_assignment"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                 <span class="o">=</span> <span class="s2">"example-policy-assignment"</span>
+  <span class="n">scope</span>                <span class="o">=</span> <span class="s2">"${azurerm_resource_group.test.id}"</span>
+  <span class="n">policy_definition_id</span> <span class="o">=</span> <span class="s2">"${azurerm_policy_definition.test.id}"</span>
+  <span class="n">description</span>          <span class="o">=</span> <span class="s2">"Policy Assignment created via an Acceptance Test"</span>
+  <span class="n">display_name</span>         <span class="o">=</span> <span class="s2">"Acceptance Test Run %d"</span>
+
+  <span class="n">parameters</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">PARAMETERS</span><span class="sh">
+{
+  "allowedLocations": {
+    "value": [ "West Europe" ]
+  }
+}
+</span><span class="no">PARAMETERS</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><p><a name="name" /><a href="#name"><code>name</code></a> - (Required) The name of the Policy Assignment. Changing this forces a new resource to be created.</p>
+</li>
+<li><p><a name="scope" /><a href="#scope"><code>scope</code></a>- (Required) The Scope at which the Policy Assignment should be applied, which must be a Resource ID (such as Subscription e.g. <code>/subscriptions/00000000-0000-0000-000000000000</code> or a Resource Group e.g.<code>/subscriptions/00000000-0000-0000-000000000000/resourceGroups/myResourceGroup</code>). Changing this forces a new resource to be created.</p>
+</li>
+<li><p><a name="policy_definition_id" /><a href="#policy_definition_id"><code>policy_definition_id</code></a> - (Required) The ID of the Policy Definition to be applied at the specified Scope.</p>
+</li>
+<li><p><a name="description" /><a href="#description"><code>description</code></a> - (Optional) A description to use for this Policy Assignment. Changing this forces a new resource to be created.</p>
+</li>
+<li><p><a name="display_name" /><a href="#display_name"><code>display_name</code></a> - (Optional) A friendly display name to use for this Policy Assignment. Changing this forces a new resource to be created.</p>
+</li>
+<li><p><a name="parameters" /><a href="#parameters"><code>parameters</code></a> - (Optional) Parameters for the policy definition. This field is a JSON object that maps to the Parameters field from the Policy Definition. Changing this forces a new resource to be created.</p>
+</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> This value is required when the specified Policy Definition contains the <code>parameters</code> field.</p>
+</div>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported:</p>
+
+<ul>
+<li><a name="id" /><a href="#id"><code>id</code></a> - The Policy Assignment id.
+</li>
+</ul>
+<h2 id="import">
+  <a name="import" class="anchor" href="#import">&raquo;</a>
+  Import
+</h2>
+<p>Policy Assignments can be imported using the <code>policy name</code>, e.g.</p>
+<div class="highlight"><pre class="highlight shell"><code>terraform import azurerm_policy_assignment.assignment1  /subscriptions/00000000-0000-0000-000000000000/providers/Microsoft.Authorization/policyAssignments/assignment1
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

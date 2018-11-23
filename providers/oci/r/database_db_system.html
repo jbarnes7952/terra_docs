@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Provides the Db System resource in Oracle Cloud Infrastructure Database service">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/oci/r/database_db_system.html" />
+    <meta property="og:title" content="Oracle Cloud Infrastructure: oci_database_db_system - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Provides the Db System resource in Oracle Cloud Infrastructure Database service" />
+
+    <title>Oracle Cloud Infrastructure: oci_database_db_system - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-oci-resource-database-db_system" class="layout-oci page-oracle-cloud-infrastructure-oci-database-db-system">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+      <div class="docs-sidebar hidden-print affix-top" role="complementary">
+    <ul class="nav docs-sidenav">
+        <li>
+            <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+        <li>
+            <a href="/docs/providers/oci/index.html">Oracle Cloud Infrastructure Provider</a>
+        </li>
+        <li>
+        <a href="#">Guides</a>
+        <ul class="nav nav-visible">
+            <li>
+                <a href="/docs/providers/oci/guides/best_practices.html">Best Practices</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/faq.html">Frequently Asked Questions</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/filters.html">Filters</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/managing_default_resources.html">Managing Default Resources</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/object_store_backend.html">Object Store Backend</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/tagging_resources.html">Tagging Resources</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/troubleshooting.html">Troubleshooting</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/version-2-upgrade.html">Upgrading to Version 2</a>
+            </li>
+            <li>
+                <a href="/docs/providers/oci/guides/version-3-upgrade.html">Upgrading to Version 3</a>
+            </li>
+        </ul>
+        </li>
+        <li>
+            <a href="#">Data Sources</a>
+            <ul class="nav nav-visible">
+                 <li>
+                     <a href="/docs/providers/oci/d/audit_configuration.html">oci_audit_configuration</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/audit_audit_events.html">oci_audit_events</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_cluster_kube_config.html">oci_containerengine_cluster_kube_config</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_cluster_option.html">oci_containerengine_cluster_option</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_clusters.html">oci_containerengine_clusters</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_node_pool.html">oci_containerengine_node_pool</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_node_pool_option.html">oci_containerengine_node_pool_option</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_node_pools.html">oci_containerengine_node_pools</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_work_request_errors.html">oci_containerengine_work_request_errors</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_work_request_log_entries.html">oci_containerengine_work_request_log_entries</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/containerengine_work_requests.html">oci_containerengine_work_requests</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_app_catalog_listing.html">oci_core_app_catalog_listing</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_app_catalog_listing_resource_version.html">oci_core_app_catalog_listing_resource_version</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_app_catalog_listing_resource_versions.html">oci_core_app_catalog_listing_resource_versions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_app_catalog_listings.html">oci_core_app_catalog_listings</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_app_catalog_subscriptions.html">oci_core_app_catalog_subscriptions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_boot_volume.html">oci_core_boot_volume</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_boot_volume_attachments.html">oci_core_boot_volume_attachments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_boot_volume_backup.html">oci_core_boot_volume_backup</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_boot_volume_backups.html">oci_core_boot_volume_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_boot_volumes.html">oci_core_boot_volumes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_console_histories.html">oci_core_console_histories</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_console_history_content.html">oci_core_console_history_data</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cpes.html">oci_core_cpes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect.html">oci_core_cross_connect</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect_group.html">oci_core_cross_connect_group</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect_groups.html">oci_core_cross_connect_groups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect_locations.html">oci_core_cross_connect_locations</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect_port_speed_shapes.html">oci_core_cross_connect_port_speed_shapes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connect_status.html">oci_core_cross_connect_status</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_cross_connects.html">oci_core_cross_connects</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_dhcp_options.html">oci_core_dhcp_options</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_drg_attachments.html">oci_core_drg_attachments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_drgs.html">oci_core_drgs</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_fast_connect_provider_service.html">oci_core_fast_connect_provider_service</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_fast_connect_provider_services.html">oci_core_fast_connect_provider_services</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_images.html">oci_core_images</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_instance.html">oci_core_instance</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_instance_console_connections.html">oci_core_instance_console_connections</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_instance_credential.html">oci_core_instance_credentials</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_instances.html">oci_core_instances</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_internet_gateways.html">oci_core_internet_gateways</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_ip_sec_connections.html">oci_core_ip_sec_connections</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_ip_sec_connection_device_config.html">oci_core_ipsec_config</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_ip_sec_connection_device_status.html">oci_core_ipsec_status</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_letter_of_authority.html">oci_core_letter_of_authority</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_local_peering_gateways.html">oci_core_local_peering_gateways</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_nat_gateway.html">oci_core_nat_gateway</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_nat_gateways.html">oci_core_nat_gateways</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_peer_region_for_remote_peerings.html">oci_core_peer_region_for_remote_peerings</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_private_ips.html">oci_core_private_ips</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_public_ip.html">oci_core_public_ip</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_public_ips.html">oci_core_public_ips</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_remote_peering_connections.html">oci_core_remote_peering_connections</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_route_tables.html">oci_core_route_tables</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_security_lists.html">oci_core_security_lists</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_service_gateways.html">oci_core_service_gateways</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_services.html">oci_core_services</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_shapes.html">oci_core_shapes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_subnet.html">oci_core_subnet</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_subnets.html">oci_core_subnets</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_vcns.html">oci_core_vcns</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_virtual_circuit.html">oci_core_virtual_circuit</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_virtual_circuit_bandwidth_shapes.html">oci_core_virtual_circuit_bandwidth_shapes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_virtual_circuit_public_prefixes.html">oci_core_virtual_circuit_public_prefixes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_virtual_circuits.html">oci_core_virtual_circuits</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_vnic.html">oci_core_vnic</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_vnic_attachments.html">oci_core_vnic_attachments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume.html">oci_core_volume</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_attachments.html">oci_core_volume_attachments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_backup_policies.html">oci_core_volume_backup_policies</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_backup_policy_assignments.html">oci_core_volume_backup_policy_assignments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_backups.html">oci_core_volume_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_group_backups.html">oci_core_volume_group_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volume_groups.html">oci_core_volume_groups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/core_volumes.html">oci_core_volumes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_data_warehouse.html">oci_database_autonomous_data_warehouse</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_data_warehouse_backup.html">oci_database_autonomous_data_warehouse_backup</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_data_warehouse_backups.html">oci_database_autonomous_data_warehouse_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_data_warehouse_wallet.html">oci_database_autonomous_data_warehouse_wallet</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_data_warehouses.html">oci_database_autonomous_data_warehouses</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_database.html">oci_database_autonomous_database</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_database_backup.html">oci_database_autonomous_database_backup</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_database_backups.html">oci_database_autonomous_database_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_database_wallet.html">oci_database_autonomous_database_wallet</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_autonomous_databases.html">oci_database_autonomous_databases</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_backups.html">oci_database_backups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_database.html">oci_database_database</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_databases.html">oci_database_databases</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_home.html">oci_database_db_home</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_home_patch_history_entries.html">oci_database_db_home_patch_history_entries</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_home_patches.html">oci_database_db_home_patches</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_homes.html">oci_database_db_homes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_node.html">oci_database_db_node</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_nodes.html">oci_database_db_nodes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_system_patch_history_entries.html">oci_database_db_system_patch_history_entries</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_system_patches.html">oci_database_db_system_patches</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_system_shapes.html">oci_database_db_system_shapes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_systems.html">oci_database_db_systems</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/database_db_versions.html">oci_database_db_versions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/dns_records.html">oci_dns_records</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/dns_zones.html">oci_dns_zones</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/email_sender.html">oci_email_sender</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/email_senders.html">oci_email_senders</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/email_suppression.html">oci_email_suppression</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/email_suppressions.html">oci_email_suppressions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/file_storage_export_sets.html">oci_file_storage_export_sets</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/file_storage_exports.html">oci_file_storage_exports</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/file_storage_file_systems.html">oci_file_storage_file_systems</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/file_storage_mount_targets.html">oci_file_storage_mount_targets</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/file_storage_snapshots.html">oci_file_storage_snapshots</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_api_keys.html">oci_identity_api_keys</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_auth_tokens.html">oci_identity_auth_tokens</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_availability_domains.html">oci_identity_availability_domains</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_compartment.html">oci_identity_compartment</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_compartments.html">oci_identity_compartments</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_customer_secret_keys.html">oci_identity_customer_secret_keys</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_dynamic_groups.html">oci_identity_dynamic_groups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_fault_domains.html">oci_identity_fault_domains</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_groups.html">oci_identity_groups</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_identity_providers.html">oci_identity_identity_providers</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_idp_group_mappings.html">oci_identity_idp_group_mappings</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_policies.html">oci_identity_policies</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_region_subscriptions.html">oci_identity_region_subscriptions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_regions.html">oci_identity_regions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_smtp_credentials.html">oci_identity_smtp_credentials</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_swift_passwords.html">oci_identity_swift_passwords</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_tag_namespaces.html">oci_identity_tag_namespaces</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_tags.html">oci_identity_tags</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_tenancy.html">oci_identity_tenancy</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_user_group_memberships.html">oci_identity_user_group_memberships</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/identity_users.html">oci_identity_users</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_decrypted_data.html">oci_kms_decrypted_data</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_encrypted_data.html">oci_kms_encrypted_data</a>
+                 </li>  
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_key.html">oci_kms_key</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_key_version.html">oci_kms_key_version</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_key_versions.html">oci_kms_key_versions</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_keys.html">oci_kms_keys</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_vault.html">oci_kms_vault</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/kms_vaults.html">oci_kms_vaults</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_backend_health.html">oci_load_balancer_backend_health</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_backend_set_health.html">oci_load_balancer_backend_set_health</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_backend_sets.html">oci_load_balancer_backend_sets</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_backends.html">oci_load_balancer_backends</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_certificates.html">oci_load_balancer_certificates</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_load_balancer_health.html">oci_load_balancer_health</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_hostnames.html">oci_load_balancer_hostnames</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_load_balancers.html">oci_load_balancer_load_balancers</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_path_route_sets.html">oci_load_balancer_path_route_sets</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_load_balancer_policies.html">oci_load_balancer_policies</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_load_balancer_protocols.html">oci_load_balancer_protocols</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/load_balancer_load_balancer_shapes.html">oci_load_balancer_shapes</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_bucket.html">oci_objectstorage_bucket</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_buckets.html">oci_objectstorage_bucket_summaries</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_namespace.html">oci_objectstorage_namespace</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_object_lifecycle_policy.html">oci_objectstorage_object_lifecycle_policy</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_objects.html">oci_objectstorage_objects</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_preauthenticated_request.html">oci_objectstorage_preauthrequest</a>
+                 </li> 
+                 <li>
+                     <a href="/docs/providers/oci/d/object_storage_preauthenticated_requests.html">oci_objectstorage_preauthrequests</a>
+                 </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Audit Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/audit_configuration.html">oci_audit_configuration</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Container Engine Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/containerengine_cluster.html">oci_containerengine_cluster</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/containerengine_node_pool.html">oci_containerengine_node_pool</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Core Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/core_app_catalog_listing_resource_version_agreement.html">core_app_catalog_listing_resource_version_agreement</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/oci/r/core_app_catalog_subscription.html">oci_core_app_catalog_subscription</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_boot_volume_backup.html">oci_core_boot_volume_backup</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_boot_volume.html">oci_core_boot_volume</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_console_history.html">oci_core_console_history</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_cpe.html">oci_core_cpe</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_cross_connect_group.html">oci_core_cross_connect_group</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_cross_connect.html">oci_core_cross_connect</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_dhcp_options.html">oci_core_dhcp_options</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_drg_attachment.html">oci_core_drg_attachment</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_drg.html">oci_core_drg</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_image.html">oci_core_image</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_instance_console_connection.html">oci_core_instance_console_connection</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_instance.html">oci_core_instance</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_internet_gateway.html">oci_core_internet_gateway</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_ip_sec_connection.html">oci_core_ipsec</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_local_peering_gateway.html">oci_core_local_peering_gateway</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_nat_gateway.html">oci_core_nat_gateway</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_private_ip.html">oci_core_private_ip</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_public_ip.html">oci_core_public_ip</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_remote_peering_connection.html">oci_core_remote_peering_connection</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_route_table.html">oci_core_route_table</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_security_list.html">oci_core_security_list</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_service_gateway.html">oci_core_service_gateway</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_subnet.html">oci_core_subnet</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_vcn.html">oci_core_vcn</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_virtual_circuit.html">oci_core_virtual_circuit</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_vnic_attachment.html">oci_core_vnic_attachment</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume_attachment.html">oci_core_volume_attachment</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume_backup_policy_assignment.html">oci_core_volume_backup_policy_assignment</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume_backup.html">oci_core_volume_backup</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume_group_backup.html">oci_core_volume_group_backup</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume_group.html">oci_core_volume_group</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/core_volume.html">oci_core_volume</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Database Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/database_autonomous_data_warehouse_backup.html">oci_database_autonomous_data_warehouse_backup</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/database_autonomous_data_warehouse.html">oci_database_autonomous_data_warehouse</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/database_autonomous_database_backup.html">oci_database_autonomous_database_backup</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/database_autonomous_database.html">oci_database_autonomous_database</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/database_backup.html">oci_database_backup</a>
+                </li> 
+                <li class="active">
+                    <a href="/docs/providers/oci/r/database_db_system.html">oci_database_db_system</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Dns Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/dns_record.html">oci_dns_record</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/dns_zone.html">oci_dns_zone</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Email Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/email_sender.html">oci_email_sender</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/email_suppression.html">oci_email_suppression</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">File Storage Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/file_storage_export_set.html">oci_file_storage_export_set</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/file_storage_export.html">oci_file_storage_export</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/file_storage_file_system.html">oci_file_storage_file_system</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/file_storage_mount_target.html">oci_file_storage_mount_target</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/file_storage_snapshot.html">oci_file_storage_snapshot</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Identity Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/identity_api_key.html">oci_identity_api_key</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_auth_token.html">oci_identity_auth_token</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_compartment.html">oci_identity_compartment</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_customer_secret_key.html">oci_identity_customer_secret_key</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_dynamic_group.html">oci_identity_dynamic_group</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_group.html">oci_identity_group</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_identity_provider.html">oci_identity_identity_provider</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_idp_group_mapping.html">oci_identity_idp_group_mapping</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_policy.html">oci_identity_policy</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_smtp_credential.html">oci_identity_smtp_credential</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_swift_password.html">oci_identity_swift_password</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_tag_namespace.html">oci_identity_tag_namespace</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_tag.html">oci_identity_tag</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_ui_password.html">oci_identity_ui_password</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_user_group_membership.html">oci_identity_user_group_membership</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/identity_user.html">oci_identity_user</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Kms Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/kms_encrypted_data.html">oci_kms_encrypted_data</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/kms_generated_key.html">oci_kms_generated_key</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/kms_key_version.html">oci_kms_key_version</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/kms_key.html">oci_kms_key</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/kms_vault.html">oci_kms_vault</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Load Balancer Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_backend_set.html">oci_load_balancer_backend_set</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_backend.html">oci_load_balancer_backend</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_certificate.html">oci_load_balancer_certificate</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_hostname.html">oci_load_balancer_hostname</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_listener.html">oci_load_balancer_listener</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_load_balancer.html">oci_load_balancer_load_balancer</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/load_balancer_path_route_set.html">oci_load_balancer_path_route_set</a>
+                </li> 
+            </ul>
+        </li>
+        <li>
+            <a href="#">Object Storage Resources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/oci/r/object_storage_bucket.html">oci_objectstorage_bucket</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/object_storage_object_lifecycle_policy.html">oci_objectstorage_object_lifecycle_policy</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/object_storage_object.html">oci_objectstorage_object</a>
+                </li> 
+                <li>
+                    <a href="/docs/providers/oci/r/object_storage_preauthenticated_request.html">oci_objectstorage_preauthrequest</a>
+                </li> 
+            </ul>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+<h1 id="oci_database_db_system">
+  <a name="oci_database_db_system" class="anchor" href="#oci_database_db_system">&raquo;</a>
+  oci_database_db_system
+</h1>
+<p>This resource provides the Db System resource in Oracle Cloud Infrastructure Database service.</p>
+<p>Launches a new DB system in the specified compartment and availability domain. The Oracle
+Database edition that you specify applies to all the databases on that DB system. The selected edition cannot be changed.</p>
+<p>An initial database is created on the DB system based on the request parameters you provide and some default
+options. For more information,
+see <a href="https://docs.cloud.oracle.com/iaas/Content/Database/Tasks/launchingDB.htm#DefaultOptionsfortheInitialDatabase">Default Options for the Initial Database</a>.</p>
+<p>The DB System will include a command line interface (CLI) that you can use to create additional databases and
+manage existing databases. For more information, see the
+<a href="https://docs.cloud.oracle.com/iaas/Content/Database/References/dbacli.htm">Oracle Database CLI Reference</a>.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"oci_database_db_system"</span> <span class="s2">"test_db_system"</span> <span class="p">{</span>
+    <span class="c1">#Required</span>
+    <span class="n">availability_domain</span> <span class="o">=</span> <span class="s2">"${var.db_system_availability_domain}"</span>
+    <span class="n">compartment_id</span> <span class="o">=</span> <span class="s2">"${var.compartment_id}"</span>
+    <span class="n">database_edition</span> <span class="o">=</span> <span class="s2">"${var.db_system_database_edition}"</span>
+    <span class="n">db_home</span> <span class="p">{</span>
+        <span class="c1">#Required</span>
+        <span class="n">database</span> <span class="p">{</span>
+            <span class="c1">#Required</span>
+            <span class="n">admin_password</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_admin_password}"</span>
+
+            <span class="c1">#Optional</span>
+            <span class="n">backup_id</span> <span class="o">=</span> <span class="s2">"${oci_database_backup.test_backup.id}"</span>
+            <span class="n">backup_tde_password</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_backup_tde_password}"</span>
+            <span class="n">character_set</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_character_set}"</span>
+            <span class="n">db_backup_config</span> <span class="p">{</span>
+
+                <span class="c1">#Optional</span>
+                <span class="n">auto_backup_enabled</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_db_backup_config_auto_backup_enabled}"</span>
+            <span class="p">}</span>
+            <span class="n">db_name</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_db_name}"</span>
+            <span class="n">db_workload</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_db_workload}"</span>
+            <span class="n">defined_tags</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_defined_tags}"</span>
+            <span class="n">freeform_tags</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_freeform_tags}"</span>
+            <span class="n">ncharacter_set</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_ncharacter_set}"</span>
+            <span class="n">pdb_name</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_database_pdb_name}"</span>
+        <span class="p">}</span>
+
+        <span class="c1">#Optional</span>
+        <span class="n">db_version</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_db_version}"</span>
+        <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"${var.db_system_db_home_display_name}"</span>
+    <span class="p">}</span>
+    <span class="n">hostname</span> <span class="o">=</span> <span class="s2">"${var.db_system_hostname}"</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="s2">"${var.db_system_shape}"</span>
+    <span class="n">ssh_public_keys</span> <span class="o">=</span> <span class="s2">"${var.db_system_ssh_public_keys}"</span>
+    <span class="n">subnet_id</span> <span class="o">=</span> <span class="s2">"${oci_database_subnet.test_subnet.id}"</span>
+
+    <span class="c1">#Optional</span>
+    <span class="n">backup_subnet_id</span> <span class="o">=</span> <span class="s2">"${oci_database_backup_subnet.test_backup_subnet.id}"</span>
+    <span class="n">cluster_name</span> <span class="o">=</span> <span class="s2">"${var.db_system_cluster_name}"</span>
+    <span class="n">cpu_core_count</span> <span class="o">=</span> <span class="s2">"${var.db_system_cpu_core_count}"</span>
+    <span class="n">data_storage_percentage</span> <span class="o">=</span> <span class="s2">"${var.db_system_data_storage_percentage}"</span>
+    <span class="n">data_storage_size_in_gb</span> <span class="o">=</span> <span class="s2">"${var.db_system_data_storage_size_in_gb}"</span>
+    <span class="n">defined_tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Operations.CostCenter"</span><span class="o">=</span> <span class="s2">"42"</span><span class="p">}</span>
+    <span class="n">disk_redundancy</span> <span class="o">=</span> <span class="s2">"${var.db_system_disk_redundancy}"</span>
+    <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"${var.db_system_display_name}"</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="s2">"${var.db_system_domain}"</span>
+    <span class="n">freeform_tags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Department"</span><span class="o">=</span> <span class="s2">"Finance"</span><span class="p">}</span>
+    <span class="n">license_model</span> <span class="o">=</span> <span class="s2">"${var.db_system_license_model}"</span>
+    <span class="n">node_count</span> <span class="o">=</span> <span class="s2">"${var.db_system_node_count}"</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="s2">"${var.db_system_source}"</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="availability_domain" /><a href="#availability_domain"><code>availability_domain</code></a> - (Required) The availability domain where the DB system is located.
+</li>
+<li><p><a name="backup_subnet_id" /><a href="#backup_subnet_id"><code>backup_subnet_id</code></a> - (Optional) The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.</p>
+<p><strong>Subnet Restrictions:</strong> See the subnet restrictions information for <strong>subnetId</strong>.</p>
+</li>
+<li><p><a name="cluster_name" /><a href="#cluster_name"><code>cluster_name</code></a> - (Optional) The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.</p>
+</li>
+<li><p><a name="compartment_id" /><a href="#compartment_id"><code>compartment_id</code></a> - (Required) The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the compartment the DB system  belongs in.</p>
+</li>
+<li><p><a name="cpu_core_count" /><a href="#cpu_core_count"><code>cpu_core_count</code></a> - (Required) (Updatable) The number of CPU cores to enable for a bare metal or Exadata DB system. The valid values depend on the specified shape:</p>
+
+<ul>
+<li>BM.DenseIO1.36 - Specify a multiple of 2, from 2 to 36.
+</li>
+<li>BM.DenseIO2.52 - Specify a multiple of 2, from 2 to 52.
+</li>
+<li>Exadata.Quarter1.84 - Specify a multiple of 2, from 22 to 84.
+</li>
+<li>Exadata.Half1.168 - Specify a multiple of 4, from 44 to 168.
+</li>
+<li>Exadata.Full1.336 - Specify a multiple of 8, from 88 to 336.
+</li>
+<li>Exadata.Quarter2.92 - Specify a multiple of 2, from 0 to 92.
+</li>
+<li>Exadata.Half2.184 - Specify a multiple of 4, from 0 to 184.
+</li>
+<li>Exadata.Full2.368 - Specify a multiple of 8, from 0 to 368.
+</li>
+</ul>
+<p>This parameter is not used for virtual machine DB systems because virtual machine DB systems have a set number of cores for each shape. For information about the number of cores for a virtual machine DB system shape, see <a href="https://docs.cloud.oracle.com/iaas/Content/Database/Concepts/overview.htm#virtualmachine">Virtual Machine DB Systems</a></p>
+</li>
+<li><p><a name="data_storage_percentage" /><a href="#data_storage_percentage"><code>data_storage_percentage</code></a> - (Optional) The percentage assigned to DATA storage (user data and database files). The remaining percentage is assigned to RECO storage (database redo logs, archive logs, and recovery manager backups). Specify 80 or 40. The default is 80 percent assigned to DATA storage. Not applicable for virtual machine DB systems.</p>
+</li>
+<li><p><a name="data_storage_size_in_gb" /><a href="#data_storage_size_in_gb"><code>data_storage_size_in_gb</code></a> - (Optional) (Updatable) Size (in GB) of the initial data volume that will be created and attached to a virtual machine DB system. You can scale up storage after provisioning, as needed. Note that the total storage size attached will be more than the amount you specify to allow for REDO/RECO space and software volume.</p>
+</li>
+<li><p><a name="database_edition" /><a href="#database_edition"><code>database_edition</code></a> - (Required) The Oracle Database Edition that applies to all the databases on the DB system. Exadata DB systems and 2-node RAC DB systems require ENTERPRISE_EDITION_EXTREME_PERFORMANCE.</p>
+</li>
+<li><p><a name="db_home" /><a href="#db_home"><code>db_home</code></a> - (Required)</p>
+
+<ul>
+<li><p><a name="database" /><a href="#database"><code>database</code></a> - (Required)</p>
+
+<ul>
+<li><a name="admin_password" /><a href="#admin_password"><code>admin_password</code></a> - (Required) A strong password for SYS, SYSTEM, PDB Admin and TDE Wallet. The password must be at least nine characters and contain at least two uppercase, two lowercase, two numbers, and two special characters. The special characters must be _, #, or -.
+</li>
+<li><a name="backup_id" /><a href="#backup_id"><code>backup_id</code></a> - (Required when source=DB_BACKUP) The backup <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a>.
+</li>
+<li><a name="backup_tde_password" /><a href="#backup_tde_password"><code>backup_tde_password</code></a> - (Required when source=DB_BACKUP) The password to open the TDE wallet.
+</li>
+<li><p><a name="character_set" /><a href="#character_set"><code>character_set</code></a> - (Applicable when source=NONE) The character set for the database.  The default is AL32UTF8. Allowed values are:</p>
+<p>AL32UTF8, AR8ADOS710, AR8ADOS720, AR8APTEC715, AR8ARABICMACS, AR8ASMO8X, AR8ISO8859P6, AR8MSWIN1256, AR8MUSSAD768, AR8NAFITHA711, AR8NAFITHA721, AR8SAKHR706, AR8SAKHR707, AZ8ISO8859P9E, BG8MSWIN, BG8PC437S, BLT8CP921, BLT8ISO8859P13, BLT8MSWIN1257, BLT8PC775, BN8BSCII, CDN8PC863, CEL8ISO8859P14, CL8ISO8859P5, CL8ISOIR111, CL8KOI8R, CL8KOI8U, CL8MACCYRILLICS, CL8MSWIN1251, EE8ISO8859P2, EE8MACCES, EE8MACCROATIANS, EE8MSWIN1250, EE8PC852, EL8DEC, EL8ISO8859P7, EL8MACGREEKS, EL8MSWIN1253, EL8PC437S, EL8PC851, EL8PC869, ET8MSWIN923, HU8ABMOD, HU8CWI2, IN8ISCII, IS8PC861, IW8ISO8859P8, IW8MACHEBREWS, IW8MSWIN1255, IW8PC1507, JA16EUC, JA16EUCTILDE, JA16SJIS, JA16SJISTILDE, JA16VMS, KO16KSC5601, KO16KSCCS, KO16MSWIN949, LA8ISO6937, LA8PASSPORT, LT8MSWIN921, LT8PC772, LT8PC774, LV8PC1117, LV8PC8LR, LV8RST104090, N8PC865, NE8ISO8859P10, NEE8ISO8859P4, RU8BESTA, RU8PC855, RU8PC866, SE8ISO8859P3, TH8MACTHAIS, TH8TISASCII, TR8DEC, TR8MACTURKISHS, TR8MSWIN1254, TR8PC857, US7ASCII, US8PC437, UTF8, VN8MSWIN1258, VN8VN3, WE8DEC, WE8DG, WE8ISO8859P1, WE8ISO8859P15, WE8ISO8859P9, WE8MACROMAN8S, WE8MSWIN1252, WE8NCR4970, WE8NEXTSTEP, WE8PC850, WE8PC858, WE8PC860, WE8ROMAN8, ZHS16CGB231280, ZHS16GBK, ZHT16BIG5, ZHT16CCDC, ZHT16DBT, ZHT16HKSCS, ZHT16MSWIN950, ZHT32EUC, ZHT32SOPS, ZHT32TRIS</p>
+</li>
+<li><p><a name="db_backup_config" /><a href="#db_backup_config"><code>db_backup_config</code></a> - (Applicable when source=NONE)</p>
+
+<ul>
+<li><a name="auto_backup_enabled" /><a href="#auto_backup_enabled"><code>auto_backup_enabled</code></a> - (Applicable when source=NONE) If set to true, configures automatic backups. If you previously used RMAN or dbcli to configure backups and then you switch to using the Console or the API for backups, a new backup configuration is created and associated with your database. This means that you can no longer rely on your previously configured unmanaged backups to work.
+</li>
+</ul>
+</li>
+<li><p><a name="db_name" /><a href="#db_name"><code>db_name</code></a> - (Required when source=NONE) The database name. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted.</p>
+</li>
+<li><p><a name="db_workload" /><a href="#db_workload"><code>db_workload</code></a> - (Applicable when source=NONE) The database workload type.</p>
+</li>
+<li><p><a name="defined_tags" /><a href="#defined_tags"><code>defined_tags</code></a> - (Applicable when source=NONE) Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Operations.CostCenter&quot;: &quot;42&quot;}</code></p>
+</li>
+<li><p><a name="freeform_tags" /><a href="#freeform_tags"><code>freeform_tags</code></a> - (Applicable when source=NONE) Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Department&quot;: &quot;Finance&quot;}</code></p>
+</li>
+<li><p><a name="ncharacter_set" /><a href="#ncharacter_set"><code>ncharacter_set</code></a> - (Applicable when source=NONE) The national character set for the database.  The default is AL16UTF16. Allowed values are: AL16UTF16 or UTF8.</p>
+</li>
+<li><p><a name="pdb_name" /><a href="#pdb_name"><code>pdb_name</code></a> - (Applicable when source=NONE) The name of the pluggable database. The name must begin with an alphabetic character and can contain a maximum of eight alphanumeric characters. Special characters are not permitted. Pluggable database should not be same as database name.</p>
+</li>
+</ul>
+</li>
+<li><p><a name="db_version" /><a href="#db_version"><code>db_version</code></a> - (Required when source=NONE) A valid Oracle Database version. To get a list of supported versions, use the <a href="https://docs.cloud.oracle.com/iaas/api/#/en/database/20160918/DbVersion/ListDbVersions">ListDbVersions</a> operation.</p>
+</li>
+<li><p><a name="display_name" /><a href="#display_name"><code>display_name</code></a> - (Optional) The user-provided name of the database home.</p>
+</li>
+</ul>
+</li>
+<li><p><a name="defined_tags-1" /><a href="#defined_tags-1"><code>defined_tags</code></a> - (Optional) (Updatable) Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Operations.CostCenter&quot;: &quot;42&quot;}</code></p>
+</li>
+<li><p><a name="disk_redundancy" /><a href="#disk_redundancy"><code>disk_redundancy</code></a> - (Optional) The type of redundancy configured for the DB system. Normal is 2-way redundancy, recommended for test and development systems. High is 3-way redundancy, recommended for production systems.</p>
+</li>
+<li><p><a name="display_name-1" /><a href="#display_name-1"><code>display_name</code></a> - (Optional) The user-friendly name for the DB system. The name does not have to be unique.</p>
+</li>
+<li><p><a name="domain" /><a href="#domain"><code>domain</code></a> - (Optional) A domain name used for the DB system. If the Oracle-provided Internet and VCN Resolver is enabled for the specified subnet, the domain name for the subnet is used (do not provide one). Otherwise, provide a valid DNS domain name. Hyphens (-) are not permitted.</p>
+</li>
+<li><p><a name="freeform_tags-1" /><a href="#freeform_tags-1"><code>freeform_tags</code></a> - (Optional) (Updatable) Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Department&quot;: &quot;Finance&quot;}</code></p>
+</li>
+<li><p><a name="hostname" /><a href="#hostname"><code>hostname</code></a> - (Required) The hostname for the DB system. The hostname must begin with an alphabetic character and can contain a maximum of 30 alphanumeric characters, including hyphens (-).</p>
+<p>The maximum length of the combined hostname and domain is 63 characters.</p>
+<p><strong>Note:</strong> The hostname must be unique within the subnet. If it is not unique, the DB system will fail to provision.</p>
+</li>
+<li><p><a name="license_model" /><a href="#license_model"><code>license_model</code></a> - (Optional) The Oracle license model that applies to all the databases on the DB system. The default is LICENSE_INCLUDED. Allowed values are: LICENSE_INCLUDED, BRING_YOUR_OWN_LICENSE.</p>
+</li>
+<li><p><a name="node_count" /><a href="#node_count"><code>node_count</code></a> - (Optional) The number of nodes to launch for a 2-node RAC virtual machine DB system.</p>
+</li>
+<li><p><a name="shape" /><a href="#shape"><code>shape</code></a> - (Required) The shape of the DB system. The shape determines resources allocated to the DB system.</p>
+
+<ul>
+<li>For virtual machine shapes, the number of CPU cores and memory
+</li>
+<li>For bare metal and Exadata shapes, the number of CPU cores, memory, and storage
+</li>
+</ul>
+<p>To get a list of shapes, use the <a href="https://docs.cloud.oracle.com/iaas/api/#/en/database/20160918/DbSystemShapeSummary/ListDbSystemShapes">ListDbSystemShapes</a> operation.</p>
+</li>
+<li><p><a name="source" /><a href="#source"><code>source</code></a> - (Optional) The source of the database: NONE for creating a new database. DB_BACKUP for creating a new database by restoring from a backup. The default is NONE.</p>
+</li>
+<li><p><a name="ssh_public_keys" /><a href="#ssh_public_keys"><code>ssh_public_keys</code></a> - (Required) (Updatable) The public key portion of the key pair to use for SSH access to the DB system. Multiple public keys can be provided. The length of the combined keys cannot exceed 10,000 characters.</p>
+</li>
+<li><p><a name="subnet_id" /><a href="#subnet_id"><code>subnet_id</code></a> - (Required) The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the subnet the DB system is associated with.</p>
+<p><strong>Subnet Restrictions:</strong></p>
+
+<ul>
+<li>For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+</li>
+<li>For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+</li>
+</ul>
+<p>These subnets are used by the Oracle Clusterware private interconnect on the database instance. Specifying an overlapping subnet will cause the private interconnect to malfunction. This restriction applies to both the client subnet and the backup subnet.</p>
+</li>
+</ul>
+<p>** IMPORTANT **
+Any change to a property that does not support update will force the destruction and recreation of the resource with the new property values</p>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported:</p>
+
+<ul>
+<li><a name="availability_domain-1" /><a href="#availability_domain-1"><code>availability_domain</code></a> - The name of the availability domain that the DB system is located in.
+</li>
+<li><p><a name="backup_subnet_id-1" /><a href="#backup_subnet_id-1"><code>backup_subnet_id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the backup network subnet the DB system is associated with. Applicable only to Exadata DB systems.</p>
+<p><strong>Subnet Restriction:</strong> See the subnet restrictions information for <strong>subnetId</strong>.</p>
+</li>
+<li><p><a name="cluster_name-1" /><a href="#cluster_name-1"><code>cluster_name</code></a> - The cluster name for Exadata and 2-node RAC virtual machine DB systems. The cluster name must begin with an an alphabetic character, and may contain hyphens (-). Underscores (_) are not permitted. The cluster name can be no longer than 11 characters and is not case sensitive.</p>
+</li>
+<li><p><a name="compartment_id-1" /><a href="#compartment_id-1"><code>compartment_id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the compartment.</p>
+</li>
+<li><p><a name="cpu_core_count-1" /><a href="#cpu_core_count-1"><code>cpu_core_count</code></a> - The number of CPU cores enabled on the DB system.</p>
+</li>
+<li><p><a name="data_storage_percentage-1" /><a href="#data_storage_percentage-1"><code>data_storage_percentage</code></a> - The percentage assigned to DATA storage (user data and database files). The remaining percentage is assigned to RECO storage (database redo logs, archive logs, and recovery manager backups). Accepted values are 40 and 80. The default is 80 percent assigned to DATA storage. Not applicable for virtual machine DB systems.</p>
+</li>
+<li><p><a name="data_storage_size_in_gb-1" /><a href="#data_storage_size_in_gb-1"><code>data_storage_size_in_gb</code></a> - The data storage size, in gigabytes, that is currently available to the DB system. Applies only for virtual machine DB systems.</p>
+</li>
+<li><p><a name="database_edition-1" /><a href="#database_edition-1"><code>database_edition</code></a> - The Oracle Database edition that applies to all the databases on the DB system.</p>
+</li>
+<li><p><a name="defined_tags-2" /><a href="#defined_tags-2"><code>defined_tags</code></a> - Defined tags for this resource. Each key is predefined and scoped to a namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Operations.CostCenter&quot;: &quot;42&quot;}</code></p>
+</li>
+<li><p><a name="disk_redundancy-1" /><a href="#disk_redundancy-1"><code>disk_redundancy</code></a> - The type of redundancy configured for the DB system. NORMAL is 2-way redundancy. HIGH is 3-way redundancy.</p>
+</li>
+<li><p><a name="display_name-2" /><a href="#display_name-2"><code>display_name</code></a> - The user-friendly name for the DB system. The name does not have to be unique.</p>
+</li>
+<li><p><a name="domain-1" /><a href="#domain-1"><code>domain</code></a> - The domain name for the DB system.</p>
+</li>
+<li><p><a name="freeform_tags-2" /><a href="#freeform_tags-2"><code>freeform_tags</code></a> - Free-form tags for this resource. Each tag is a simple key-value pair with no predefined name, type, or namespace. For more information, see <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm">Resource Tags</a>.  Example: <code>{&quot;Department&quot;: &quot;Finance&quot;}</code></p>
+</li>
+<li><p><a name="hostname-1" /><a href="#hostname-1"><code>hostname</code></a> - The hostname for the DB system.</p>
+</li>
+<li><p><a name="id" /><a href="#id"><code>id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the DB system.</p>
+</li>
+<li><p><a name="last_patch_history_entry_id" /><a href="#last_patch_history_entry_id"><code>last_patch_history_entry_id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the last patch history. This value is updated as soon as a patch operation starts.</p>
+</li>
+<li><p><a name="license_model-1" /><a href="#license_model-1"><code>license_model</code></a> - The Oracle license model that applies to all the databases on the DB system. The default is LICENSE_INCLUDED.</p>
+</li>
+<li><p><a name="lifecycle_details" /><a href="#lifecycle_details"><code>lifecycle_details</code></a> - Additional information about the current lifecycleState.</p>
+</li>
+<li><p><a name="listener_port" /><a href="#listener_port"><code>listener_port</code></a> - The port number configured for the listener on the DB system.</p>
+</li>
+<li><p><a name="node_count-1" /><a href="#node_count-1"><code>node_count</code></a> - The number of nodes in the DB system. For RAC DB systems, the value is greater than 1.</p>
+</li>
+<li><p><a name="reco_storage_size_in_gb" /><a href="#reco_storage_size_in_gb"><code>reco_storage_size_in_gb</code></a> - The RECO/REDO storage size, in gigabytes, that is currently allocated to the DB system. Applies only for virtual machine DB systems.</p>
+</li>
+<li><p><a name="scan_dns_record_id" /><a href="#scan_dns_record_id"><code>scan_dns_record_id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the DNS record for the SCAN IP addresses that are associated with the DB system.</p>
+</li>
+<li><p><a name="scan_ip_ids" /><a href="#scan_ip_ids"><code>scan_ip_ids</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the Single Client Access Name (SCAN) IP addresses associated with the DB system. SCAN IP addresses are typically used for load balancing and are not assigned to any interface. Oracle Clusterware directs the requests to the appropriate nodes in the cluster.</p>
+<p><strong>Note:</strong> For a single-node DB system, this list is empty.</p>
+</li>
+<li><p><a name="shape-1" /><a href="#shape-1"><code>shape</code></a> - The shape of the DB system. The shape determines resources to allocate to the DB system.</p>
+
+<ul>
+<li>For virtual machine shapes, the number of CPU cores and memory
+</li>
+<li>For bare metal and Exadata shapes, the number of CPU cores, storage, and memory 
+</li>
+</ul>
+</li>
+<li><p><a name="ssh_public_keys-1" /><a href="#ssh_public_keys-1"><code>ssh_public_keys</code></a> - The public key portion of one or more key pairs used for SSH access to the DB system.</p>
+</li>
+<li><p><a name="state" /><a href="#state"><code>state</code></a> - The current state of the DB system.</p>
+</li>
+<li><p><a name="subnet_id-1" /><a href="#subnet_id-1"><code>subnet_id</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the subnet the DB system is associated with.</p>
+<p><strong>Subnet Restrictions:</strong></p>
+
+<ul>
+<li>For bare metal DB systems and for single node virtual machine DB systems, do not use a subnet that overlaps with 192.168.16.16/28.
+</li>
+<li>For Exadata and virtual machine 2-node RAC DB systems, do not use a subnet that overlaps with 192.168.128.0/20.
+</li>
+</ul>
+<p>These subnets are used by the Oracle Clusterware private interconnect on the database instance. Specifying an overlapping subnet will cause the private interconnect to malfunction. This restriction applies to both the client subnet and backup subnet.</p>
+</li>
+<li><p><a name="time_created" /><a href="#time_created"><code>time_created</code></a> - The date and time the DB system was created.</p>
+</li>
+<li><p><a name="version" /><a href="#version"><code>version</code></a> - The Oracle Database version of the DB system.</p>
+</li>
+<li><p><a name="vip_ids" /><a href="#vip_ids"><code>vip_ids</code></a> - The <a href="https://docs.cloud.oracle.com/iaas/Content/General/Concepts/identifiers.htm">OCID</a> of the virtual IP (VIP) addresses associated with the DB system. The Cluster Ready Services (CRS) creates and maintains one VIP address for each node in the DB system to enable failover. If one node fails, the VIP is reassigned to another active node in the cluster.</p>
+<p><strong>Note:</strong> For a single-node DB system, this list is empty.</p>
+</li>
+</ul>
+<h2 id="import">
+  <a name="import" class="anchor" href="#import">&raquo;</a>
+  Import
+</h2>
+<p>DbSystems can be imported using the <code>id</code>, e.g.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform import oci_database_db_system.test_db_system "id"
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

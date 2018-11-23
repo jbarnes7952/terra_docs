@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The VMware NSX-T Terraform Provider">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/nsxt/index.html" />
+    <meta property="og:title" content="Provider: NSXT - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="The VMware NSX-T Terraform Provider" />
+
+    <title>Provider: NSXT - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-nsxt-index" class="layout-nsxt page-provider-nsxt">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+              <div class="docs-sidebar hidden-print affix-top" role="complementary">
+            <ul class="nav docs-sidenav">
+                <li>
+                    <a href="/docs/providers/index.html">All Providers</a>
+                </li>
+
+                <li class="active">
+                    <a href="/docs/providers/nsxt/index.html">NSX-T Provider</a>
+                </li>
+
+                <li>
+                <a href="#">Data Sources</a>
+                    <ul class="nav nav-visible">
+                        <li>
+                            <a href="/docs/providers/nsxt/d/edge_cluster.html">nsxt_edge_cluster</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/d/logical_tier0_router.html">nsxt_logical_tier0_router</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/d/ns_service.html">nsxt_ns_serivce</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/d/switching_profile.html">nsxt_switching_profile</a>
+                        </li>
+                       <li>
+                            <a href="/docs/providers/nsxt/d/transport_zone.html">nsxt_transport_zone</a>
+                        </li>
+                     </ul>
+                </li>
+
+                <li>
+                    <a href="#">Resources</a>
+                    <ul class="nav nav-visible">
+                        <li>
+                            <a href="/docs/providers/nsxt/r/dhcp_relay_profile.html">nsxt_dhcp_relay_profile</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/dhcp_relay_service.html">nsxt_dhcp_relay_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/firewall_section.html">nsxt_firewall_section</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/ip_set.html">nsxt_ip_set</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_port.html">nsxt_logical_port</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_router_downlink_port.html">nsxt_logical_router_downlink_port</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_router_link_port_on_tier0.html">nsxt_logical_router_link_port_on_tier0</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_router_link_port_on_tier1.html">nsxt_logical_router_link_port_on_tier1</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_switch.html">nsxt_logical_switch</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/logical_tier1_router.html">nsxt_logical_tier1_router</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/nat_rule.html">nsxt_nat_rule</a>
+                        </li>
+                         <li>
+                            <a href="/docs/providers/nsxt/r/ns_group.html">nsxt_ns_group</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/static_route.html">nsxt_static_route</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/vm_tags.html">nsxt_vm_tags</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">NS Services Resources</a>
+                    <ul class="nav nav-visible">
+                        <li>
+                            <a href="/docs/providers/nsxt/r/algorithm_type_ns_service.html">nsxt_algorithm_type_ns_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/ether_type_ns_service.html">nsxt_ether_type_ns_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/icmp_type_ns_service.html">nsxt_icmp_type_ns_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/igmp_type_ns_service.html">nsxt_igmp_type_ns_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/ip_protocol_ns_service.html">nsxt_ip_protocol_ns_service</a>
+                        </li>
+                        <li>
+                            <a href="/docs/providers/nsxt/r/l4_port_set_ns_service.html">nsxt_l4_port_set_ns_service</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+    <h1 id="the-nsx-terraform-provider">
+  <a name="the-nsx-terraform-provider" class="anchor" href="#the-nsx-terraform-provider">&raquo;</a>
+  The NSX Terraform Provider
+</h1>
+<p>The NSX Terraform provider gives the NSX administrator a way to automate NSX to
+provide virtualized networking and security services using both ESXi and KVM
+based hypervisor hosts as well as container networking and security.</p>
+<p>More information on NSX can be found on the <a href="https://www.vmware.com/products/nsx.html">NSX Product
+Page</a></p>
+<p>Documentation on the NSX platform can be found on the <a href="https://docs.vmware.com/en/VMware-NSX-T/index.html">NSX Documentation
+Page</a></p>
+<p>Please use the navigation to the left to read about available data sources and
+resources.</p>
+<h2 id="basic-configuration-of-the-nsx-terraform-provider">
+  <a name="basic-configuration-of-the-nsx-terraform-provider" class="anchor" href="#basic-configuration-of-the-nsx-terraform-provider">&raquo;</a>
+  Basic Configuration of the NSX Terraform Provider
+</h2>
+<p>In order to use the NSX Terraform provider you must first configure the
+provider to communicate with the VMware NSX manager. The NSX manager is the
+system which serves the NSX REST API and provides a way to configure the
+desired state of the NSX system. The configuration of the NSX provider requires
+the IP address, hostname, or FQDN of the NSX manager.</p>
+<p>The NSX provider offers several ways to authenticate to the NSX manager.
+Credentials can be provided statically or provided as environment variables. In
+addition, client certificates can be used for authentication. For
+authentication with certificates Terraform will require a certificate file and
+private key file in PEM format. To use client certificates the client
+certificate needs to be registered with NSX-T manager prior to invoking
+Terraform.</p>
+<p>The provider also can accept both signed and self-signed server certificates.
+It is recommended that in production environments you only use certificates
+signed by a certificate authority. NSX ships by default with a self-signed
+server certificates as the hostname of the NSX manager is not known until the
+NSX administrator determines what name or IP to use.</p>
+<p>Setting the <code>allow_unverified_ssl</code> parameter to <code>true</code> will direct the
+Terraform client to skip server certificate verification. This is not
+recommended in production deployments as it is recommended that you use trusted
+connection using certificates signed by a certificate authority.</p>
+<p>With the <code>ca_file</code> parameter you can also specify a file that contains your
+certificate authority certificate in PEM format to verify certificates with a
+certificate authority.</p>
+<p>There are also a number of other parameters that can be set to tune how the
+provider connects to the NSX REST API. It is recommended you leave these to the
+defaults unless you experience issues in which case they can be tuned to
+optimize the system in your environment.</p>
+<p>Note that in all of the examples you will need to update the <code>host</code>,
+<code>username</code>, and <code>password</code> settings to match those configured in your NSX
+deployment.</p>
+<h3 id="example-of-configuration-with-credentials">
+  <a name="example-of-configuration-with-credentials" class="anchor" href="#example-of-configuration-with-credentials">&raquo;</a>
+  Example of Configuration with Credentials
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"nsxt"</span> <span class="p">{</span>
+  <span class="n">host</span>                     <span class="o">=</span> <span class="s2">"192.168.110.41"</span>
+  <span class="n">username</span>                 <span class="o">=</span> <span class="s2">"admin"</span>
+  <span class="n">password</span>                 <span class="o">=</span> <span class="s2">"default"</span>
+  <span class="n">allow_unverified_ssl</span>     <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">max_retries</span>              <span class="o">=</span> <span class="mi">10</span>
+  <span class="n">retry_min_delay</span>          <span class="o">=</span> <span class="mi">500</span>
+  <span class="n">retry_max_delay</span>          <span class="o">=</span> <span class="mi">5000</span>
+  <span class="n">retry_on_status_codes</span>    <span class="o">=</span> <span class="p">[</span><span class="mi">429</span><span class="p">]</span>
+<span class="p">}</span>
+
+</code></pre></div><h3 id="example-of-setting-environment-variables">
+  <a name="example-of-setting-environment-variables" class="anchor" href="#example-of-setting-environment-variables">&raquo;</a>
+  Example of Setting Environment Variables
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">export</span> <span class="no">NSXT_MANAGER_HOST</span><span class="o">=</span><span class="s2">"192.168.110.41"</span>
+<span class="n">export</span> <span class="no">NSXT_USERNAME</span><span class="o">=</span><span class="s2">"admin"</span>
+<span class="n">export</span> <span class="no">NSXT_PASSWORD</span><span class="o">=</span><span class="s2">"default"</span>
+</code></pre></div><h3 id="example-using-a-client-certificate">
+  <a name="example-using-a-client-certificate" class="anchor" href="#example-using-a-client-certificate">&raquo;</a>
+  Example using a Client Certificate
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"nsxt"</span> <span class="p">{</span>
+  <span class="n">host</span>                  <span class="o">=</span> <span class="s2">"192.168.110.41"</span>
+  <span class="n">client_auth_cert_file</span> <span class="o">=</span> <span class="s2">"mycert.pem"</span>
+  <span class="n">client_auth_key_file</span>  <span class="o">=</span> <span class="s2">"mykey.pem"</span>
+  <span class="n">allow_unverified_ssl</span>  <span class="o">=</span> <span class="kp">true</span>
+<span class="p">}</span>
+
+</code></pre></div><h3 id="example-with-certificate-authority-certificate">
+  <a name="example-with-certificate-authority-certificate" class="anchor" href="#example-with-certificate-authority-certificate">&raquo;</a>
+  Example with Certificate Authority Certificate
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"nsxt"</span> <span class="p">{</span>
+  <span class="n">host</span>     <span class="o">=</span> <span class="s2">"10.160.94.11"</span>
+  <span class="n">username</span> <span class="o">=</span> <span class="s2">"admin"</span>
+  <span class="n">password</span> <span class="o">=</span> <span class="s2">"qwerty"</span>
+  <span class="n">ca_file</span>  <span class="o">=</span> <span class="s2">"myca.pem"</span>
+<span class="p">}</span>
+
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are used to configure the VMware NSX-T Provider:</p>
+
+<ul>
+<li><a name="host" /><a href="#host"><code>host</code></a> - (Required) The host name or IP address of the NSX-T manager. Can also
+be specified with the <code>NSXT_MANAGER_HOST</code> environment variable.
+</li>
+<li><a name="username" /><a href="#username"><code>username</code></a> - (Required) The user name to connect to the NSX-T manager as. Can
+also be specified with the <code>NSXT_USERNAME</code> environment variable.
+</li>
+<li><a name="password" /><a href="#password"><code>password</code></a> - (Required) The password for the NSX-T manager user. Can also be
+specified with the <code>NSXT_PASSWORD</code> environment variable.
+</li>
+<li><a name="client_auth_cert_file" /><a href="#client_auth_cert_file"><code>client_auth_cert_file</code></a> - (Optional) The path to a certificate file for
+certificate authorization. Can also be specified with the
+<code>NSXT_CLIENT_AUTH_CERT_FILE</code> environment variable.
+</li>
+<li><a name="client_auth_key_file" /><a href="#client_auth_key_file"><code>client_auth_key_file</code></a> - (Optional) The path to a private key file for the
+certificate supplied to <code>client_auth_cert_file</code>. Can also be specified with
+the <code>NSXT_CLIENT_AUTH_KEY_FILE</code> environment variable.
+</li>
+<li><a name="allow_unverified_ssl" /><a href="#allow_unverified_ssl"><code>allow_unverified_ssl</code></a> - (Optional) Boolean that can be set to true to disable
+SSL certificate verification. This should be used with care as it could allow
+an attacker to intercept your auth token. If omitted, default value is
+<code>false</code>. Can also be specified with the <code>NSXT_ALLOW_UNVERIFIED_SSL</code>
+environment variable.
+</li>
+<li><a name="ca_file" /><a href="#ca_file"><code>ca_file</code></a> - (Optional) The path to an optional CA certificate file for SSL
+validation. Can also be specified with the <code>NSXT_CA_FILE</code> environment
+variable.
+</li>
+<li><a name="max_retries" /><a href="#max_retries"><code>max_retries</code></a> - (Optional) The maximum number of retires before failing an API
+request. Default: <code>10</code> Can also be specified with the <code>NSXT_MAX_RETRIES</code>
+environment variable.
+</li>
+<li><a name="retry_min_delay" /><a href="#retry_min_delay"><code>retry_min_delay</code></a> - (Optional) The minimum delay, in milliseconds, between
+retires made to the API. Default:<code>500</code>. Can also be specified with the
+<code>NSXT_RETRY_MIN_DELAY</code> environment variable.
+</li>
+<li><a name="retry_max_delay" /><a href="#retry_max_delay"><code>retry_max_delay</code></a> - (Optional) The maximum delay, in milliseconds, between
+retires made to the API. Default:<code>5000</code>. Can also be specified with the
+<code>NSXT_RETRY_MAX_DELAY</code> environment variable.
+</li>
+<li><a name="retry_on_status_codes" /><a href="#retry_on_status_codes"><code>retry_on_status_codes</code></a> - (Optional) A list of HTTP status codes to retry on.
+By default, the provider will retry on HTTP error 429 (too many requests),
+essentially retrying on throttled connections. Can also be specified with the
+<code>NSXT_RETRY_ON_STATUS_CODES</code> environment variable.
+</li>
+</ul>
+<h2 id="nsx-logical-networking">
+  <a name="nsx-logical-networking" class="anchor" href="#nsx-logical-networking">&raquo;</a>
+  NSX Logical Networking
+</h2>
+<p>The NSX Terraform provider can be used to manage logical networking and
+security constructs in NSX. This includes logical switching, routing and
+firewall.</p>
+<h3 id="logical-networking-and-security-example-usage">
+  <a name="logical-networking-and-security-example-usage" class="anchor" href="#logical-networking-and-security-example-usage">&raquo;</a>
+  Logical Networking and Security Example Usage
+</h3>
+<p>The following example demonstrates using the NSX Terraform provider to create a
+logical switch and tier1 logical router. It then connects the logical switch to
+the tier1 logical router and uplinks the T1 router to a pre-created T0 router.</p>
+<h4 id="example-variables-tf-file">
+  <a name="example-variables-tf-file" class="anchor" href="#example-variables-tf-file">&raquo;</a>
+  Example variables.tf File
+</h4>
+<p>This file allows you to define some variables that can be reused in multiple
+.tf files.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">variable</span> <span class="s2">"nsx_manager"</span> <span class="p">{}</span>
+<span class="n">variable</span> <span class="s2">"nsx_username"</span> <span class="p">{}</span>
+<span class="n">variable</span> <span class="s2">"nsx_password"</span> <span class="p">{}</span>
+</code></pre></div><h4 id="example-terraform-tfvars-file">
+  <a name="example-terraform-tfvars-file" class="anchor" href="#example-terraform-tfvars-file">&raquo;</a>
+  Example terraform.tfvars File
+</h4>
+<p>This file allows you to set some variables that can be reused in multiple .tf
+files.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">nsx_manager</span> <span class="o">=</span> <span class="s2">"192.168.110.41"</span>
+
+<span class="n">nsx_username</span> <span class="o">=</span> <span class="s2">"admin"</span>
+
+<span class="n">nsx_password</span> <span class="o">=</span> <span class="s2">"default"</span>
+</code></pre></div><h4 id="example-nsx-tf-file">
+  <a name="example-nsx-tf-file" class="anchor" href="#example-nsx-tf-file">&raquo;</a>
+  Example nsx.tf file
+</h4>
+<p>This file will define the logical networking topology that Terraform will
+create in NSX.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1">#</span>
+<span class="c1"># The first step is to configure the VMware NSX provider to connect to the NSX</span>
+<span class="c1"># REST API running on the NSX manager.</span>
+<span class="c1">#</span>
+<span class="n">provider</span> <span class="s2">"nsxt"</span> <span class="p">{</span>
+  <span class="n">host</span>                  <span class="o">=</span> <span class="s2">"${var.nsx_manager}"</span>
+  <span class="n">username</span>              <span class="o">=</span> <span class="s2">"${var.nsx_username}"</span>
+  <span class="n">password</span>              <span class="o">=</span> <span class="s2">"${var.nsx_password}"</span>
+  <span class="n">allow_unverified_ssl</span>  <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">max_retries</span>           <span class="o">=</span> <span class="mi">10</span>
+  <span class="n">retry_min_delay</span>       <span class="o">=</span> <span class="mi">500</span>
+  <span class="n">retry_max_delay</span>       <span class="o">=</span> <span class="mi">5000</span>
+  <span class="n">retry_on_status_codes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">429</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># Here we show that you define a NSX tag which can be used later to easily to</span>
+<span class="c1"># search for the created objects in NSX.</span>
+<span class="c1">#</span>
+<span class="n">variable</span> <span class="s2">"nsx_tag_scope"</span> <span class="p">{</span>
+  <span class="n">default</span> <span class="o">=</span> <span class="s2">"project"</span>
+<span class="p">}</span>
+
+<span class="n">variable</span> <span class="s2">"nsx_tag"</span> <span class="p">{</span>
+  <span class="n">default</span> <span class="o">=</span> <span class="s2">"terraform-demo"</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># This part of the example shows some data sources we will need to refer to</span>
+<span class="c1"># later in the .tf file. They include the transport zone, tier 0 router and</span>
+<span class="c1"># edge cluster.</span>
+<span class="c1">#</span>
+<span class="n">data</span> <span class="s2">"nsxt_transport_zone"</span> <span class="s2">"overlay_tz"</span> <span class="p">{</span>
+  <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"tz1"</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># The tier 0 router (T0) is considered a "provider" router that is pre-created</span>
+<span class="c1"># by the NSX admin. A T0 router is used for north/south connectivity between</span>
+<span class="c1"># the logical networking space and the physical networking space. Many tier 1</span>
+<span class="c1"># routers will be connected to a tier 0 router.</span>
+<span class="c1">#</span>
+<span class="n">data</span> <span class="s2">"nsxt_logical_tier0_router"</span> <span class="s2">"tier0_router"</span> <span class="p">{</span>
+  <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"DefaultT0Router"</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="s2">"nsxt_edge_cluster"</span> <span class="s2">"edge_cluster1"</span> <span class="p">{</span>
+  <span class="n">display_name</span> <span class="o">=</span> <span class="s2">"EdgeCluster1"</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># This shows the settings required to create a NSX logical switch to which you</span>
+<span class="c1"># can attach virtual machines.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_switch"</span> <span class="s2">"switch1"</span> <span class="p">{</span>
+  <span class="n">admin_state</span>       <span class="o">=</span> <span class="s2">"UP"</span>
+  <span class="n">description</span>       <span class="o">=</span> <span class="s2">"LS created by Terraform"</span>
+  <span class="n">display_name</span>      <span class="o">=</span> <span class="s2">"TfLogicalSwitch"</span>
+  <span class="n">transport_zone_id</span> <span class="o">=</span> <span class="s2">"${data.nsxt_transport_zone.overlay_tz.id}"</span>
+  <span class="n">replication_mode</span>  <span class="o">=</span> <span class="s2">"MTEP"</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"tenant"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"second_example_tag"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># In this part of the example the settings are defined that are required to</span>
+<span class="c1"># create a T1 router. In NSX a T1 router is often used on a per user, tenant,</span>
+<span class="c1"># or application basis. Each application may have it's own T1 router. The T1</span>
+<span class="c1"># router provides the default gateway for machines on logical switches</span>
+<span class="c1"># connected to the T1 router.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_tier1_router"</span> <span class="s2">"tier1_router"</span> <span class="p">{</span>
+  <span class="n">description</span>                 <span class="o">=</span> <span class="s2">"Tier1 router provisioned by Terraform"</span>
+  <span class="n">display_name</span>                <span class="o">=</span> <span class="s2">"TfTier1"</span>
+  <span class="n">failover_mode</span>               <span class="o">=</span> <span class="s2">"PREEMPTIVE"</span>
+  <span class="n">high_availability_mode</span>      <span class="o">=</span> <span class="s2">"ACTIVE_STANDBY"</span>
+  <span class="n">edge_cluster_id</span>             <span class="o">=</span> <span class="s2">"${data.nsxt_edge_cluster.edge_cluster1.id}"</span>
+  <span class="n">enable_router_advertisement</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">advertise_connected_routes</span>  <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">advertise_static_routes</span>     <span class="o">=</span> <span class="kp">false</span>
+  <span class="n">advertise_nat_routes</span>        <span class="o">=</span> <span class="kp">true</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># This resource creates a logical port on the T0 router. We will connect the T1</span>
+<span class="c1"># router to this port to enable connectivity from the tenant / application</span>
+<span class="c1"># networks to the networks to the cloud.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_router_link_port_on_tier0"</span> <span class="s2">"link_port_tier0"</span> <span class="p">{</span>
+  <span class="n">description</span>       <span class="o">=</span> <span class="s2">"TIER0_PORT1 provisioned by Terraform"</span>
+  <span class="n">display_name</span>      <span class="o">=</span> <span class="s2">"TIER0_PORT1"</span>
+  <span class="n">logical_router_id</span> <span class="o">=</span> <span class="s2">"${data.nsxt_logical_tier0_router.tier0_router.id}"</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># Here we create a tier 1 router uplink port and connect it to T0 router port</span>
+<span class="c1"># created in the previous example.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_router_link_port_on_tier1"</span> <span class="s2">"link_port_tier1"</span> <span class="p">{</span>
+  <span class="n">description</span>                   <span class="o">=</span> <span class="s2">"TIER1_PORT1 provisioned by Terraform"</span>
+  <span class="n">display_name</span>                  <span class="o">=</span> <span class="s2">"TIER1_PORT1"</span>
+  <span class="n">logical_router_id</span>             <span class="o">=</span> <span class="s2">"${nsxt_logical_tier1_router.tier1_router.id}"</span>
+  <span class="n">linked_logical_router_port_id</span> <span class="o">=</span> <span class="s2">"${nsxt_logical_router_link_port_on_tier0.link_port_tier0.id}"</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># Like their physical counterpart a logical switch can have switch ports. In</span>
+<span class="c1"># this example Terraform will create a logical switch port on a logical switch.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_port"</span> <span class="s2">"logical_port1"</span> <span class="p">{</span>
+  <span class="n">admin_state</span>       <span class="o">=</span> <span class="s2">"UP"</span>
+  <span class="n">description</span>       <span class="o">=</span> <span class="s2">"LP1 provisioned by Terraform"</span>
+  <span class="n">display_name</span>      <span class="o">=</span> <span class="s2">"LP1"</span>
+  <span class="n">logical_switch_id</span> <span class="o">=</span> <span class="s2">"${nsxt_logical_switch.switch1.id}"</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">#</span>
+<span class="c1"># In order to connect a logical switch to a tier 1 logical router we will need</span>
+<span class="c1"># a downlink port on the tier 1 router and will need to  connect it to the</span>
+<span class="c1"># switch port we created above.</span>
+<span class="c1">#</span>
+<span class="c1"># The IP address provided in the `ip_address` property will be default gateway</span>
+<span class="c1"># for virtual machines connected to this logical switch.</span>
+<span class="c1">#</span>
+<span class="n">resource</span> <span class="s2">"nsxt_logical_router_downlink_port"</span> <span class="s2">"downlink_port"</span> <span class="p">{</span>
+  <span class="n">description</span>                   <span class="o">=</span> <span class="s2">"DP1 provisioned by Terraform"</span>
+  <span class="n">display_name</span>                  <span class="o">=</span> <span class="s2">"DP1"</span>
+  <span class="n">logical_router_id</span>             <span class="o">=</span> <span class="s2">"${nsxt_logical_tier1_router.tier1_router.id}"</span>
+  <span class="n">linked_logical_switch_port_id</span> <span class="o">=</span> <span class="s2">"${nsxt_logical_port.logical_port1.id}"</span>
+  <span class="n">ip_address</span>                    <span class="o">=</span> <span class="s2">"192.168.245.1/24"</span>
+
+  <span class="n">tag</span> <span class="p">{</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="s2">"${var.nsx_tag_scope}"</span>
+    <span class="n">tag</span>   <span class="o">=</span> <span class="s2">"${var.nsx_tag}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>In order to be able to connect VMs to the newly created logical switch a new
+<code>vpshere_network</code> datasource need to be defined.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">data</span> <span class="s2">"vsphere_network"</span> <span class="s2">"terraform_switch1"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"${nsxt_logical_switch.switch1.display_name}"</span>
+    <span class="n">datacenter_id</span> <span class="o">=</span> <span class="s2">"${data.vsphere_datacenter.dc.id}"</span>
+    <span class="n">depends_on</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"nsxt_logical_switch.switch1"</span><span class="p">]</span>
+<span class="p">}</span>
+
+</code></pre></div><p>The datasource in the above example should be referred in <code>network_id</code> inside
+<code>network_interface</code> section for <code>vsphere_virtual_machine</code> resource.</p>
+<h2 id="feature-requests-bug-reports-and-contributing">
+  <a name="feature-requests-bug-reports-and-contributing" class="anchor" href="#feature-requests-bug-reports-and-contributing">&raquo;</a>
+  Feature Requests, Bug Reports, and Contributing
+</h2>
+<p>For more information how how to submit feature requests, bug reports, or
+details on how to make your own contributions to the provider, see the <a href="https://github.com/terraform-providers/terraform-provider-nsxt">NSX-T
+provider project page</a>.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

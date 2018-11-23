@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This guide focuses on scheduling Kubernetes resources like Pods, Replication Controllers, Services etc. on top of a properly configured and running Kubernetes cluster.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/kubernetes/guides/getting-started.html" />
+    <meta property="og:title" content="Kubernetes: Getting Started with Kubernetes provider - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="This guide focuses on scheduling Kubernetes resources like Pods, Replication Controllers, Services etc. on top of a properly configured and running Kubernetes cluster." />
+
+    <title>Kubernetes: Getting Started with Kubernetes provider - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-kubernetes-guide-getting-started" class="layout-kubernetes page-kubernetes-getting-started-with-kubernetes-provider">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li>
+          <a href="/docs/providers/kubernetes/index.html">Kubernetes Provider</a>
+          <ul class="nav nav-visible">
+            <li class="active">
+              <a href="/docs/providers/kubernetes/guides/getting-started.html">Getting Started</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Data Sources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/kubernetes/d/service.html">kubernetes_service</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/d/storage_class.html">kubernetes_storage_class</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/kubernetes/r/config_map.html">kubernetes_config_map</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/cluster_role_binding.html">kubernetes_cluster_role_binding</a>
+            </li>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/deployment.html">kubernetes_deployment</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/horizontal_pod_autoscaler.html">kubernetes_horizontal_pod_autoscaler</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/limit_range.html">kubernetes_limit_range</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/namespace.html">kubernetes_namespace</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/persistent_volume.html">kubernetes_persistent_volume</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/persistent_volume_claim.html">kubernetes_persistent_volume_claim</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/pod.html">kubernetes_pod</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/replication_controller.html">kubernetes_replication_controller</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/resource_quota.html">kubernetes_resource_quota</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/secret.html">kubernetes_secret</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/service.html">kubernetes_service</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/service_account.html">kubernetes_service_account</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/storage_class.html">kubernetes_storage_class</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="getting-started-with-kubernetes-provider">
+  <a name="getting-started-with-kubernetes-provider" class="anchor" href="#getting-started-with-kubernetes-provider">&raquo;</a>
+  Getting Started with Kubernetes provider
+</h1>
+<h2 id="kubernetes">
+  <a name="kubernetes" class="anchor" href="#kubernetes">&raquo;</a>
+  Kubernetes
+</h2>
+<p><a href="https://kubernetes.io/">Kubernetes</a> (K8S) is an open-source workload scheduler 
+with focus on containerized applications.</p>
+<p>There are at least 2 steps involved in scheduling your first container
+on a Kubernetes cluster. You need the Kubernetes cluster with all its components
+running <em>somewhere</em> and then schedule the Kubernetes resources, like Pods,
+Replication Controllers, Services etc.</p>
+<p>This guide focuses mainly on the latter part and expects you to have
+a properly configured &amp; running Kubernetes cluster.</p>
+<p>The guide also expects you to run the cluster on a cloud provider
+where Kubernetes can automatically provision a load balancer.</p>
+<h2 id="why-terraform-">
+  <a name="why-terraform-" class="anchor" href="#why-terraform-">&raquo;</a>
+  Why Terraform?
+</h2>
+<p>While you could use <code>kubectl</code> or similar CLI-based tools mapped to API calls
+to manage all Kubernetes resources described in YAML files,
+orchestration with Terraform presents a few benefits.</p>
+
+<ul>
+<li>Use the same <a href="/docs/configuration/syntax.html">configuration language</a>
+to provision the Kubernetes infrastructure and to deploy applications into it.
+</li>
+<li>drift detection - <code>terraform plan</code> will always present you the difference
+between reality at a given time and config you intend to apply.
+</li>
+<li>full lifecycle management - Terraform doesn&#39;t just initially create resources,
+but offers a single command for creation, update, and deletion of tracked
+resources without needing to inspect the API to identify those resources.
+</li>
+<li>synchronous feedback - While asynchronous behaviour is often useful,
+sometimes it&#39;s counter-productive as the job of identifying operation result
+(failures or details of created resource) is left to the user. e.g. you don&#39;t
+have IP/hostname of load balancer until it has finished provisioning,
+hence you can&#39;t create any DNS record pointing to it.
+</li>
+<li><a href="https://www.terraform.io/docs/internals/graph.html">graph of relationships</a> -
+Terraform understands relationships between resources which may help
+in scheduling - e.g. if a Persistent Volume Claim claims space from
+a particular Persistent Volume Terraform won&#39;t even attempt to create
+the PVC if creation of the PV has failed.
+</li>
+</ul>
+<h2 id="provider-setup">
+  <a name="provider-setup" class="anchor" href="#provider-setup">&raquo;</a>
+  Provider Setup
+</h2>
+<p>The easiest way to configure the provider is by creating/generating a config
+in a default location (<code>~/.kube/config</code>). That allows you to leave the
+provider block completely empty.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"kubernetes"</span> <span class="p">{}</span>
+</code></pre></div><p>If you wish to configure the provider statically you can do so by providing TLS certificates:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"kubernetes"</span> <span class="p">{</span>
+  <span class="n">host</span> <span class="o">=</span> <span class="s2">"https://104.196.242.174"</span>
+
+  <span class="n">client_certificate</span>     <span class="o">=</span> <span class="s2">"${file("</span><span class="o">~</span><span class="sr">/.kube/</span><span class="n">client</span><span class="o">-</span><span class="n">cert</span><span class="p">.</span><span class="nf">pem</span><span class="s2">")}"</span>
+  <span class="n">client_key</span>             <span class="o">=</span> <span class="s2">"${file("</span><span class="o">~</span><span class="sr">/.kube/</span><span class="n">client</span><span class="o">-</span><span class="n">key</span><span class="p">.</span><span class="nf">pem</span><span class="s2">")}"</span>
+  <span class="n">cluster_ca_certificate</span> <span class="o">=</span> <span class="s2">"${file("</span><span class="o">~</span><span class="sr">/.kube/</span><span class="n">cluster</span><span class="o">-</span><span class="n">ca</span><span class="o">-</span><span class="n">cert</span><span class="p">.</span><span class="nf">pem</span><span class="s2">")}"</span>
+<span class="p">}</span>
+</code></pre></div><p>or by providing username and password (HTTP Basic Authorization):</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">provider</span> <span class="s2">"kubernetes"</span> <span class="p">{</span>
+  <span class="n">host</span> <span class="o">=</span> <span class="s2">"https://104.196.242.174"</span>
+
+  <span class="n">username</span> <span class="o">=</span> <span class="s2">"ClusterMaster"</span>
+  <span class="n">password</span> <span class="o">=</span> <span class="s2">"MindTheGap"</span>
+<span class="p">}</span>
+</code></pre></div><p>After specifying the provider we may now run the following command
+to download the latest version of the Kubernetes provider.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform init
+
+
+Initializing provider plugins...
+- Downloading plugin for provider "kubernetes"...
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+</code></pre></div><h2 id="scheduling-a-simple-application">
+  <a name="scheduling-a-simple-application" class="anchor" href="#scheduling-a-simple-application">&raquo;</a>
+  Scheduling a Simple Application
+</h2>
+<p>The main object in any Kubernetes application is <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/#what-is-a-pod">a Pod</a>.
+Pod consists of one or more containers that are placed
+on cluster nodes based on CPU or memory availability.</p>
+<p>Here we create a pod with a single container running the nginx web server,
+exposing port 80 (HTTP) which can be then exposed
+through the load balancer to the real user.</p>
+<p>Unlike in this simple example you&#39;d commonly run more than
+a single instance of your application in production to reach
+high availability and adding labels will allow Kubernetes to find all
+pods (instances) for the purpose of forwarding the traffic
+to the exposed port.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_pod"</span> <span class="s2">"nginx"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"nginx-example"</span>
+    <span class="n">labels</span> <span class="p">{</span>
+      <span class="no">App</span> <span class="o">=</span> <span class="s2">"nginx"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">container</span> <span class="p">{</span>
+      <span class="n">image</span> <span class="o">=</span> <span class="s2">"nginx:1.7.8"</span>
+      <span class="nb">name</span>  <span class="o">=</span> <span class="s2">"example"</span>
+
+      <span class="n">port</span> <span class="p">{</span>
+        <span class="n">container_port</span> <span class="o">=</span> <span class="mi">80</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The simplest way to expose your application to users is via <a href="https://kubernetes.io/docs/concepts/services-networking/service/">Service</a>.
+Service is capable of provisioning a load-balancer in some cloud providers
+and managing the relationship between pods and that load balancer
+as new pods are launched and others die for any reason.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_service"</span> <span class="s2">"nginx"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"nginx-example"</span>
+  <span class="p">}</span>
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">selector</span> <span class="p">{</span>
+      <span class="no">App</span> <span class="o">=</span> <span class="s2">"${kubernetes_pod.nginx.metadata.0.labels.App}"</span>
+    <span class="p">}</span>
+    <span class="n">port</span> <span class="p">{</span>
+      <span class="n">port</span> <span class="o">=</span> <span class="mi">80</span>
+      <span class="n">target_port</span> <span class="o">=</span> <span class="mi">80</span>
+    <span class="p">}</span>
+
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"LoadBalancer"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>We may also add an output which will expose the IP address to the user</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">output</span> <span class="s2">"lb_ip"</span> <span class="p">{</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="s2">"${kubernetes_service.nginx.load_balancer_ingress.0.ip}"</span>
+<span class="p">}</span>
+</code></pre></div><p>Please note that this assumes a cloud provider provisioning IP-based
+load balancer (like in Google Cloud Platform). If you run on a provider
+with hostname-based load balancer (like in Amazon Web Services) you
+should use the following snippet instead.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">output</span> <span class="s2">"lb_ip"</span> <span class="p">{</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="s2">"${kubernetes_service.nginx.load_balancer_ingress.0.hostname}"</span>
+<span class="p">}</span>
+</code></pre></div><p>The plan will provide you an overview of planned changes, in this case
+we should see 2 resources (Pod + Service) being added.
+This commands gets more useful as your infrastructure grows and
+becomes more complex with more components depending on each other
+and it&#39;s especially helpful during updates.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+The Terraform execution plan has been generated and is shown below.
+Resources are shown in alphabetical order for quick scanning. Green resources
+will be created (or destroyed and then created if an existing resource
+exists), yellow resources are being changed in-place, and red resources
+will be destroyed. Cyan entries are data sources to be read.
+
+Note: You didn't specify an "-out" parameter to save this plan, so when
+"apply" is called, Terraform can't guarantee this is what will execute.
+
+  + kubernetes_pod.nginx
+      metadata.#:                                  "1"
+      metadata.0.generation:                       "&lt;computed&gt;"
+      metadata.0.labels.%:                         "1"
+      metadata.0.labels.App:                       "nginx"
+      metadata.0.name:                             "nginx-example"
+      metadata.0.namespace:                        "default"
+      metadata.0.resource_version:                 "&lt;computed&gt;"
+      metadata.0.self_link:                        "&lt;computed&gt;"
+      metadata.0.uid:                              "&lt;computed&gt;"
+      spec.#:                                      "1"
+      spec.0.automount_service_account_token:      "&lt;computed&gt;"
+      spec.0.container.#:                          "1"
+      spec.0.container.0.image:                    "nginx:1.7.8"
+      spec.0.container.0.image_pull_policy:        "&lt;computed&gt;"
+      spec.0.container.0.name:                     "example"
+      spec.0.container.0.port.#:                   "1"
+      spec.0.container.0.port.0.container_port:    "80"
+      spec.0.container.0.port.0.protocol:          "TCP"
+      spec.0.container.0.resources.#:              "&lt;computed&gt;"
+      spec.0.container.0.stdin:                    "false"
+      spec.0.container.0.stdin_once:               "false"
+      spec.0.container.0.termination_message_path: "/dev/termination-log"
+      spec.0.container.0.tty:                      "false"
+      spec.0.dns_policy:                           "ClusterFirst"
+      spec.0.host_ipc:                             "false"
+      spec.0.host_network:                         "false"
+      spec.0.host_pid:                             "false"
+      spec.0.hostname:                             "&lt;computed&gt;"
+      spec.0.image_pull_secrets.#:                 "&lt;computed&gt;"
+      spec.0.node_name:                            "&lt;computed&gt;"
+      spec.0.restart_policy:                       "Always"
+      spec.0.service_account_name:                 "&lt;computed&gt;"
+      spec.0.termination_grace_period_seconds:     "30"
+
+  + kubernetes_service.nginx
+      load_balancer_ingress.#:     "&lt;computed&gt;"
+      metadata.#:                  "1"
+      metadata.0.generation:       "&lt;computed&gt;"
+      metadata.0.name:             "nginx-example"
+      metadata.0.namespace:        "default"
+      metadata.0.resource_version: "&lt;computed&gt;"
+      metadata.0.self_link:        "&lt;computed&gt;"
+      metadata.0.uid:              "&lt;computed&gt;"
+      spec.#:                      "1"
+      spec.0.cluster_ip:           "&lt;computed&gt;"
+      spec.0.port.#:               "1"
+      spec.0.port.0.node_port:     "&lt;computed&gt;"
+      spec.0.port.0.port:          "80"
+      spec.0.port.0.protocol:      "TCP"
+      spec.0.port.0.target_port:   "80"
+      spec.0.selector.%:           "1"
+      spec.0.selector.App:         "nginx"
+      spec.0.session_affinity:     "None"
+      spec.0.type:                 "LoadBalancer"
+
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+</code></pre></div><p>As we&#39;re happy with the plan output we may carry on applying
+proposed changes. <code>terraform apply</code> will take of all the hard work
+which includes creating resources via API in the right order,
+supplying any defaults as necessary and waiting for
+resources to finish provisioning to the point when it can either
+present useful attributes or a failure (with reason) to the user.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+
+kubernetes_pod.nginx: Creating...
+  metadata.#:                                  "" =&gt; "1"
+  metadata.0.generation:                       "" =&gt; "&lt;computed&gt;"
+  metadata.0.labels.%:                         "" =&gt; "1"
+  metadata.0.labels.App:                       "" =&gt; "nginx"
+  metadata.0.name:                             "" =&gt; "nginx-example"
+  metadata.0.namespace:                        "" =&gt; "default"
+  metadata.0.resource_version:                 "" =&gt; "&lt;computed&gt;"
+  metadata.0.self_link:                        "" =&gt; "&lt;computed&gt;"
+  metadata.0.uid:                              "" =&gt; "&lt;computed&gt;"
+  spec.#:                                      "" =&gt; "1"
+  spec.0.automount_service_account_token:      "" =&gt; "&lt;computed&gt;"
+  spec.0.container.#:                          "" =&gt; "1"
+  spec.0.container.0.image:                    "" =&gt; "nginx:1.7.8"
+  spec.0.container.0.image_pull_policy:        "" =&gt; "&lt;computed&gt;"
+  spec.0.container.0.name:                     "" =&gt; "example"
+  spec.0.container.0.port.#:                   "" =&gt; "1"
+  spec.0.container.0.port.0.container_port:    "" =&gt; "80"
+  spec.0.container.0.port.0.protocol:          "" =&gt; "TCP"
+  spec.0.container.0.resources.#:              "" =&gt; "&lt;computed&gt;"
+  spec.0.container.0.stdin:                    "" =&gt; "false"
+  spec.0.container.0.stdin_once:               "" =&gt; "false"
+  spec.0.container.0.termination_message_path: "" =&gt; "/dev/termination-log"
+  spec.0.container.0.tty:                      "" =&gt; "false"
+  spec.0.dns_policy:                           "" =&gt; "ClusterFirst"
+  spec.0.host_ipc:                             "" =&gt; "false"
+  spec.0.host_network:                         "" =&gt; "false"
+  spec.0.host_pid:                             "" =&gt; "false"
+  spec.0.hostname:                             "" =&gt; "&lt;computed&gt;"
+  spec.0.image_pull_secrets.#:                 "" =&gt; "&lt;computed&gt;"
+  spec.0.node_name:                            "" =&gt; "&lt;computed&gt;"
+  spec.0.restart_policy:                       "" =&gt; "Always"
+  spec.0.service_account_name:                 "" =&gt; "&lt;computed&gt;"
+  spec.0.termination_grace_period_seconds:     "" =&gt; "30"
+kubernetes_pod.nginx: Creation complete (ID: default/nginx-example)
+kubernetes_service.nginx: Creating...
+  load_balancer_ingress.#:     "" =&gt; "&lt;computed&gt;"
+  metadata.#:                  "" =&gt; "1"
+  metadata.0.generation:       "" =&gt; "&lt;computed&gt;"
+  metadata.0.name:             "" =&gt; "nginx-example"
+  metadata.0.namespace:        "" =&gt; "default"
+  metadata.0.resource_version: "" =&gt; "&lt;computed&gt;"
+  metadata.0.self_link:        "" =&gt; "&lt;computed&gt;"
+  metadata.0.uid:              "" =&gt; "&lt;computed&gt;"
+  spec.#:                      "" =&gt; "1"
+  spec.0.cluster_ip:           "" =&gt; "&lt;computed&gt;"
+  spec.0.port.#:               "" =&gt; "1"
+  spec.0.port.0.node_port:     "" =&gt; "&lt;computed&gt;"
+  spec.0.port.0.port:          "" =&gt; "80"
+  spec.0.port.0.protocol:      "" =&gt; "TCP"
+  spec.0.port.0.target_port:   "" =&gt; "80"
+  spec.0.selector.%:           "" =&gt; "1"
+  spec.0.selector.App:         "" =&gt; "nginx"
+  spec.0.session_affinity:     "" =&gt; "None"
+  spec.0.type:                 "" =&gt; "LoadBalancer"
+kubernetes_service.nginx: Still creating... (10s elapsed)
+kubernetes_service.nginx: Still creating... (20s elapsed)
+kubernetes_service.nginx: Still creating... (30s elapsed)
+kubernetes_service.nginx: Still creating... (40s elapsed)
+kubernetes_service.nginx: Creation complete (ID: default/nginx-example)
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path:
+
+Outputs:
+
+lb_ip = 35.197.9.247
+</code></pre></div><p>You may now enter that IP address to your favourite browser
+and you should see the nginx welcome page.</p>
+<p>The <a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">Kubernetes UI</a>
+provides another way to check both the pod and the service there
+once they&#39;re scheduled.</p>
+<h2 id="reaching-scalability-and-availability">
+  <a name="reaching-scalability-and-availability" class="anchor" href="#reaching-scalability-and-availability">&raquo;</a>
+  Reaching Scalability and Availability
+</h2>
+<p>The Replication Controller allows you to replicate pods. This is useful
+for maintaining overall availability and scalability of your application
+exposed to the user.</p>
+<p>We can just replace our Pod with RC from the previous config
+and keep the Service there.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_replication_controller"</span> <span class="s2">"nginx"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"scalable-nginx-example"</span>
+    <span class="n">labels</span> <span class="p">{</span>
+      <span class="no">App</span> <span class="o">=</span> <span class="s2">"ScalableNginxExample"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">replicas</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">selector</span> <span class="p">{</span>
+      <span class="no">App</span> <span class="o">=</span> <span class="s2">"ScalableNginxExample"</span>
+    <span class="p">}</span>
+    <span class="n">template</span> <span class="p">{</span>
+      <span class="n">container</span> <span class="p">{</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="s2">"nginx:1.7.8"</span>
+        <span class="nb">name</span>  <span class="o">=</span> <span class="s2">"example"</span>
+
+        <span class="n">port</span> <span class="p">{</span>
+          <span class="n">container_port</span> <span class="o">=</span> <span class="mi">80</span>
+        <span class="p">}</span>
+
+        <span class="n">resources</span> <span class="p">{</span>
+          <span class="n">limits</span> <span class="p">{</span>
+            <span class="n">cpu</span>    <span class="o">=</span> <span class="s2">"0.5"</span>
+            <span class="n">memory</span> <span class="o">=</span> <span class="s2">"512Mi"</span>
+          <span class="p">}</span>
+          <span class="n">requests</span> <span class="p">{</span>
+            <span class="n">cpu</span>    <span class="o">=</span> <span class="s2">"250m"</span>
+            <span class="n">memory</span> <span class="o">=</span> <span class="s2">"50Mi"</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"kubernetes_service"</span> <span class="s2">"nginx"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"nginx-example"</span>
+  <span class="p">}</span>
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">selector</span> <span class="p">{</span>
+      <span class="no">App</span> <span class="o">=</span> <span class="s2">"${kubernetes_replication_controller.nginx.metadata.0.labels.App}"</span>
+    <span class="p">}</span>
+    <span class="n">port</span> <span class="p">{</span>
+      <span class="n">port</span> <span class="o">=</span> <span class="mi">80</span>
+      <span class="n">target_port</span> <span class="o">=</span> <span class="mi">80</span>
+    <span class="p">}</span>
+
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"LoadBalancer"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>You may notice we also specified how much CPU and memory do we expect
+single instance of that application to consume. This is incredibly
+helpful for Kubernetes as it helps avoiding under-provisioning or over-provisioning
+that would result in either unused resources (costing money) or lack
+of resources (causing the app to crash or slow down).</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+
+# ...
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+
+kubernetes_replication_controller.nginx: Creating...
+# ...
+kubernetes_replication_controller.nginx: Creation complete (ID: default/scalable-nginx-example)
+kubernetes_service.nginx: Creating...
+# ...
+kubernetes_service.nginx: Still creating... (10s elapsed)
+kubernetes_service.nginx: Still creating... (20s elapsed)
+kubernetes_service.nginx: Still creating... (30s elapsed)
+kubernetes_service.nginx: Still creating... (40s elapsed)
+kubernetes_service.nginx: Still creating... (50s elapsed)
+kubernetes_service.nginx: Creation complete (ID: default/nginx-example)
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path:
+
+Outputs:
+
+lb_ip = 35.197.9.247
+</code></pre></div><p>Unlike in previous example, the IP address here will direct traffic
+to one of the 2 pods scheduled in the cluster.</p>
+<h3 id="updating-configuration">
+  <a name="updating-configuration" class="anchor" href="#updating-configuration">&raquo;</a>
+  Updating Configuration
+</h3>
+<p>As our application user-base grows we might need more instances to be scheduled.
+The easiest way to achieve this is to increase <code>replicas</code> field in the config
+accordingly.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_replication_controller"</span> <span class="s2">"example"</span> <span class="p">{</span>
+<span class="c1"># ...</span>
+
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">replicas</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># ...</span>
+
+<span class="p">}</span>
+</code></pre></div><p>You can verify before hitting the API that you&#39;re only changing what
+you intended to change and that someone else didn&#39;t modify
+the resource you created earlier.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+kubernetes_replication_controller.nginx: Refreshing state... (ID: default/scalable-nginx-example)
+kubernetes_service.nginx: Refreshing state... (ID: default/nginx-example)
+
+The Terraform execution plan has been generated and is shown below.
+Resources are shown in alphabetical order for quick scanning. Green resources
+will be created (or destroyed and then created if an existing resource
+exists), yellow resources are being changed in-place, and red resources
+will be destroyed. Cyan entries are data sources to be read.
+
+Note: You didn't specify an "-out" parameter to save this plan, so when
+"apply" is called, Terraform can't guarantee this is what will execute.
+
+  ~ kubernetes_replication_controller.nginx
+      spec.0.replicas: "2" =&gt; "5"
+
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+</code></pre></div><p>As we&#39;re happy with the proposed plan, we can just apply that change.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+</code></pre></div><p>and 3 more replicas will be scheduled &amp; attached to the load balancer.</p>
+<h2 id="bonus-managing-quotas-and-limits">
+  <a name="bonus-managing-quotas-and-limits" class="anchor" href="#bonus-managing-quotas-and-limits">&raquo;</a>
+  Bonus: Managing Quotas and Limits
+</h2>
+<p>As an operator managing cluster you&#39;re likely also responsible for
+using the cluster responsibly and fairly within teams.</p>
+<p>Resource Quotas and Limit Ranges both offer ways to put constraints
+in place around CPU, memory, disk space and other resources that
+will be consumed by cluster users.</p>
+<p>Resource Quota can constrain the whole namespace</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_resource_quota"</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"terraform-example"</span>
+  <span class="p">}</span>
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">hard</span> <span class="p">{</span>
+      <span class="n">pods</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">}</span>
+    <span class="n">scopes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"BestEffort"</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>whereas Limit Range can impose limits on a specific resource
+type (e.g. Pod or Persistent Volume Claim).</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_limit_range"</span> <span class="s2">"example"</span> <span class="p">{</span>
+    <span class="n">metadata</span> <span class="p">{</span>
+        <span class="nb">name</span> <span class="o">=</span> <span class="s2">"terraform-example"</span>
+    <span class="p">}</span>
+    <span class="n">spec</span> <span class="p">{</span>
+        <span class="n">limit</span> <span class="p">{</span>
+            <span class="n">type</span> <span class="o">=</span> <span class="s2">"Pod"</span>
+            <span class="n">max</span> <span class="p">{</span>
+                <span class="n">cpu</span> <span class="o">=</span> <span class="s2">"200m"</span>
+                <span class="n">memory</span> <span class="o">=</span> <span class="s2">"1024M"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">limit</span> <span class="p">{</span>
+            <span class="n">type</span> <span class="o">=</span> <span class="s2">"PersistentVolumeClaim"</span>
+            <span class="n">min</span> <span class="p">{</span>
+                <span class="n">storage</span> <span class="o">=</span> <span class="s2">"24M"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">limit</span> <span class="p">{</span>
+            <span class="n">type</span> <span class="o">=</span> <span class="s2">"Container"</span>
+            <span class="n">default</span> <span class="p">{</span>
+                <span class="n">cpu</span> <span class="o">=</span> <span class="s2">"50m"</span>
+                <span class="n">memory</span> <span class="o">=</span> <span class="s2">"24M"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>$ terraform plan
+</code></pre></div><div class="highlight"><pre class="highlight plaintext"><code>$ terraform apply
+</code></pre></div><h2 id="conclusion">
+  <a name="conclusion" class="anchor" href="#conclusion">&raquo;</a>
+  Conclusion
+</h2>
+<p>Terraform offers you an effective way to manage both compute for
+your Kubernetes cluster and Kubernetes resources. Check out
+the extensive documentation of the Kubernetes provider linked
+from the menu.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

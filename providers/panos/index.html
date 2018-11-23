@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Provider panos is used to interact with Palo Alto Networks NGFW and Panorama.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/panos/index.html" />
+    <meta property="og:title" content="Provider: panos - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Provider panos is used to interact with Palo Alto Networks NGFW and Panorama." />
+
+    <title>Provider: panos - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-panos-index" class="layout-panos page-provider-panos">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li class="active">
+          <a href="/docs/providers/panos/index.html">Palo Alto Networks Provider</a>
+        </li>
+
+        <li>
+            <a href="#">Data Sources</a>
+            <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/panos/d/dhcp_interface_info.html">panos_dhcp_interface_info</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/panos/d/system_info.html">panos_system_info</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+          <a href="#">Panorama Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/panos/r/panorama_address_group.html">panos_panorama_address_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_address_object.html">panos_panorama_address_object</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_administrative_tag.html">panos_panorama_administrative_tag</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_device_group.html">panos_panorama_device_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_device_group_entry.html">panos_panorama_device_group_entry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_edl.html">panos_panorama_edl</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ethernet_interface.html">panos_panorama_ethernet_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ike_crypto_profile.html">panos_panorama_ike_crypto_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ike_gateway.html">panos_panorama_ike_gateway</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ipsec_crypto_profile.html">panos_panorama_ipsec_crypto_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ipsec_tunnel.html">panos_panorama_ipsec_tunnel</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_ipsec_tunnel_proxy_id_ipv4.html">panos_panorama_ipsec_tunnel_proxy_id_ipv4</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_loopback_interface.html">panos_panorama_loopback_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_management_profile.html">panos_panorama_management_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_nat_rule.html">panos_panorama_nat_policy</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_nat_rule.html">panos_panorama_nat_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_security_policy.html">panos_panorama_security_policies</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_security_policy.html">panos_panorama_security_policy</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_security_rule_group.html">panos_panorama_security_policy_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_security_rule_group.html">panos_panorama_security_rule_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_service_group.html">panos_panorama_service_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_service_object.html">panos_panorama_service_object</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_static_route_ipv4.html">panos_panorama_static_route_ipv4</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_template.html">panos_panorama_template</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_template_entry.html">panos_panorama_template_entry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_template_stack.html">panos_panorama_template_stack</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_template_stack_entry.html">panos_panorama_template_stack_entry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_template_variable.html">panos_panorama_template_variable</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_tunnel_interface.html">panos_panorama_tunnel_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_virtual_router.html">panos_panorama_virtual_router</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_virtual_router_entry.html">panos_panorama_virtual_router_entry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_vlan_interface.html">panos_panorama_vlan_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_zone.html">panos_panorama_zone</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/panorama_zone_entry.html">panos_panorama_zone_entry</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Firewall Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/panos/r/address_group.html">panos_address_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/address_object.html">panos_address_object</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/administrative_tag.html">panos_administrative_tag</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/dag_tags.html">panos_dag_tags</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/edl.html">panos_edl</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ethernet_interface.html">panos_ethernet_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/general_settings.html">panos_general_settings</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ike_crypto_profile.html">panos_ike_crypto_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ike_gateway.html">panos_ike_gateway</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ipsec_crypto_profile.html">panos_ipsec_crypto_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ipsec_tunnel.html">panos_ipsec_tunnel</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/ipsec_tunnel_proxy_id_ipv4.html">panos_ipsec_tunnel_proxy_id_ipv4</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/license_api_key.html">panos_license_api_key</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/licensing.html">panos_licensing</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/loopback_interface.html">panos_loopback_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/management_profile.html">panos_management_profile</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/nat_rule.html">panos_nat_policy</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/nat_rule.html">panos_nat_rule</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/security_policy.html">panos_security_policies</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/security_policy.html">panos_security_policy</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/security_rule_group.html">panos_security_policy_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/security_rule_group.html">panos_security_rule_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/service_group.html">panos_service_group</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/service_object.html">panos_service_object</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/static_route_ipv4.html">panos_static_route_ipv4</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/telemetry.html">panos_telemetry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/tunnel_interface.html">panos_tunnel_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/virtual_router.html">panos_virtual_router</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/virtual_router_entry.html">panos_virtual_router_entry</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/vlan_interface.html">panos_vlan_interface</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/zone.html">panos_zone</a>
+            </li>
+            <li>
+              <a href="/docs/providers/panos/r/zone_entry.html">panos_zone_entry</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="provider-panos">
+  <a name="provider-panos" class="anchor" href="#provider-panos">&raquo;</a>
+  Provider panos
+</h1>
+<p>PAN-OS&reg; is the operating system for Palo Alto Networks&reg; NGFWs and
+Panorama&trade;. The panos provider allows you to manage various aspects
+of a firewall&#39;s or a Panorama&#39;s config, such as data interfaces and security
+policies.</p>
+<p>Use the navigation to the left to read about the available Panorama and NGFW
+resources.</p>
+<h2 id="versioning">
+  <a name="versioning" class="anchor" href="#versioning">&raquo;</a>
+  Versioning
+</h2>
+<p>The panos provider has support for PAN-OS 6.1 - 8.1.</p>
+<p>Some resources may contain variables that are only applicable for newer
+versions of PAN-OS.  If this is the case, then make sure to use
+<a href="https://www.terraform.io/docs/configuration/interpolation.html">conditionals</a>
+along with the <code>panos_system_info</code> data source to only set these variables
+when the version of PAN-OS is appropriate.</p>
+<p>One such resource is <code>panos_ethernet_interface</code> and the <code>ipv4_mss_adjust</code>
+parameter.  Doing the following is one way to correctly configure this
+parameter only when it&#39;s applicable:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">data</span> <span class="s2">"panos_system_info"</span> <span class="s2">"config"</span> <span class="p">{}</span>
+
+<span class="n">data</span> <span class="s2">"panos_ethernet_interface"</span> <span class="s2">"eth1"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"ethernet1/1"</span>
+    <span class="n">vsys</span> <span class="o">=</span> <span class="s2">"vsys1"</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">"layer3"</span>
+    <span class="n">adjust_tcp_mss</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">ipv4_mss_adjust</span> <span class="o">=</span> <span class="s2">"${data.panos_system_info.config.version_major &gt;= 8 ? 42 : 0}"</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="commits">
+  <a name="commits" class="anchor" href="#commits">&raquo;</a>
+  Commits
+</h2>
+<p>As of right now, Terraform does not provide native support for commits, so
+commits are handled out-of-band.  Please use the following for commits:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"flag"</span><span class="x">
+    </span><span class="s">"log"</span><span class="x">
+    </span><span class="s">"os"</span><span class="x">
+
+    </span><span class="s">"github.com/PaloAltoNetworks/pango"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="n">hostname</span><span class="p">,</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x"> </span><span class="n">password</span><span class="p">,</span><span class="x"> </span><span class="n">apikey</span><span class="p">,</span><span class="x"> </span><span class="n">comment</span><span class="x"> </span><span class="kt">string</span><span class="x">
+        </span><span class="n">ok</span><span class="x"> </span><span class="kt">bool</span><span class="x">
+        </span><span class="n">err</span><span class="x"> </span><span class="kt">error</span><span class="x">
+        </span><span class="n">job</span><span class="x"> </span><span class="kt">uint</span><span class="x">
+    </span><span class="p">)</span><span class="x">
+
+    </span><span class="n">log</span><span class="o">.</span><span class="n">SetFlags</span><span class="p">(</span><span class="n">log</span><span class="o">.</span><span class="n">Ldate</span><span class="x"> </span><span class="o">|</span><span class="x"> </span><span class="n">log</span><span class="o">.</span><span class="n">Ltime</span><span class="x"> </span><span class="o">|</span><span class="x"> </span><span class="n">log</span><span class="o">.</span><span class="n">Lmicroseconds</span><span class="p">)</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">hostname</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_HOSTNAME"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"PANOS_HOSTNAME must be set"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">apikey</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s">"PANOS_API_KEY"</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_USERNAME"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="n">apikey</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"PANOS_USERNAME must be set if PANOS_API_KEY is unset"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">password</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_PASSWORD"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="n">apikey</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"PANOS_PASSWORD must be set if PANOS_API_KEY is unset"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">flag</span><span class="o">.</span><span class="n">StringVar</span><span class="p">(</span><span class="o">&amp;</span><span class="n">comment</span><span class="p">,</span><span class="x"> </span><span class="s">"c"</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="s">"Commit comment"</span><span class="p">)</span><span class="x">
+    </span><span class="n">flag</span><span class="o">.</span><span class="n">Parse</span><span class="p">()</span><span class="x">
+
+    </span><span class="n">fw</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">pango</span><span class="o">.</span><span class="n">Firewall</span><span class="p">{</span><span class="n">Client</span><span class="o">:</span><span class="x"> </span><span class="n">pango</span><span class="o">.</span><span class="n">Client</span><span class="p">{</span><span class="x">
+        </span><span class="n">Hostname</span><span class="o">:</span><span class="x"> </span><span class="n">hostname</span><span class="p">,</span><span class="x">
+        </span><span class="n">Username</span><span class="o">:</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x">
+        </span><span class="n">Password</span><span class="o">:</span><span class="x"> </span><span class="n">password</span><span class="p">,</span><span class="x">
+        </span><span class="n">ApiKey</span><span class="o">:</span><span class="x"> </span><span class="n">apikey</span><span class="p">,</span><span class="x">
+        </span><span class="n">Logging</span><span class="o">:</span><span class="x"> </span><span class="n">pango</span><span class="o">.</span><span class="n">LogOp</span><span class="x"> </span><span class="o">|</span><span class="x"> </span><span class="n">pango</span><span class="o">.</span><span class="n">LogAction</span><span class="p">,</span><span class="x">
+    </span><span class="p">}}</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">fw</span><span class="o">.</span><span class="n">Initialize</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"Failed: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">job</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">fw</span><span class="o">.</span><span class="n">Commit</span><span class="p">(</span><span class="n">comment</span><span class="p">,</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x"> </span><span class="no">true</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">,</span><span class="x"> </span><span class="no">true</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Fatalf</span><span class="p">(</span><span class="s">"Error in commit: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="k">if</span><span class="x"> </span><span class="n">job</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="m">0</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"No commit needed"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">log</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Committed config successfully"</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Compile the above, put it somewhere in your <code>$PATH</code> (such as <code>$HOME/bin</code>),
+then invoke it after <code>terraform apply</code> and <code>terraform destroy</code>:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go get github.com/PaloAltoNetworks/pango
+<span class="nv">$ </span>go build commit.go
+<span class="nv">$ </span>mv commit ~/bin
+<span class="nv">$ </span>terraform apply <span class="o">&amp;&amp;</span> commit <span class="nt">-c</span> <span class="s1">'My commit comment'</span>
+</code></pre></div><p>Connection information for the above is expected to be set as environment
+variables:</p>
+
+<ul>
+<li><a name="panos_hostname" /><a href="#panos_hostname"><code>PANOS_HOSTNAME</code></a>
+</li>
+<li><a name="panos_api_key" /><a href="#panos_api_key"><code>PANOS_API_KEY</code></a> - This is optional, but <code>PANOS_USERNAME</code> and <code>PANOS_PASSWORD</code>
+will be ignored if this is configured.
+</li>
+<li><a name="panos_username" /><a href="#panos_username"><code>PANOS_USERNAME</code></a> - Required if <code>PANOS_API_KEY</code> is unset
+</li>
+<li><a name="panos_password" /><a href="#panos_password"><code>PANOS_PASSWORD</code></a> - Required if <code>PANOS_API_KEY</code> is unset
+</li>
+</ul>
+<h2 id="pan-os-api-key">
+  <a name="pan-os-api-key" class="anchor" href="#pan-os-api-key">&raquo;</a>
+  PAN-OS API Key
+</h2>
+<p>API connections to PAN-OS require an
+<a href="https://www.paloaltonetworks.com/documentation/71/pan-os/xml-api/get-started-with-the-pan-os-xml-api/get-your-api-key">API key</a>.
+If you do not provide the API key to the panos provider, then the API key is
+generated before every single API call.  Thus, some slight speed gains can be
+realized in the panos provider by specifying the API key instead of the
+username/password combo.  The following may be used to generate the API key:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+    </span><span class="s">"os"</span><span class="x">
+
+    </span><span class="s">"github.com/PaloAltoNetworks/pango"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="p">(</span><span class="x">
+        </span><span class="n">hostname</span><span class="p">,</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x"> </span><span class="n">password</span><span class="x"> </span><span class="kt">string</span><span class="x">
+        </span><span class="n">ok</span><span class="x"> </span><span class="kt">bool</span><span class="x">
+    </span><span class="p">)</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">hostname</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_HOSTNAME"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="s">"PANOS_HOSTNAME must be set</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_USERNAME"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="s">"PANOS_USERNAME must be set</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">password</span><span class="p">,</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">LookupEnv</span><span class="p">(</span><span class="s">"PANOS_PASSWORD"</span><span class="p">);</span><span class="x"> </span><span class="o">!</span><span class="n">ok</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="s">"PANOS_PASSWORD must be set</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
+        </span><span class="k">return</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">fw</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">pango</span><span class="o">.</span><span class="n">Firewall</span><span class="p">{</span><span class="n">Client</span><span class="o">:</span><span class="x"> </span><span class="n">pango</span><span class="o">.</span><span class="n">Client</span><span class="p">{</span><span class="x">
+        </span><span class="n">Hostname</span><span class="o">:</span><span class="x"> </span><span class="n">hostname</span><span class="p">,</span><span class="x">
+        </span><span class="n">Username</span><span class="o">:</span><span class="x"> </span><span class="n">username</span><span class="p">,</span><span class="x">
+        </span><span class="n">Password</span><span class="o">:</span><span class="x"> </span><span class="n">password</span><span class="p">,</span><span class="x">
+        </span><span class="n">Logging</span><span class="o">:</span><span class="x"> </span><span class="n">pango</span><span class="o">.</span><span class="n">LogQuiet</span><span class="p">,</span><span class="x">
+    </span><span class="p">}}</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">fw</span><span class="o">.</span><span class="n">Initialize</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Stderr</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"Failed initialize: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">))</span><span class="x">
+        </span><span class="k">return</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">os</span><span class="o">.</span><span class="n">Stdout</span><span class="o">.</span><span class="n">WriteString</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">fw</span><span class="o">.</span><span class="n">ApiKey</span><span class="p">))</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Then execute it like this:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go get github.com/PaloAltoNetworks/pango
+<span class="nv">$ </span>go run make_api_key.go
+</code></pre></div><p>The API key is output to stdout, but you can redirect this to a file using
+normal shell redirection if desired:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go run make_api_key.go <span class="o">&gt;</span> my_api_key.txt
+</code></pre></div><p>Connection information for the above is expected to be set as environment
+variables:</p>
+
+<ul>
+<li><a name="panos_hostname-1" /><a href="#panos_hostname-1"><code>PANOS_HOSTNAME</code></a>
+</li>
+<li><a name="panos_username-1" /><a href="#panos_username-1"><code>PANOS_USERNAME</code></a>
+</li>
+<li><a name="panos_password-1" /><a href="#panos_password-1"><code>PANOS_PASSWORD</code></a>
+</li>
+</ul>
+<h2 id="aws-gcp-considerations">
+  <a name="aws-gcp-considerations" class="anchor" href="#aws-gcp-considerations">&raquo;</a>
+  AWS / GCP Considerations
+</h2>
+<p>There are <a href="https://aws.amazon.com/marketplace/seller-profile?id=0ed48363-5064-4d47-b41b-a53f7c937314">a few types</a>
+of PAN-OS VMs available to bring up in AWS.  Both these VMs as well as the ones
+that can be deployed in Google Cloud Platform are different in that
+the <code>admin</code> password is unset, but it has an SSH key associated with it.  As
+the panos Terraform provider package authenticates via username/password, an
+initialization step of configuring a password using the given SSH key is
+required.  Right now, this initialization step requires manual intervention;
+the user must download this SSH key, at which point the following may be used
+to automate this initialization:</p>
+<div class="highlight"><pre class="highlight go"><code><span class="k">package</span><span class="x"> </span><span class="n">main</span><span class="x">
+
+</span><span class="k">import</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="s">"fmt"</span><span class="x">
+    </span><span class="s">"io"</span><span class="x">
+    </span><span class="s">"io/ioutil"</span><span class="x">
+    </span><span class="s">"os"</span><span class="x">
+    </span><span class="s">"regexp"</span><span class="x">
+    </span><span class="s">"strings"</span><span class="x">
+    </span><span class="s">"time"</span><span class="x">
+
+    </span><span class="s">"golang.org/x/crypto/ssh"</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="c">// Various prompts.</span><span class="x">
+</span><span class="k">var</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="n">P1</span><span class="x"> </span><span class="o">*</span><span class="n">regexp</span><span class="o">.</span><span class="n">Regexp</span><span class="x">
+    </span><span class="n">P2</span><span class="x"> </span><span class="o">*</span><span class="n">regexp</span><span class="o">.</span><span class="n">Regexp</span><span class="x">
+    </span><span class="n">P3</span><span class="x"> </span><span class="o">*</span><span class="n">regexp</span><span class="o">.</span><span class="n">Regexp</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">init</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="n">P1</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">regexp</span><span class="o">.</span><span class="n">MustCompile</span><span class="p">(</span><span class="s">`[a-zA-Z][a-zA-Z0-9\._\-]+@[a-zA-Z][a-zA-Z0-9\._\-]+&gt; `</span><span class="p">)</span><span class="x">
+    </span><span class="n">P2</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">regexp</span><span class="o">.</span><span class="n">MustCompile</span><span class="p">(</span><span class="s">`[a-zA-Z][a-zA-Z0-9\._\-]+@[a-zA-Z][a-zA-Z0-9\._\-]+# `</span><span class="p">)</span><span class="x">
+    </span><span class="n">P3</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">regexp</span><span class="o">.</span><span class="n">MustCompile</span><span class="p">(</span><span class="s">`(Enter|Confirm) password\s+:\s+?`</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// Globals to handle I/O.</span><span class="x">
+</span><span class="k">var</span><span class="x"> </span><span class="p">(</span><span class="x">
+    </span><span class="n">stdin</span><span class="x"> </span><span class="n">io</span><span class="o">.</span><span class="n">Writer</span><span class="x">
+    </span><span class="n">stdout</span><span class="x"> </span><span class="n">io</span><span class="o">.</span><span class="n">Reader</span><span class="x">
+    </span><span class="n">buf</span><span class="x"> </span><span class="p">[</span><span class="m">65</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="m">1024</span><span class="p">]</span><span class="kt">byte</span><span class="x">
+</span><span class="p">)</span><span class="x">
+
+</span><span class="c">// ReadTo reads from stdout until the desired prompt is encountered.</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">ReadTo</span><span class="p">(</span><span class="n">prompt</span><span class="x"> </span><span class="o">*</span><span class="n">regexp</span><span class="o">.</span><span class="n">Regexp</span><span class="p">)</span><span class="x"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="x"> </span><span class="kt">error</span><span class="p">)</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="kt">int</span><span class="x">
+
+    </span><span class="k">for</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">n</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">stdout</span><span class="o">.</span><span class="n">Read</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="o">:</span><span class="p">])</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">n</span><span class="x"> </span><span class="o">&gt;</span><span class="x"> </span><span class="m">0</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">os</span><span class="o">.</span><span class="n">Stdout</span><span class="o">.</span><span class="n">Write</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="o">:</span><span class="n">i</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="n">n</span><span class="p">])</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="n">i</span><span class="x"> </span><span class="o">+=</span><span class="x"> </span><span class="n">n</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">prompt</span><span class="o">.</span><span class="n">Find</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="o">:</span><span class="n">i</span><span class="p">])</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">return</span><span class="x"> </span><span class="kt">string</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="o">:</span><span class="n">i</span><span class="p">]),</span><span class="x"> </span><span class="no">nil</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="c">// Perform user initialization.</span><span class="x">
+</span><span class="k">func</span><span class="x"> </span><span class="n">panosInit</span><span class="p">()</span><span class="x"> </span><span class="kt">error</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">var</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="kt">error</span><span class="x">
+
+    </span><span class="c">// Load environment variables.</span><span class="x">
+    </span><span class="n">hostname</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s">"PANOS_HOSTNAME"</span><span class="p">)</span><span class="x">
+    </span><span class="n">username</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s">"PANOS_USERNAME"</span><span class="p">)</span><span class="x">
+    </span><span class="n">password</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s">"PANOS_PASSWORD"</span><span class="p">)</span><span class="x">
+
+    </span><span class="c">// Sanity check input.</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">)</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="m">1</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">"-h"</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">"--help"</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">hostname</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">username</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="o">||</span><span class="x"> </span><span class="n">password</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">u</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="x">
+            </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"Usage: %s &lt;key_file&gt;"</span><span class="p">,</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">0</span><span class="p">]),</span><span class="x">
+            </span><span class="s">""</span><span class="p">,</span><span class="x">
+            </span><span class="s">"This will connect to a PAN-OS NGFW and perform initial config:"</span><span class="p">,</span><span class="x">
+            </span><span class="s">""</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * Adds the user as a superuser (if not the admin user)"</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * Sets the user's password"</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * Commit"</span><span class="p">,</span><span class="x">
+            </span><span class="s">""</span><span class="p">,</span><span class="x">
+            </span><span class="s">"The following environment variables are required:"</span><span class="p">,</span><span class="x">
+            </span><span class="s">""</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * PANOS_HOSTNAME"</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * PANOS_USERNAME"</span><span class="p">,</span><span class="x">
+            </span><span class="s">" * PANOS_PASSWORD"</span><span class="p">,</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">for</span><span class="x"> </span><span class="n">i</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">u</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// Read in the ssh key file.</span><span class="x">
+    </span><span class="n">data</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ioutil</span><span class="o">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Failed to read SSH key file %q: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">os</span><span class="o">.</span><span class="n">Args</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">signer</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ssh</span><span class="o">.</span><span class="n">ParsePrivateKey</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Failed to parse private key: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">useSshKey</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ssh</span><span class="o">.</span><span class="n">PublicKeys</span><span class="p">(</span><span class="n">signer</span><span class="p">)</span><span class="x">
+
+    </span><span class="c">// Configure and open the ssh connection.</span><span class="x">
+    </span><span class="n">config</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="o">&amp;</span><span class="n">ssh</span><span class="o">.</span><span class="n">ClientConfig</span><span class="p">{</span><span class="x">
+        </span><span class="n">User</span><span class="o">:</span><span class="x"> </span><span class="s">"admin"</span><span class="p">,</span><span class="x">
+        </span><span class="n">Auth</span><span class="o">:</span><span class="x"> </span><span class="p">[]</span><span class="n">ssh</span><span class="o">.</span><span class="n">AuthMethod</span><span class="p">{</span><span class="x">
+            </span><span class="n">useSshKey</span><span class="p">,</span><span class="x">
+        </span><span class="p">},</span><span class="x">
+        </span><span class="n">HostKeyCallback</span><span class="o">:</span><span class="x"> </span><span class="n">ssh</span><span class="o">.</span><span class="n">InsecureIgnoreHostKey</span><span class="p">(),</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">client</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ssh</span><span class="o">.</span><span class="n">Dial</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"%s:22"</span><span class="p">,</span><span class="x"> </span><span class="n">hostname</span><span class="p">),</span><span class="x"> </span><span class="n">config</span><span class="p">)</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Failed dial: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">defer</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+
+    </span><span class="n">session</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">client</span><span class="o">.</span><span class="n">NewSession</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Failed to create session: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="k">defer</span><span class="x"> </span><span class="n">session</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span><span class="x">
+
+    </span><span class="n">modes</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ssh</span><span class="o">.</span><span class="n">TerminalModes</span><span class="p">{</span><span class="x">
+        </span><span class="n">ssh</span><span class="o">.</span><span class="n">ECHO</span><span class="o">:</span><span class="x"> </span><span class="m">0</span><span class="p">,</span><span class="x">
+        </span><span class="n">ssh</span><span class="o">.</span><span class="n">TTY_OP_ISPEED</span><span class="o">:</span><span class="x"> </span><span class="m">14400</span><span class="p">,</span><span class="x">
+        </span><span class="n">ssh</span><span class="o">.</span><span class="n">TTY_OP_OSPEED</span><span class="o">:</span><span class="x"> </span><span class="m">14400</span><span class="p">,</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">session</span><span class="o">.</span><span class="n">RequestPty</span><span class="p">(</span><span class="s">"vt100"</span><span class="p">,</span><span class="x"> </span><span class="m">80</span><span class="p">,</span><span class="x"> </span><span class="m">80</span><span class="p">,</span><span class="x"> </span><span class="n">modes</span><span class="p">);</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"pty request failed: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// Get input/output pipes for the ssh connection.</span><span class="x">
+    </span><span class="n">stdin</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">session</span><span class="o">.</span><span class="n">StdinPipe</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"setup stdin err: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="n">stdout</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">session</span><span class="o">.</span><span class="n">StdoutPipe</span><span class="p">()</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"setup stdout err: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// Invoke a shell on the remote host.</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">session</span><span class="o">.</span><span class="n">Start</span><span class="p">(</span><span class="s">"/bin/sh"</span><span class="p">);</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"failed session.Start: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// Perform initial config.</span><span class="x">
+    </span><span class="n">ok</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="no">true</span><span class="x">
+    </span><span class="n">commands</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="p">[]</span><span class="k">struct</span><span class="p">{</span><span class="x">
+        </span><span class="n">Send</span><span class="x"> </span><span class="kt">string</span><span class="x">
+        </span><span class="n">Expect</span><span class="x"> </span><span class="o">*</span><span class="n">regexp</span><span class="o">.</span><span class="n">Regexp</span><span class="x">
+        </span><span class="n">Validation</span><span class="x"> </span><span class="kt">string</span><span class="x">
+        </span><span class="n">OmitIfAdmin</span><span class="x"> </span><span class="kt">bool</span><span class="x">
+    </span><span class="p">}{</span><span class="x">
+        </span><span class="p">{</span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="n">P1</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"set cli pager off"</span><span class="p">,</span><span class="x"> </span><span class="n">P1</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"show system info"</span><span class="p">,</span><span class="x"> </span><span class="n">P1</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"configure"</span><span class="p">,</span><span class="x"> </span><span class="n">P2</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"set mgt-config users %s permissions role-based superuser yes"</span><span class="p">,</span><span class="x"> </span><span class="n">username</span><span class="p">),</span><span class="x"> </span><span class="n">P2</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">true</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"set mgt-config users %s password"</span><span class="p">,</span><span class="x"> </span><span class="n">username</span><span class="p">),</span><span class="x"> </span><span class="n">P3</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="n">password</span><span class="p">,</span><span class="x"> </span><span class="n">P3</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="n">password</span><span class="p">,</span><span class="x"> </span><span class="n">P2</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"commit description 'initial config'"</span><span class="p">,</span><span class="x"> </span><span class="n">P2</span><span class="p">,</span><span class="x"> </span><span class="s">"Configuration committed successfully"</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"exit"</span><span class="p">,</span><span class="x"> </span><span class="n">P1</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+        </span><span class="p">{</span><span class="s">"exit"</span><span class="p">,</span><span class="x"> </span><span class="no">nil</span><span class="p">,</span><span class="x"> </span><span class="s">""</span><span class="p">,</span><span class="x"> </span><span class="no">false</span><span class="p">},</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="k">for</span><span class="x"> </span><span class="n">_</span><span class="p">,</span><span class="x"> </span><span class="n">cmd</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="k">range</span><span class="x"> </span><span class="n">commands</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">OmitIfAdmin</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="n">username</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="s">"admin"</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="k">continue</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Send</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">stdin</span><span class="o">.</span><span class="n">Write</span><span class="p">([]</span><span class="kt">byte</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Send</span><span class="x"> </span><span class="o">+</span><span class="x"> </span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">))</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+        </span><span class="k">if</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Expect</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">out</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">ReadTo</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Expect</span><span class="p">)</span><span class="x">
+            </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="k">return</span><span class="x"> </span><span class="n">fmt</span><span class="o">.</span><span class="n">Errorf</span><span class="p">(</span><span class="s">"Error in %q: %s"</span><span class="p">,</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Send</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+            </span><span class="p">}</span><span class="x">
+            </span><span class="k">if</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Validation</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="s">""</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">ok</span><span class="x"> </span><span class="o">=</span><span class="x"> </span><span class="n">ok</span><span class="x"> </span><span class="o">&amp;&amp;</span><span class="x"> </span><span class="n">strings</span><span class="o">.</span><span class="n">Contains</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Validation</span><span class="p">)</span><span class="x">
+            </span><span class="p">}</span><span class="x">
+            </span><span class="c">// Delay slightly before sending passwords.</span><span class="x">
+            </span><span class="k">if</span><span class="x"> </span><span class="n">cmd</span><span class="o">.</span><span class="n">Expect</span><span class="x"> </span><span class="o">==</span><span class="x"> </span><span class="n">P3</span><span class="x"> </span><span class="p">{</span><span class="x">
+                </span><span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">1</span><span class="x"> </span><span class="o">*</span><span class="x"> </span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span><span class="x">
+            </span><span class="p">}</span><span class="x">
+        </span><span class="p">}</span><span class="x"> </span><span class="k">else</span><span class="x"> </span><span class="p">{</span><span class="x">
+            </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"exit</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span><span class="x">
+            </span><span class="n">session</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span><span class="x">
+        </span><span class="p">}</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+
+    </span><span class="c">// Completed successfully.</span><span class="x">
+    </span><span class="k">return</span><span class="x"> </span><span class="no">nil</span><span class="x">
+</span><span class="p">}</span><span class="x">
+
+</span><span class="k">func</span><span class="x"> </span><span class="n">main</span><span class="p">()</span><span class="x"> </span><span class="p">{</span><span class="x">
+    </span><span class="k">if</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">:=</span><span class="x"> </span><span class="n">panosInit</span><span class="p">();</span><span class="x"> </span><span class="n">err</span><span class="x"> </span><span class="o">!=</span><span class="x"> </span><span class="no">nil</span><span class="x"> </span><span class="p">{</span><span class="x">
+        </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Failed initial config: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="x"> </span><span class="n">err</span><span class="p">)</span><span class="x">
+        </span><span class="n">os</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="x">
+    </span><span class="p">}</span><span class="x">
+    </span><span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Config initialization successful"</span><span class="p">)</span><span class="x">
+</span><span class="p">}</span><span class="x">
+</span></code></pre></div><p>Compile the above, put it somewhere in your <code>$PATH</code> (such as <code>$HOME/bin</code>),
+then invoke it after the device is accessible in AWS:</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="nv">$ </span>go get golang.org/x/crypto/ssh
+<span class="nv">$ </span>go build panos_init.go
+<span class="nv">$ </span>mv panos_init ~/bin
+<span class="nv">$ </span>panos_init my_ssh_key.pem
+</code></pre></div><p>The API key is expected to be given as the first param, while the hostname is
+retrieved from the following environment variable:</p>
+
+<ul>
+<li><a name="panos_hostname-2" /><a href="#panos_hostname-2"><code>PANOS_HOSTNAME</code></a>
+</li>
+</ul>
+<p>The username and password are expected to be in the following environment
+variables:</p>
+
+<ul>
+<li><a name="panos_username-2" /><a href="#panos_username-2"><code>PANOS_USERNAME</code></a>
+</li>
+<li><a name="panos_password-2" /><a href="#panos_password-2"><code>PANOS_PASSWORD</code></a>
+</li>
+</ul>
+<p>If <code>PANOS_USERNAME</code> is set to <code>admin</code>, then the above will skip the step that
+creates the account, as the <code>admin</code> account already exists.</p>
+<h2 id="example-provider-usage">
+  <a name="example-provider-usage" class="anchor" href="#example-provider-usage">&raquo;</a>
+  Example Provider Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="c1"># Configure the panos provider</span>
+<span class="n">provider</span> <span class="s2">"panos"</span> <span class="p">{</span>
+    <span class="n">hostname</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="s2">"admin"</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s2">"secret"</span>
+<span class="p">}</span>
+
+<span class="c1"># Add a new zone to the firewall</span>
+<span class="n">resource</span> <span class="s2">"panos_zone"</span> <span class="s2">"zone1"</span> <span class="p">{</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="hostname" /><a href="#hostname"><code>hostname</code></a> - (Optional) This is the hostname / IP address of the firewall.  It
+must be provided, but can also be defined via the <code>PANOS_HOSTNAME</code>
+environment variable.
+</li>
+<li><a name="username" /><a href="#username"><code>username</code></a> - (Optional) The username to authenticate to the firewall as.  It
+must be provided, but can also be defined via the <code>PANOS_USERNAME</code>
+environment variable.
+</li>
+<li><a name="password" /><a href="#password"><code>password</code></a> - (Optional) The password for the given username. It must be
+provided, but can also be defined via the <code>PANOS_PASSWORD</code> environment
+variable.
+</li>
+<li><a name="api_key" /><a href="#api_key"><code>api_key</code></a> - (Optional) The API key for the firewall.  If this is given, then
+the <code>username</code> and <code>password</code> settings are ignored.  This can also be defined
+via the <code>PANOS_API_KEY</code> environment variable.
+</li>
+<li><a name="protocol" /><a href="#protocol"><code>protocol</code></a> - (Optional) The communication protocol.  This can be set to
+either <code>https</code> or <code>http</code>.  If left unspecified, this defaults to <code>https</code>.<br/>
+</li>
+<li><a name="port" /><a href="#port"><code>port</code></a> - (Optional) If the port number is non-standard for the desired
+protocol, then the port number to use.
+</li>
+<li><a name="timeout" /><a href="#timeout"><code>timeout</code></a> - (Optional) The timeout for all communications with the
+firewall.  If left unspecified, this will be set to 10 seconds.
+</li>
+<li><a name="logging" /><a href="#logging"><code>logging</code></a> - (Optional) List of logging options for the provider&#39;s connection
+to the API.  If this is unspecified, then it defaults to
+<code>[&quot;action&quot;, &quot;uid&quot;]</code>.
+</li>
+<li><a name="json_config_file" /><a href="#json_config_file"><code>json_config_file</code></a> - (Optional) The path to a JSON configuration file that
+contains any number of the provider&#39;s parameters.  If specified, the params
+present act as a last resort for any other provider param that has not been
+specified yet.
+</li>
+</ul>
+<p>The list of strings supported for <code>logging</code> are as follows:</p>
+
+<ul>
+<li><a name="quiet" /><a href="#quiet"><code>quiet</code></a> - Disables logging.  This is ignored, however, if other logging
+flags are present.
+</li>
+<li><a name="action" /><a href="#action"><code>action</code></a> - Log <code>set</code> / <code>edit</code> / <code>delete</code>.
+</li>
+<li><a name="query" /><a href="#query"><code>query</code></a> - Log <code>get</code>.
+</li>
+<li><a name="op" /><a href="#op"><code>op</code></a> - Log <code>op</code>.
+</li>
+<li><a name="uid" /><a href="#uid"><code>uid</code></a> - Log user-id envocations.
+</li>
+<li><a name="xpath" /><a href="#xpath"><code>xpath</code></a> - Log the XPATH associated with various actions.
+</li>
+<li><a name="send" /><a href="#send"><code>send</code></a> - Log the raw request sent to the device.  This is probably
+only useful in development of the provider itself.
+</li>
+<li><a name="receive" /><a href="#receive"><code>receive</code></a> - Log the raw response sent back from the device.  This is probably
+only useful in development of the provider itself.
+</li>
+</ul>
+<h2 id="support">
+  <a name="support" class="anchor" href="#support">&raquo;</a>
+  Support
+</h2>
+<p>This template/solution are released under an as-is, best effort, support
+policy. These scripts should be seen as community supported and Palo Alto
+Networks will contribute our expertise as and when possible. We do not
+provide technical support or help in using or troubleshooting the components
+of the project through our normal support options such as Palo Alto Networks
+support teams, or ASC (Authorized Support Centers) partners and backline
+support options. The underlying product used (the VM-Series firewall) by the
+scripts or templates are still supported, but the support is only for the
+product functionality and not for help in deploying or using the template or
+script itself. Unless explicitly tagged, all projects or work posted in our
+GitHub repository (at <a href="https://github.com/PaloAltoNetworks">https://github.com/PaloAltoNetworks</a>) or sites other
+than our official Downloads page on <a href="https://support.paloaltonetworks.com">https://support.paloaltonetworks.com</a>
+are provided under the best effort policy.</p>
+
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

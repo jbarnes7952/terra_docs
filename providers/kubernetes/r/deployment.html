@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A Deployment ensures that a specified number of pod “replicas” are running at any one time. In other words, a Deployment makes sure that a pod or homogeneous set of pods are always up and available. If there are too many pods, it will kill some. If there are too few, the Deployment will start more.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/kubernetes/r/deployment.html" />
+    <meta property="og:title" content="Kubernetes: kubernetes_deployment - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="A Deployment ensures that a specified number of pod “replicas” are running at any one time. In other words, a Deployment makes sure that a pod or homogeneous set of pods are always up and available. If there are too many pods, it will kill some. If there are too few, the Deployment will start more." />
+
+    <title>Kubernetes: kubernetes_deployment - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-kubernetes-resource-deployment" class="layout-kubernetes page-kubernetes-kubernetes-deployment">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li>
+          <a href="/docs/providers/kubernetes/index.html">Kubernetes Provider</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/kubernetes/guides/getting-started.html">Getting Started</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Data Sources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/kubernetes/d/service.html">kubernetes_service</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/d/storage_class.html">kubernetes_storage_class</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="active">
+          <a href="#">Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/kubernetes/r/config_map.html">kubernetes_config_map</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/cluster_role_binding.html">kubernetes_cluster_role_binding</a>
+            </li>
+            </li>
+            <li class="active">
+              <a href="/docs/providers/kubernetes/r/deployment.html">kubernetes_deployment</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/horizontal_pod_autoscaler.html">kubernetes_horizontal_pod_autoscaler</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/limit_range.html">kubernetes_limit_range</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/namespace.html">kubernetes_namespace</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/persistent_volume.html">kubernetes_persistent_volume</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/persistent_volume_claim.html">kubernetes_persistent_volume_claim</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/pod.html">kubernetes_pod</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/replication_controller.html">kubernetes_replication_controller</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/resource_quota.html">kubernetes_resource_quota</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/secret.html">kubernetes_secret</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/service.html">kubernetes_service</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/service_account.html">kubernetes_service_account</a>
+            </li>
+            <li>
+              <a href="/docs/providers/kubernetes/r/storage_class.html">kubernetes_storage_class</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="kubernetes_deployment">
+  <a name="kubernetes_deployment" class="anchor" href="#kubernetes_deployment">&raquo;</a>
+  kubernetes_deployment
+</h1>
+<p>A Deployment ensures that a specified number of pod “replicas” are running at any one time. In other words, a Deployment makes sure that a pod or homogeneous set of pods are always up and available. If there are too many pods, it will kill some. If there are too few, the Deployment will start more.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"kubernetes_deployment"</span> <span class="s2">"example"</span> <span class="p">{</span>
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"terraform-example"</span>
+    <span class="n">labels</span> <span class="p">{</span>
+      <span class="nb">test</span> <span class="o">=</span> <span class="s2">"MyExampleApp"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">spec</span> <span class="p">{</span>
+    <span class="n">replicas</span> <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="n">selector</span> <span class="p">{</span>
+      <span class="n">match_labels</span> <span class="p">{</span>
+        <span class="nb">test</span> <span class="o">=</span> <span class="s2">"MyExampleApp"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">template</span> <span class="p">{</span>
+      <span class="n">metadata</span> <span class="p">{</span>
+        <span class="n">labels</span> <span class="p">{</span>
+          <span class="nb">test</span> <span class="o">=</span> <span class="s2">"MyExampleApp"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="n">spec</span> <span class="p">{</span>
+        <span class="n">container</span> <span class="p">{</span>
+          <span class="n">image</span> <span class="o">=</span> <span class="s2">"nginx:1.7.8"</span>
+          <span class="nb">name</span>  <span class="o">=</span> <span class="s2">"example"</span>
+
+          <span class="n">resources</span><span class="p">{</span>
+            <span class="n">limits</span><span class="p">{</span>
+              <span class="n">cpu</span>    <span class="o">=</span> <span class="s2">"0.5"</span>
+              <span class="n">memory</span> <span class="o">=</span> <span class="s2">"512Mi"</span>
+            <span class="p">}</span>
+            <span class="n">requests</span><span class="p">{</span>
+              <span class="n">cpu</span>    <span class="o">=</span> <span class="s2">"250m"</span>
+              <span class="n">memory</span> <span class="o">=</span> <span class="s2">"50Mi"</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="metadata" /><a href="#metadata"><code>metadata</code></a> - (Required) Standard deployment&#39;s metadata. For more info see <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#metadata">Kubernetes reference</a>
+</li>
+<li><a name="spec" /><a href="#spec"><code>spec</code></a> - (Required) Spec defines the specification of the desired behavior of the deployment. For more info see <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#spec-and-status">Kubernetes reference</a>
+</li>
+</ul>
+<h2 id="nested-blocks">
+  <a name="nested-blocks" class="anchor" href="#nested-blocks">&raquo;</a>
+  Nested Blocks
+</h2>
+<h3 id="metadata-1">
+  <a name="metadata-1" class="anchor" href="#metadata-1">&raquo;</a>
+  <code>metadata</code>
+</h3>
+<h4 id="arguments">
+  <a name="arguments" class="anchor" href="#arguments">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="annotations" /><a href="#annotations"><code>annotations</code></a> - (Optional) An unstructured key value map stored with the deployment that may be used to store arbitrary metadata. For more info see <a href="http://kubernetes.io/docs/user-guide/annotations">Kubernetes reference</a>
+</li>
+<li><a name="generate_name" /><a href="#generate_name"><code>generate_name</code></a> - (Optional) Prefix, used by the server, to generate a unique name ONLY IF the <code>name</code> field has not been provided. This value will also be combined with a unique suffix. For more info see <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#idempotency">Kubernetes reference</a>
+</li>
+<li><a name="labels" /><a href="#labels"><code>labels</code></a> - (Optional) Map of string keys and values that can be used to organize and categorize (scope and select) the deployment. <strong>Must match <code>selector</code></strong>. For more info see <a href="http://kubernetes.io/docs/user-guide/labels">Kubernetes reference</a>
+</li>
+<li><a name="name" /><a href="#name"><code>name</code></a> - (Optional) Name of the deployment, must be unique. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+<li><a name="namespace" /><a href="#namespace"><code>namespace</code></a> - (Optional) Namespace defines the space within which name of the deployment must be unique.
+</li>
+</ul>
+<h4 id="attributes">
+  <a name="attributes" class="anchor" href="#attributes">&raquo;</a>
+  Attributes
+</h4>
+
+<ul>
+<li><a name="generation" /><a href="#generation"><code>generation</code></a> - A sequence number representing a specific generation of the desired state.
+</li>
+<li><a name="resource_version" /><a href="#resource_version"><code>resource_version</code></a> - An opaque value that represents the internal version of this deployment that can be used by clients to determine when deployment has changed. For more info see <a href="https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#concurrency-control-and-consistency">Kubernetes reference</a>
+</li>
+<li><a name="self_link" /><a href="#self_link"><code>self_link</code></a> - A URL representing this deployment.
+</li>
+<li><a name="uid" /><a href="#uid"><code>uid</code></a> - The unique in time and space value for this deployment. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#uids">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="spec-1">
+  <a name="spec-1" class="anchor" href="#spec-1">&raquo;</a>
+  <code>spec</code>
+</h3>
+<h4 id="arguments-1">
+  <a name="arguments-1" class="anchor" href="#arguments-1">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="min_ready_seconds" /><a href="#min_ready_seconds"><code>min_ready_seconds</code></a> - (Optional) Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+</li>
+<li><a name="paused" /><a href="#paused"><code>paused</code></a> - (Optional) Indicates that the deployment is paused.
+</li>
+<li><a name="progress_deadline_seconds" /><a href="#progress_deadline_seconds"><code>progress_deadline_seconds</code></a> - (Optional) The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+</li>
+<li><a name="replicas" /><a href="#replicas"><code>replicas</code></a> - (Optional) The number of desired replicas. Defaults to 1. For more info see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#scaling-a-deployment">Kubernetes reference</a>
+</li>
+<li><a name="revision_history_limit" /><a href="#revision_history_limit"><code>revision_history_limit</code></a> - (Optional) The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+</li>
+<li><a name="strategy" /><a href="#strategy"><code>strategy</code></a> - (Optional) The deployment strategy to use to replace existing pods with new ones.
+</li>
+<li><a name="selector" /><a href="#selector"><code>selector</code></a> - (Optional) A label query over pods that should match the Replicas count. Label keys and values that must match in order to be controlled by this deployment. <strong>Must match labels (<code>metadata.0.labels</code>)</strong>. For more info see <a href="http://kubernetes.io/docs/user-guide/labels#label-selectors">Kubernetes reference</a>
+</li>
+<li><a name="template" /><a href="#template"><code>template</code></a> - (Required) Describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. For more info see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#pod-template">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="strategy-1">
+  <a name="strategy-1" class="anchor" href="#strategy-1">&raquo;</a>
+  <code>strategy</code>
+</h3>
+<h4 id="arguments-2">
+  <a name="arguments-2" class="anchor" href="#arguments-2">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="type" /><a href="#type"><code>type</code></a> - Type of deployment. Can be &#39;Recreate&#39; or &#39;RollingUpdate&#39;. Default is RollingUpdate.
+</li>
+<li><a name="rolling_update" /><a href="#rolling_update"><code>rolling_update</code></a> - Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+</li>
+</ul>
+<h3 id="rolling_update-1">
+  <a name="rolling_update-1" class="anchor" href="#rolling_update-1">&raquo;</a>
+  <code>rolling_update</code>
+</h3>
+<h4 id="arguments-3">
+  <a name="arguments-3" class="anchor" href="#arguments-3">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="max_surge" /><a href="#max_surge"><code>max_surge</code></a> - The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is atmost 130% of desired pods.
+</li>
+<li><a name="max_unavailable" /><a href="#max_unavailable"><code>max_unavailable</code></a> - The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+</li>
+</ul>
+<h3 id="template-1">
+  <a name="template-1" class="anchor" href="#template-1">&raquo;</a>
+  <code>template</code>
+</h3>
+<h4 id="arguments-4">
+  <a name="arguments-4" class="anchor" href="#arguments-4">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="metadata-2" /><a href="#metadata-2"><code>metadata</code></a> - (Required) Standard object&#39;s metadata. For more info see <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata">https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata</a>
+</li>
+<li><a name="spec-2" /><a href="#spec-2"><code>spec</code></a> - (Required) Specification of the desired behavior of the pod. For more info see <a href="https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status">https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status</a>
+</li>
+</ul>
+<h3 id="template-spec">
+  <a name="template-spec" class="anchor" href="#template-spec">&raquo;</a>
+  template <code>spec</code>
+</h3>
+<h4 id="arguments-5">
+  <a name="arguments-5" class="anchor" href="#arguments-5">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="active_deadline_seconds" /><a href="#active_deadline_seconds"><code>active_deadline_seconds</code></a> - (Optional) Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
+</li>
+<li><a name="container" /><a href="#container"><code>container</code></a> - (Optional) List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/containers">Kubernetes reference</a>
+</li>
+<li><a name="init_container" /><a href="#init_container"><code>init_container</code></a> - (Optional) List of init containers belonging to the pod. Init containers always run to completion and each must complete succesfully before the next is started. For more info see <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers">Kubernetes reference</a>/
+</li>
+<li><a name="dns_policy" /><a href="#dns_policy"><code>dns_policy</code></a> - (Optional) Set DNS policy for containers within the pod. One of &#39;ClusterFirst&#39; or &#39;Default&#39;. Defaults to &#39;ClusterFirst&#39;.
+</li>
+<li><a name="host_ipc" /><a href="#host_ipc"><code>host_ipc</code></a> - (Optional) Use the host&#39;s ipc namespace. Optional: Default to false.
+</li>
+<li><a name="host_network" /><a href="#host_network"><code>host_network</code></a> - (Optional) Host networking requested for this pod. Use the host&#39;s network namespace. If this option is set, the ports that will be used must be specified.
+</li>
+<li><a name="host_pid" /><a href="#host_pid"><code>host_pid</code></a> - (Optional) Use the host&#39;s pid namespace.
+</li>
+<li><a name="hostname" /><a href="#hostname"><code>hostname</code></a> - (Optional) Specifies the hostname of the Pod If not specified, the pod&#39;s hostname will be set to a system-defined value.
+</li>
+<li><a name="image_pull_secrets" /><a href="#image_pull_secrets"><code>image_pull_secrets</code></a> - (Optional) ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. For more info see <a href="http://kubernetes.io/docs/user-guide/images#specifying-imagepullsecrets-on-a-pod">Kubernetes reference</a>
+</li>
+<li><a name="node_name" /><a href="#node_name"><code>node_name</code></a> - (Optional) NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
+</li>
+<li><a name="node_selector" /><a href="#node_selector"><code>node_selector</code></a> - (Optional) NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node&#39;s labels for the pod to be scheduled on that node. For more info see <a href="http://kubernetes.io/docs/user-guide/node-selection">Kubernetes reference</a>.
+</li>
+<li><a name="restart_policy" /><a href="#restart_policy"><code>restart_policy</code></a> - (Optional) Restart policy for all containers within the pod. One of Always, OnFailure, Never. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#restartpolicy">Kubernetes reference</a>.
+</li>
+<li><a name="security_context" /><a href="#security_context"><code>security_context</code></a> - (Optional) SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty
+</li>
+<li><a name="service_account_name" /><a href="#service_account_name"><code>service_account_name</code></a> - (Optional) ServiceAccountName is the name of the ServiceAccount to use to run this pod. For more info see <a href="http://releases.k8s.io/HEAD/docs/design/service_accounts.md">http://releases.k8s.io/HEAD/docs/design/service_accounts.md</a>.
+</li>
+<li><a name="subdomain" /><a href="#subdomain"><code>subdomain</code></a> - (Optional) If specified, the fully qualified Pod hostname will be &quot;...svc.&quot;. If not specified, the pod will not have a domainname at all..
+</li>
+<li><a name="termination_grace_period_seconds" /><a href="#termination_grace_period_seconds"><code>termination_grace_period_seconds</code></a> - (Optional) Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process.
+</li>
+<li><a name="volume" /><a href="#volume"><code>volume</code></a> - (Optional) List of volumes that can be mounted by containers belonging to the pod. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="container-1">
+  <a name="container-1" class="anchor" href="#container-1">&raquo;</a>
+  <code>container</code>
+</h3>
+<h4 id="arguments-6">
+  <a name="arguments-6" class="anchor" href="#arguments-6">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="args" /><a href="#args"><code>args</code></a> - (Optional) Arguments to the entrypoint. The docker image&#39;s CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container&#39;s environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/containers#containers-and-commands">Kubernetes reference</a>
+</li>
+<li><a name="command" /><a href="#command"><code>command</code></a> - (Optional) Entrypoint array. Not executed within a shell. The docker image&#39;s ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container&#39;s environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/containers#containers-and-commands">Kubernetes reference</a>
+</li>
+<li><a name="env" /><a href="#env"><code>env</code></a> - (Optional) List of environment variables to set in the container. Cannot be updated.
+</li>
+<li><a name="env_from" /><a href="#env_from"><code>env_from</code></a> - (Optional) List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+</li>
+<li><a name="image" /><a href="#image"><code>image</code></a> - (Optional) Docker image name. For more info see <a href="http://kubernetes.io/docs/user-guide/images">Kubernetes reference</a>
+</li>
+<li><a name="image_pull_policy" /><a href="#image_pull_policy"><code>image_pull_policy</code></a> - (Optional) Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/images#updating-images">Kubernetes reference</a>
+</li>
+<li><a name="lifecycle" /><a href="#lifecycle"><code>lifecycle</code></a> - (Optional) Actions that the management system should take in response to container lifecycle events
+</li>
+<li><a name="liveness_probe" /><a href="#liveness_probe"><code>liveness_probe</code></a> - (Optional) Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+<li><a name="name-1" /><a href="#name-1"><code>name</code></a> - (Required) Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
+</li>
+<li><a name="port" /><a href="#port"><code>port</code></a> - (Optional) List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default &quot;0.0.0.0&quot; address inside a container will be accessible from the network. Cannot be updated.
+</li>
+<li><a name="readiness_probe" /><a href="#readiness_probe"><code>readiness_probe</code></a> - (Optional) Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+<li><a name="resources" /><a href="#resources"><code>resources</code></a> - (Optional) Compute Resources required by this container. Cannot be updated. For more info see <a href="http://kubernetes.io/docs/user-guide/persistent-volumes#resources">Kubernetes reference</a>
+</li>
+<li><a name="security_context-1" /><a href="#security_context-1"><code>security_context</code></a> - (Optional) Security options the pod should run with. For more info see <a href="http://releases.k8s.io/HEAD/docs/design/security_context.md">http://releases.k8s.io/HEAD/docs/design/security_context.md</a>
+</li>
+<li><a name="stdin" /><a href="#stdin"><code>stdin</code></a> - (Optional) Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF.
+</li>
+<li><a name="stdin_once" /><a href="#stdin_once"><code>stdin_once</code></a> - (Optional) Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF.
+</li>
+<li><a name="termination_message_path" /><a href="#termination_message_path"><code>termination_message_path</code></a> - (Optional) Optional: Path at which the file to which the container&#39;s termination message will be written is mounted into the container&#39;s filesystem. Message written is intended to be brief final status, such as an assertion failure message. Defaults to /dev/termination-log. Cannot be updated.
+</li>
+<li><a name="tty" /><a href="#tty"><code>tty</code></a> - (Optional) Whether this container should allocate a TTY for itself
+</li>
+<li><a name="volume_mount" /><a href="#volume_mount"><code>volume_mount</code></a> - (Optional) Pod volumes to mount into the container&#39;s filesystem. Cannot be updated.
+</li>
+<li><a name="working_dir" /><a href="#working_dir"><code>working_dir</code></a> - (Optional) Container&#39;s working directory. If not specified, the container runtime&#39;s default will be used, which might be configured in the container image. Cannot be updated.
+</li>
+</ul>
+<h3 id="aws_elastic_block_store">
+  <a name="aws_elastic_block_store" class="anchor" href="#aws_elastic_block_store">&raquo;</a>
+  <code>aws_elastic_block_store</code>
+</h3>
+<h4 id="arguments-7">
+  <a name="arguments-7" class="anchor" href="#arguments-7">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type" /><a href="#fs_type"><code>fs_type</code></a> - (Optional) Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#awselasticblockstore">Kubernetes reference</a>
+</li>
+<li><a name="partition" /><a href="#partition"><code>partition</code></a> - (Optional) The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty).
+</li>
+<li><a name="read_only" /><a href="#read_only"><code>read_only</code></a> - (Optional) Whether to set the read-only property in VolumeMounts to &quot;true&quot;. If omitted, the default is &quot;false&quot;. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#awselasticblockstore">Kubernetes reference</a>
+</li>
+<li><a name="volume_id" /><a href="#volume_id"><code>volume_id</code></a> - (Required) Unique ID of the persistent disk resource in AWS (Amazon EBS volume). For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#awselasticblockstore">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="azure_disk">
+  <a name="azure_disk" class="anchor" href="#azure_disk">&raquo;</a>
+  <code>azure_disk</code>
+</h3>
+<h4 id="arguments-8">
+  <a name="arguments-8" class="anchor" href="#arguments-8">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="caching_mode" /><a href="#caching_mode"><code>caching_mode</code></a> - (Required) Host Caching mode: None, Read Only, Read Write.
+</li>
+<li><a name="data_disk_uri" /><a href="#data_disk_uri"><code>data_disk_uri</code></a> - (Required) The URI the data disk in the blob storage
+</li>
+<li><a name="disk_name" /><a href="#disk_name"><code>disk_name</code></a> - (Required) The Name of the data disk in the blob storage
+</li>
+<li><a name="fs_type-1" /><a href="#fs_type-1"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.
+</li>
+<li><a name="read_only-1" /><a href="#read_only-1"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write).
+</li>
+</ul>
+<h3 id="azure_file">
+  <a name="azure_file" class="anchor" href="#azure_file">&raquo;</a>
+  <code>azure_file</code>
+</h3>
+<h4 id="arguments-9">
+  <a name="arguments-9" class="anchor" href="#arguments-9">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="read_only-2" /><a href="#read_only-2"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write).
+</li>
+<li><a name="secret_name" /><a href="#secret_name"><code>secret_name</code></a> - (Required) The name of secret that contains Azure Storage Account Name and Key
+</li>
+<li><a name="share_name" /><a href="#share_name"><code>share_name</code></a> - (Required) Share Name
+</li>
+</ul>
+<h3 id="capabilities">
+  <a name="capabilities" class="anchor" href="#capabilities">&raquo;</a>
+  <code>capabilities</code>
+</h3>
+<h4 id="arguments-10">
+  <a name="arguments-10" class="anchor" href="#arguments-10">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="add" /><a href="#add"><code>add</code></a> - (Optional) Added capabilities
+</li>
+<li><a name="drop" /><a href="#drop"><code>drop</code></a> - (Optional) Removed capabilities
+</li>
+</ul>
+<h3 id="ceph_fs">
+  <a name="ceph_fs" class="anchor" href="#ceph_fs">&raquo;</a>
+  <code>ceph_fs</code>
+</h3>
+<h4 id="arguments-11">
+  <a name="arguments-11" class="anchor" href="#arguments-11">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="monitors" /><a href="#monitors"><code>monitors</code></a> - (Required) Monitors is a collection of Ceph monitors For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it</a>
+</li>
+<li><a name="path" /><a href="#path"><code>path</code></a> - (Optional) Used as the mounted root, rather than the full Ceph tree, default is /
+</li>
+<li><a name="read_only-3" /><a href="#read_only-3"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to <code>false</code> (read/write). For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it</a>
+</li>
+<li><a name="secret_file" /><a href="#secret_file"><code>secret_file</code></a> - (Optional) The path to key ring for User, default is /etc/ceph/user.secret For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it</a>
+</li>
+<li><a name="secret_ref" /><a href="#secret_ref"><code>secret_ref</code></a> - (Optional) Reference to the authentication secret for User, default is empty. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it</a>
+</li>
+<li><a name="user" /><a href="#user"><code>user</code></a> - (Optional) User is the rados user name, default is admin. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/cephfs/README.md#how-to-use-it</a>
+</li>
+</ul>
+<h3 id="cinder">
+  <a name="cinder" class="anchor" href="#cinder">&raquo;</a>
+  <code>cinder</code>
+</h3>
+<h4 id="arguments-12">
+  <a name="arguments-12" class="anchor" href="#arguments-12">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-2" /><a href="#fs_type-2"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. For more info see <a href="http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a>
+</li>
+<li><a name="read_only-4" /><a href="#read_only-4"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). For more info see <a href="http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a>
+</li>
+<li><a name="volume_id-1" /><a href="#volume_id-1"><code>volume_id</code></a> - (Required) Volume ID used to identify the volume in Cinder. For more info see <a href="http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a>
+</li>
+</ul>
+<h3 id="config_map">
+  <a name="config_map" class="anchor" href="#config_map">&raquo;</a>
+  <code>config_map</code>
+</h3>
+<h4 id="arguments-13">
+  <a name="arguments-13" class="anchor" href="#arguments-13">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="default_mode" /><a href="#default_mode"><code>default_mode</code></a> - (Optional) Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+</li>
+<li><a name="items" /><a href="#items"><code>items</code></a> - (Optional) If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
+</li>
+<li><a name="name-2" /><a href="#name-2"><code>name</code></a> - (Optional) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="config_map_ref">
+  <a name="config_map_ref" class="anchor" href="#config_map_ref">&raquo;</a>
+  <code>config_map_ref</code>
+</h3>
+<h4 id="arguments-14">
+  <a name="arguments-14" class="anchor" href="#arguments-14">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-3" /><a href="#name-3"><code>name</code></a> - (Required) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+<li><a name="optional" /><a href="#optional"><code>optional</code></a> - (Optional) Specify whether the ConfigMap must be defined
+</li>
+</ul>
+<h3 id="config_map_key_ref">
+  <a name="config_map_key_ref" class="anchor" href="#config_map_key_ref">&raquo;</a>
+  <code>config_map_key_ref</code>
+</h3>
+<h4 id="arguments-15">
+  <a name="arguments-15" class="anchor" href="#arguments-15">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="key" /><a href="#key"><code>key</code></a> - (Optional) The key to select.
+</li>
+<li><a name="name-4" /><a href="#name-4"><code>name</code></a> - (Optional) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="downward_api">
+  <a name="downward_api" class="anchor" href="#downward_api">&raquo;</a>
+  <code>downward_api</code>
+</h3>
+<h4 id="arguments-16">
+  <a name="arguments-16" class="anchor" href="#arguments-16">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="default_mode-1" /><a href="#default_mode-1"><code>default_mode</code></a> - (Optional) Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+</li>
+<li><a name="items-1" /><a href="#items-1"><code>items</code></a> - (Optional) If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
+</li>
+</ul>
+<h3 id="empty_dir">
+  <a name="empty_dir" class="anchor" href="#empty_dir">&raquo;</a>
+  <code>empty_dir</code>
+</h3>
+<h4 id="arguments-17">
+  <a name="arguments-17" class="anchor" href="#arguments-17">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="medium" /><a href="#medium"><code>medium</code></a> - (Optional) What type of storage medium should back this directory. The default is &quot;&quot; which means to use the node&#39;s default medium. Must be an empty string (default) or Memory. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#emptydir">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="env-1">
+  <a name="env-1" class="anchor" href="#env-1">&raquo;</a>
+  <code>env</code>
+</h3>
+<h4 id="arguments-18">
+  <a name="arguments-18" class="anchor" href="#arguments-18">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-5" /><a href="#name-5"><code>name</code></a> - (Required) Name of the environment variable. Must be a C_IDENTIFIER
+</li>
+<li><a name="value" /><a href="#value"><code>value</code></a> - (Optional) Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to &quot;&quot;.
+</li>
+<li><a name="value_from" /><a href="#value_from"><code>value_from</code></a> - (Optional) Source for the environment variable&#39;s value
+</li>
+</ul>
+<h3 id="env_from-1">
+  <a name="env_from-1" class="anchor" href="#env_from-1">&raquo;</a>
+  <code>env_from</code>
+</h3>
+<h4 id="arguments-19">
+  <a name="arguments-19" class="anchor" href="#arguments-19">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="config_map_ref-1" /><a href="#config_map_ref-1"><code>config_map_ref</code></a> - (Optional) The ConfigMap to select from
+</li>
+<li><a name="prefix" /><a href="#prefix"><code>prefix</code></a> - (Optional) An optional identifer to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER..
+</li>
+<li><a name="secret_ref-1" /><a href="#secret_ref-1"><code>secret_ref</code></a> - (Optional) The Secret to select from
+</li>
+</ul>
+<h3 id="exec">
+  <a name="exec" class="anchor" href="#exec">&raquo;</a>
+  <code>exec</code>
+</h3>
+<h4 id="arguments-20">
+  <a name="arguments-20" class="anchor" href="#arguments-20">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="command-1" /><a href="#command-1"><code>command</code></a> - (Optional) Command is the command line to execute inside the container, the working directory for the command is root (&#39;/&#39;) in the container&#39;s filesystem. The command is simply exec&#39;d, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+</li>
+</ul>
+<h3 id="fc">
+  <a name="fc" class="anchor" href="#fc">&raquo;</a>
+  <code>fc</code>
+</h3>
+<h4 id="arguments-21">
+  <a name="arguments-21" class="anchor" href="#arguments-21">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-3" /><a href="#fs_type-3"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.
+</li>
+<li><a name="lun" /><a href="#lun"><code>lun</code></a> - (Required) FC target lun number
+</li>
+<li><a name="read_only-5" /><a href="#read_only-5"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write).
+</li>
+<li><a name="target_ww_ns" /><a href="#target_ww_ns"><code>target_ww_ns</code></a> - (Required) FC target worldwide names (WWNs)
+</li>
+</ul>
+<h3 id="field_ref">
+  <a name="field_ref" class="anchor" href="#field_ref">&raquo;</a>
+  <code>field_ref</code>
+</h3>
+<h4 id="arguments-22">
+  <a name="arguments-22" class="anchor" href="#arguments-22">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="api_version" /><a href="#api_version"><code>api_version</code></a> - (Optional) Version of the schema the FieldPath is written in terms of, defaults to &quot;v1&quot;.
+</li>
+<li><a name="field_path" /><a href="#field_path"><code>field_path</code></a> - (Optional) Path of the field to select in the specified API version
+</li>
+</ul>
+<h3 id="flex_volume">
+  <a name="flex_volume" class="anchor" href="#flex_volume">&raquo;</a>
+  <code>flex_volume</code>
+</h3>
+<h4 id="arguments-23">
+  <a name="arguments-23" class="anchor" href="#arguments-23">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="driver" /><a href="#driver"><code>driver</code></a> - (Required) Driver is the name of the driver to use for this volume.
+</li>
+<li><a name="fs_type-4" /><a href="#fs_type-4"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. The default filesystem depends on FlexVolume script.
+</li>
+<li><a name="options" /><a href="#options"><code>options</code></a> - (Optional) Extra command options if any.
+</li>
+<li><a name="read_only-6" /><a href="#read_only-6"><code>read_only</code></a> - (Optional) Whether to force the ReadOnly setting in VolumeMounts. Defaults to false (read/write).
+</li>
+<li><a name="secret_ref-2" /><a href="#secret_ref-2"><code>secret_ref</code></a> - (Optional) Reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+</li>
+</ul>
+<h3 id="flocker">
+  <a name="flocker" class="anchor" href="#flocker">&raquo;</a>
+  <code>flocker</code>
+</h3>
+<h4 id="arguments-24">
+  <a name="arguments-24" class="anchor" href="#arguments-24">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="dataset_name" /><a href="#dataset_name"><code>dataset_name</code></a> - (Optional) Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be considered as deprecated
+</li>
+<li><a name="dataset_uuid" /><a href="#dataset_uuid"><code>dataset_uuid</code></a> - (Optional) UUID of the dataset. This is unique identifier of a Flocker dataset
+</li>
+</ul>
+<h3 id="gce_persistent_disk">
+  <a name="gce_persistent_disk" class="anchor" href="#gce_persistent_disk">&raquo;</a>
+  <code>gce_persistent_disk</code>
+</h3>
+<h4 id="arguments-25">
+  <a name="arguments-25" class="anchor" href="#arguments-25">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-5" /><a href="#fs_type-5"><code>fs_type</code></a> - (Optional) Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#gcepersistentdisk">Kubernetes reference</a>
+</li>
+<li><a name="partition-1" /><a href="#partition-1"><code>partition</code></a> - (Optional) The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as &quot;1&quot;. Similarly, the volume partition for /dev/sda is &quot;0&quot; (or you can leave the property empty). For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#gcepersistentdisk">Kubernetes reference</a>
+</li>
+<li><a name="pd_name" /><a href="#pd_name"><code>pd_name</code></a> - (Required) Unique name of the PD resource in GCE. Used to identify the disk in GCE. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#gcepersistentdisk">Kubernetes reference</a>
+</li>
+<li><a name="read_only-7" /><a href="#read_only-7"><code>read_only</code></a> - (Optional) Whether to force the ReadOnly setting in VolumeMounts. Defaults to false. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#gcepersistentdisk">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="git_repo">
+  <a name="git_repo" class="anchor" href="#git_repo">&raquo;</a>
+  <code>git_repo</code>
+</h3>
+<h4 id="arguments-26">
+  <a name="arguments-26" class="anchor" href="#arguments-26">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="directory" /><a href="#directory"><code>directory</code></a> - (Optional) Target directory name. Must not contain or start with &#39;..&#39;. If &#39;.&#39; is supplied, the volume directory will be the git repository. Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+</li>
+<li><a name="repository" /><a href="#repository"><code>repository</code></a> - (Optional) Repository URL
+</li>
+<li><a name="revision" /><a href="#revision"><code>revision</code></a> - (Optional) Commit hash for the specified revision.
+</li>
+</ul>
+<h3 id="glusterfs">
+  <a name="glusterfs" class="anchor" href="#glusterfs">&raquo;</a>
+  <code>glusterfs</code>
+</h3>
+<h4 id="arguments-27">
+  <a name="arguments-27" class="anchor" href="#arguments-27">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="endpoints_name" /><a href="#endpoints_name"><code>endpoints_name</code></a> - (Required) The endpoint name that details Glusterfs topology. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod">http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod</a>
+</li>
+<li><a name="path-1" /><a href="#path-1"><code>path</code></a> - (Required) The Glusterfs volume path. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod">http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod</a>
+</li>
+<li><a name="read_only-8" /><a href="#read_only-8"><code>read_only</code></a> - (Optional) Whether to force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod">http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md#create-a-pod</a>
+</li>
+</ul>
+<h3 id="host_path">
+  <a name="host_path" class="anchor" href="#host_path">&raquo;</a>
+  <code>host_path</code>
+</h3>
+<h4 id="arguments-28">
+  <a name="arguments-28" class="anchor" href="#arguments-28">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="path-2" /><a href="#path-2"><code>path</code></a> - (Optional) Path of the directory on the host. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#hostpath">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="http_get">
+  <a name="http_get" class="anchor" href="#http_get">&raquo;</a>
+  <code>http_get</code>
+</h3>
+<h4 id="arguments-29">
+  <a name="arguments-29" class="anchor" href="#arguments-29">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="host" /><a href="#host"><code>host</code></a> - (Optional) Host name to connect to, defaults to the pod IP. You probably want to set &quot;Host&quot; in httpHeaders instead.
+</li>
+<li><a name="http_header" /><a href="#http_header"><code>http_header</code></a> - (Optional) Scheme to use for connecting to the host.
+</li>
+<li><a name="path-3" /><a href="#path-3"><code>path</code></a> - (Optional) Path to access on the HTTP server.
+</li>
+<li><a name="port-1" /><a href="#port-1"><code>port</code></a> - (Optional) Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+</li>
+<li><a name="scheme" /><a href="#scheme"><code>scheme</code></a> - (Optional) Scheme to use for connecting to the host.
+</li>
+</ul>
+<h3 id="http_header-1">
+  <a name="http_header-1" class="anchor" href="#http_header-1">&raquo;</a>
+  <code>http_header</code>
+</h3>
+<h4 id="arguments-30">
+  <a name="arguments-30" class="anchor" href="#arguments-30">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-6" /><a href="#name-6"><code>name</code></a> - (Optional) The header field name
+</li>
+<li><a name="value-1" /><a href="#value-1"><code>value</code></a> - (Optional) The header field value
+</li>
+</ul>
+<h3 id="image_pull_secrets-1">
+  <a name="image_pull_secrets-1" class="anchor" href="#image_pull_secrets-1">&raquo;</a>
+  <code>image_pull_secrets</code>
+</h3>
+<h4 id="arguments-31">
+  <a name="arguments-31" class="anchor" href="#arguments-31">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-7" /><a href="#name-7"><code>name</code></a> - (Required) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="iscsi">
+  <a name="iscsi" class="anchor" href="#iscsi">&raquo;</a>
+  <code>iscsi</code>
+</h3>
+<h4 id="arguments-32">
+  <a name="arguments-32" class="anchor" href="#arguments-32">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-6" /><a href="#fs_type-6"><code>fs_type</code></a> - (Optional) Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#iscsi">Kubernetes reference</a>
+</li>
+<li><a name="iqn" /><a href="#iqn"><code>iqn</code></a> - (Required) Target iSCSI Qualified Name.
+</li>
+<li><a name="iscsi_interface" /><a href="#iscsi_interface"><code>iscsi_interface</code></a> - (Optional) iSCSI interface name that uses an iSCSI transport. Defaults to &#39;default&#39; (tcp).
+</li>
+<li><a name="lun-1" /><a href="#lun-1"><code>lun</code></a> - (Optional) iSCSI target lun number.
+</li>
+<li><a name="read_only-9" /><a href="#read_only-9"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false.
+</li>
+<li><a name="target_portal" /><a href="#target_portal"><code>target_portal</code></a> - (Required) iSCSI target portal. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+</li>
+</ul>
+<h3 id="items-2">
+  <a name="items-2" class="anchor" href="#items-2">&raquo;</a>
+  <code>items</code>
+</h3>
+<h4 id="arguments-33">
+  <a name="arguments-33" class="anchor" href="#arguments-33">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="key-1" /><a href="#key-1"><code>key</code></a> - (Optional) The key to project.
+</li>
+<li><a name="mode" /><a href="#mode"><code>mode</code></a> - (Optional) Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+</li>
+<li><a name="path-4" /><a href="#path-4"><code>path</code></a> - (Optional) The relative path of the file to map the key to. May not be an absolute path. May not contain the path element &#39;..&#39;. May not start with the string &#39;..&#39;.
+</li>
+</ul>
+<h3 id="lifecycle-1">
+  <a name="lifecycle-1" class="anchor" href="#lifecycle-1">&raquo;</a>
+  <code>lifecycle</code>
+</h3>
+<h4 id="arguments-34">
+  <a name="arguments-34" class="anchor" href="#arguments-34">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="post_start" /><a href="#post_start"><code>post_start</code></a> - (Optional) post_start is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. For more info see <a href="http://kubernetes.io/docs/user-guide/container-environment#hook-details">Kubernetes reference</a>
+</li>
+<li><a name="pre_stop" /><a href="#pre_stop"><code>pre_stop</code></a> - (Optional) pre_stop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. For more info see <a href="http://kubernetes.io/docs/user-guide/container-environment#hook-details">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="limits">
+  <a name="limits" class="anchor" href="#limits">&raquo;</a>
+  <code>limits</code>
+</h3>
+<h4 id="arguments-35">
+  <a name="arguments-35" class="anchor" href="#arguments-35">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="cpu" /><a href="#cpu"><code>cpu</code></a> - (Optional) CPU
+</li>
+<li><a name="memory" /><a href="#memory"><code>memory</code></a> - (Optional) Memory
+</li>
+</ul>
+<h3 id="liveness_probe-1">
+  <a name="liveness_probe-1" class="anchor" href="#liveness_probe-1">&raquo;</a>
+  <code>liveness_probe</code>
+</h3>
+<h4 id="arguments-36">
+  <a name="arguments-36" class="anchor" href="#arguments-36">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="exec-1" /><a href="#exec-1"><code>exec</code></a> - (Optional) exec specifies the action to take.
+</li>
+<li><a name="failure_threshold" /><a href="#failure_threshold"><code>failure_threshold</code></a> - (Optional) Minimum consecutive failures for the probe to be considered failed after having succeeded.
+</li>
+<li><a name="http_get-1" /><a href="#http_get-1"><code>http_get</code></a> - (Optional) Specifies the http request to perform.
+</li>
+<li><a name="initial_delay_seconds" /><a href="#initial_delay_seconds"><code>initial_delay_seconds</code></a> - (Optional) Number of seconds after the container has started before liveness probes are initiated. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+<li><a name="period_seconds" /><a href="#period_seconds"><code>period_seconds</code></a> - (Optional) How often (in seconds) to perform the probe
+</li>
+<li><a name="success_threshold" /><a href="#success_threshold"><code>success_threshold</code></a> - (Optional) Minimum consecutive successes for the probe to be considered successful after having failed.
+</li>
+<li><a name="tcp_socket" /><a href="#tcp_socket"><code>tcp_socket</code></a> - (Optional) TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+</li>
+<li><a name="timeout_seconds" /><a href="#timeout_seconds"><code>timeout_seconds</code></a> - (Optional) Number of seconds after which the probe times out. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="nfs">
+  <a name="nfs" class="anchor" href="#nfs">&raquo;</a>
+  <code>nfs</code>
+</h3>
+<h4 id="arguments-37">
+  <a name="arguments-37" class="anchor" href="#arguments-37">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="path-5" /><a href="#path-5"><code>path</code></a> - (Required) Path that is exported by the NFS server. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#nfs">Kubernetes reference</a>
+</li>
+<li><a name="read_only-10" /><a href="#read_only-10"><code>read_only</code></a> - (Optional) Whether to force the NFS export to be mounted with read-only permissions. Defaults to false. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#nfs">Kubernetes reference</a>
+</li>
+<li><a name="server" /><a href="#server"><code>server</code></a> - (Required) Server is the hostname or IP address of the NFS server. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#nfs">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="persistent_volume_claim">
+  <a name="persistent_volume_claim" class="anchor" href="#persistent_volume_claim">&raquo;</a>
+  <code>persistent_volume_claim</code>
+</h3>
+<h4 id="arguments-38">
+  <a name="arguments-38" class="anchor" href="#arguments-38">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="claim_name" /><a href="#claim_name"><code>claim_name</code></a> - (Optional) ClaimName is the name of a PersistentVolumeClaim in the same
+</li>
+<li><a name="read_only-11" /><a href="#read_only-11"><code>read_only</code></a> - (Optional) Will force the ReadOnly setting in VolumeMounts.
+</li>
+</ul>
+<h3 id="photon_persistent_disk">
+  <a name="photon_persistent_disk" class="anchor" href="#photon_persistent_disk">&raquo;</a>
+  <code>photon_persistent_disk</code>
+</h3>
+<h4 id="arguments-39">
+  <a name="arguments-39" class="anchor" href="#arguments-39">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-7" /><a href="#fs_type-7"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.
+</li>
+<li><a name="pd_id" /><a href="#pd_id"><code>pd_id</code></a> - (Required) ID that identifies Photon Controller persistent disk
+</li>
+</ul>
+<h3 id="port-2">
+  <a name="port-2" class="anchor" href="#port-2">&raquo;</a>
+  <code>port</code>
+</h3>
+<h4 id="arguments-40">
+  <a name="arguments-40" class="anchor" href="#arguments-40">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="container_port" /><a href="#container_port"><code>container_port</code></a> - (Required) Number of port to expose on the pod&#39;s IP address. This must be a valid port number, 0 &lt; x &lt; 65536.
+</li>
+<li><a name="host_ip" /><a href="#host_ip"><code>host_ip</code></a> - (Optional) What host IP to bind the external port to.
+</li>
+<li><a name="host_port" /><a href="#host_port"><code>host_port</code></a> - (Optional) Number of port to expose on the host. If specified, this must be a valid port number, 0 &lt; x &lt; 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+</li>
+<li><a name="name-8" /><a href="#name-8"><code>name</code></a> - (Optional) If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services
+</li>
+<li><a name="protocol" /><a href="#protocol"><code>protocol</code></a> - (Optional) Protocol for port. Must be UDP or TCP. Defaults to &quot;TCP&quot;.
+</li>
+</ul>
+<h3 id="post_start-1">
+  <a name="post_start-1" class="anchor" href="#post_start-1">&raquo;</a>
+  <code>post_start</code>
+</h3>
+<h4 id="arguments-41">
+  <a name="arguments-41" class="anchor" href="#arguments-41">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="exec-2" /><a href="#exec-2"><code>exec</code></a> - (Optional) exec specifies the action to take.
+</li>
+<li><a name="http_get-2" /><a href="#http_get-2"><code>http_get</code></a> - (Optional) Specifies the http request to perform.
+</li>
+<li><a name="tcp_socket-1" /><a href="#tcp_socket-1"><code>tcp_socket</code></a> - (Optional) TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+</li>
+</ul>
+<h3 id="pre_stop-1">
+  <a name="pre_stop-1" class="anchor" href="#pre_stop-1">&raquo;</a>
+  <code>pre_stop</code>
+</h3>
+<h4 id="arguments-42">
+  <a name="arguments-42" class="anchor" href="#arguments-42">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="exec-3" /><a href="#exec-3"><code>exec</code></a> - (Optional) exec specifies the action to take.
+</li>
+<li><a name="http_get-3" /><a href="#http_get-3"><code>http_get</code></a> - (Optional) Specifies the http request to perform.
+</li>
+<li><a name="tcp_socket-2" /><a href="#tcp_socket-2"><code>tcp_socket</code></a> - (Optional) TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+</li>
+</ul>
+<h3 id="quobyte">
+  <a name="quobyte" class="anchor" href="#quobyte">&raquo;</a>
+  <code>quobyte</code>
+</h3>
+<h4 id="arguments-43">
+  <a name="arguments-43" class="anchor" href="#arguments-43">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="group" /><a href="#group"><code>group</code></a> - (Optional) Group to map volume access to Default is no group
+</li>
+<li><a name="read_only-12" /><a href="#read_only-12"><code>read_only</code></a> - (Optional) Whether to force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+</li>
+<li><a name="registry" /><a href="#registry"><code>registry</code></a> - (Required) Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+</li>
+<li><a name="user-1" /><a href="#user-1"><code>user</code></a> - (Optional) User to map volume access to Defaults to serivceaccount user
+</li>
+<li><a name="volume-1" /><a href="#volume-1"><code>volume</code></a> - (Required) Volume is a string that references an already created Quobyte volume by name.
+</li>
+</ul>
+<h3 id="rbd">
+  <a name="rbd" class="anchor" href="#rbd">&raquo;</a>
+  <code>rbd</code>
+</h3>
+<h4 id="arguments-44">
+  <a name="arguments-44" class="anchor" href="#arguments-44">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="ceph_monitors" /><a href="#ceph_monitors"><code>ceph_monitors</code></a> - (Required) A collection of Ceph monitors. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+<li><a name="fs_type-8" /><a href="#fs_type-8"><code>fs_type</code></a> - (Optional) Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#rbd">Kubernetes reference</a>
+</li>
+<li><a name="keyring" /><a href="#keyring"><code>keyring</code></a> - (Optional) Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+<li><a name="rados_user" /><a href="#rados_user"><code>rados_user</code></a> - (Optional) The rados user name. Default is admin. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+<li><a name="rbd_image" /><a href="#rbd_image"><code>rbd_image</code></a> - (Required) The rados image name. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+<li><a name="rbd_pool" /><a href="#rbd_pool"><code>rbd_pool</code></a> - (Optional) The rados pool name. Default is rbd. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>.
+</li>
+<li><a name="read_only-13" /><a href="#read_only-13"><code>read_only</code></a> - (Optional) Whether to force the read-only setting in VolumeMounts. Defaults to false. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+<li><a name="secret_ref-3" /><a href="#secret_ref-3"><code>secret_ref</code></a> - (Optional) Name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md#how-to-use-it</a>
+</li>
+</ul>
+<h3 id="readiness_probe-1">
+  <a name="readiness_probe-1" class="anchor" href="#readiness_probe-1">&raquo;</a>
+  <code>readiness_probe</code>
+</h3>
+<h4 id="arguments-45">
+  <a name="arguments-45" class="anchor" href="#arguments-45">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="exec-4" /><a href="#exec-4"><code>exec</code></a> - (Optional) exec specifies the action to take.
+</li>
+<li><a name="failure_threshold-1" /><a href="#failure_threshold-1"><code>failure_threshold</code></a> - (Optional) Minimum consecutive failures for the probe to be considered failed after having succeeded.
+</li>
+<li><a name="http_get-4" /><a href="#http_get-4"><code>http_get</code></a> - (Optional) Specifies the http request to perform.
+</li>
+<li><a name="initial_delay_seconds-1" /><a href="#initial_delay_seconds-1"><code>initial_delay_seconds</code></a> - (Optional) Number of seconds after the container has started before liveness probes are initiated. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+<li><a name="period_seconds-1" /><a href="#period_seconds-1"><code>period_seconds</code></a> - (Optional) How often (in seconds) to perform the probe
+</li>
+<li><a name="success_threshold-1" /><a href="#success_threshold-1"><code>success_threshold</code></a> - (Optional) Minimum consecutive successes for the probe to be considered successful after having failed.
+</li>
+<li><a name="tcp_socket-3" /><a href="#tcp_socket-3"><code>tcp_socket</code></a> - (Optional) TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+</li>
+<li><a name="timeout_seconds-1" /><a href="#timeout_seconds-1"><code>timeout_seconds</code></a> - (Optional) Number of seconds after which the probe times out. For more info see <a href="http://kubernetes.io/docs/user-guide/pod-states#container-probes">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="resources-1">
+  <a name="resources-1" class="anchor" href="#resources-1">&raquo;</a>
+  <code>resources</code>
+</h3>
+<h4 id="arguments-46">
+  <a name="arguments-46" class="anchor" href="#arguments-46">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="limits-1" /><a href="#limits-1"><code>limits</code></a> - (Optional) Describes the maximum amount of compute resources allowed. For more info see <a href="http://kubernetes.io/docs/user-guide/compute-resources">Kubernetes reference</a>/
+</li>
+<li><a name="requests" /><a href="#requests"><code>requests</code></a> - (Optional) Describes the minimum amount of compute resources required.
+</li>
+</ul>
+<h3 id="requests-1">
+  <a name="requests-1" class="anchor" href="#requests-1">&raquo;</a>
+  <code>requests</code>
+</h3>
+<h4 id="arguments-47">
+  <a name="arguments-47" class="anchor" href="#arguments-47">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="cpu-1" /><a href="#cpu-1"><code>cpu</code></a> - (Optional) CPU
+</li>
+<li><a name="memory-1" /><a href="#memory-1"><code>memory</code></a> - (Optional) Memory
+</li>
+</ul>
+<h3 id="resource_field_ref">
+  <a name="resource_field_ref" class="anchor" href="#resource_field_ref">&raquo;</a>
+  <code>resource_field_ref</code>
+</h3>
+<h4 id="arguments-48">
+  <a name="arguments-48" class="anchor" href="#arguments-48">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="container_name" /><a href="#container_name"><code>container_name</code></a> - (Optional) The name of the container
+</li>
+<li><a name="resource" /><a href="#resource"><code>resource</code></a> - (Required) Resource to select
+</li>
+</ul>
+<h3 id="se_linux_options">
+  <a name="se_linux_options" class="anchor" href="#se_linux_options">&raquo;</a>
+  <code>se_linux_options</code>
+</h3>
+<h4 id="arguments-49">
+  <a name="arguments-49" class="anchor" href="#arguments-49">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="level" /><a href="#level"><code>level</code></a> - (Optional) Level is SELinux level label that applies to the container.
+</li>
+<li><a name="role" /><a href="#role"><code>role</code></a> - (Optional) Role is a SELinux role label that applies to the container.
+</li>
+<li><a name="type-1" /><a href="#type-1"><code>type</code></a> - (Optional) Type is a SELinux type label that applies to the container.
+</li>
+<li><a name="user-2" /><a href="#user-2"><code>user</code></a> - (Optional) User is a SELinux user label that applies to the container.
+</li>
+</ul>
+<h3 id="secret">
+  <a name="secret" class="anchor" href="#secret">&raquo;</a>
+  <code>secret</code>
+</h3>
+<h4 id="arguments-50">
+  <a name="arguments-50" class="anchor" href="#arguments-50">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="default_mode-2" /><a href="#default_mode-2"><code>default_mode</code></a> - (Optional) Mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+</li>
+<li><a name="items-3" /><a href="#items-3"><code>items</code></a> - (Optional) List of Secret Items to project into the volume. See <code>items</code> block definition below. If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked <code>optional</code>. Paths must be relative and may not contain the &#39;..&#39; path or start with &#39;..&#39;.
+</li>
+<li><a name="optional-1" /><a href="#optional-1"><code>optional</code></a> - (Optional) Specify whether the Secret or it&#39;s keys must be defined.
+</li>
+<li><a name="secret_name-1" /><a href="#secret_name-1"><code>secret_name</code></a> - (Optional) Name of the secret in the pod&#39;s namespace to use. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#secrets">Kubernetes reference</a>
+</li>
+</ul>
+<p>The <code>items</code> block supports:</p>
+
+<ul>
+<li><a name="key-2" /><a href="#key-2"><code>key</code></a> - (Required) The key to project.
+</li>
+<li><a name="mode-1" /><a href="#mode-1"><code>mode</code></a> - (Optional) Mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used.
+</li>
+<li><a name="path-6" /><a href="#path-6"><code>path</code></a> - (Required) The relative path of the file to map the key to. May not be an absolute path. May not contain the path element &#39;..&#39;. May not start with the string &#39;..&#39;.
+</li>
+</ul>
+<h3 id="secret_ref-4">
+  <a name="secret_ref-4" class="anchor" href="#secret_ref-4">&raquo;</a>
+  <code>secret_ref</code>
+</h3>
+<h4 id="arguments-51">
+  <a name="arguments-51" class="anchor" href="#arguments-51">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-9" /><a href="#name-9"><code>name</code></a> - (Required) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+<li><a name="optional-2" /><a href="#optional-2"><code>optional</code></a> - (Optional) Specify whether the Secret must be defined
+</li>
+</ul>
+<h3 id="secret_key_ref">
+  <a name="secret_key_ref" class="anchor" href="#secret_key_ref">&raquo;</a>
+  <code>secret_key_ref</code>
+</h3>
+<h4 id="arguments-52">
+  <a name="arguments-52" class="anchor" href="#arguments-52">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="key-3" /><a href="#key-3"><code>key</code></a> - (Optional) The key of the secret to select from. Must be a valid secret key.
+</li>
+<li><a name="name-10" /><a href="#name-10"><code>name</code></a> - (Optional) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="secret_ref-5">
+  <a name="secret_ref-5" class="anchor" href="#secret_ref-5">&raquo;</a>
+  <code>secret_ref</code>
+</h3>
+<h4 id="arguments-53">
+  <a name="arguments-53" class="anchor" href="#arguments-53">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="name-11" /><a href="#name-11"><code>name</code></a> - (Optional) Name of the referent. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+</ul>
+<h3 id="security_context-2">
+  <a name="security_context-2" class="anchor" href="#security_context-2">&raquo;</a>
+  <code>security_context</code>
+</h3>
+<h4 id="arguments-54">
+  <a name="arguments-54" class="anchor" href="#arguments-54">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_group" /><a href="#fs_group"><code>fs_group</code></a> - (Optional) A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod: 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR&#39;d with rw-rw---- If unset, the Kubelet will not modify the ownership and permissions of any volume.
+</li>
+<li><a name="run_as_non_root" /><a href="#run_as_non_root"><code>run_as_non_root</code></a> - (Optional) Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does.
+</li>
+<li><a name="run_as_user" /><a href="#run_as_user"><code>run_as_user</code></a> - (Optional) The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified
+</li>
+<li><a name="se_linux_options-1" /><a href="#se_linux_options-1"><code>se_linux_options</code></a> - (Optional) The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+</li>
+<li><a name="supplemental_groups" /><a href="#supplemental_groups"><code>supplemental_groups</code></a> - (Optional) A list of groups applied to the first process run in each container, in addition to the container&#39;s primary GID. If unspecified, no groups will be added to any container.
+</li>
+</ul>
+<h3 id="tcp_socket-4">
+  <a name="tcp_socket-4" class="anchor" href="#tcp_socket-4">&raquo;</a>
+  <code>tcp_socket</code>
+</h3>
+<h4 id="arguments-55">
+  <a name="arguments-55" class="anchor" href="#arguments-55">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="port-3" /><a href="#port-3"><code>port</code></a> - (Required) Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+</li>
+</ul>
+<h3 id="value_from-1">
+  <a name="value_from-1" class="anchor" href="#value_from-1">&raquo;</a>
+  <code>value_from</code>
+</h3>
+<h4 id="arguments-56">
+  <a name="arguments-56" class="anchor" href="#arguments-56">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="config_map_key_ref-1" /><a href="#config_map_key_ref-1"><code>config_map_key_ref</code></a> - (Optional) Selects a key of a ConfigMap.
+</li>
+<li><a name="field_ref-1" /><a href="#field_ref-1"><code>field_ref</code></a> - (Optional) Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP..
+</li>
+<li><a name="resource_field_ref-1" /><a href="#resource_field_ref-1"><code>resource_field_ref</code></a> - (Optional) Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP..
+</li>
+<li><a name="secret_key_ref-1" /><a href="#secret_key_ref-1"><code>secret_key_ref</code></a> - (Optional) Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP..
+</li>
+</ul>
+<h3 id="volume-2">
+  <a name="volume-2" class="anchor" href="#volume-2">&raquo;</a>
+  <code>volume</code>
+</h3>
+<h4 id="arguments-57">
+  <a name="arguments-57" class="anchor" href="#arguments-57">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="aws_elastic_block_store-1" /><a href="#aws_elastic_block_store-1"><code>aws_elastic_block_store</code></a> - (Optional) Represents an AWS Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#awselasticblockstore">Kubernetes reference</a>
+</li>
+<li><a name="azure_disk-1" /><a href="#azure_disk-1"><code>azure_disk</code></a> - (Optional) Represents an Azure Data Disk mount on the host and bind mount to the pod.
+</li>
+<li><a name="azure_file-1" /><a href="#azure_file-1"><code>azure_file</code></a> - (Optional) Represents an Azure File Service mount on the host and bind mount to the pod.
+</li>
+<li><a name="ceph_fs-1" /><a href="#ceph_fs-1"><code>ceph_fs</code></a> - (Optional) Represents a Ceph FS mount on the host that shares a pod&#39;s lifetime
+</li>
+<li><a name="cinder-1" /><a href="#cinder-1"><code>cinder</code></a> - (Optional) Represents a cinder volume attached and mounted on kubelets host machine. For more info see <a href="http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md">http://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md</a>
+</li>
+<li><a name="config_map-1" /><a href="#config_map-1"><code>config_map</code></a> - (Optional) ConfigMap represents a configMap that should populate this volume
+</li>
+<li><a name="downward_api-1" /><a href="#downward_api-1"><code>downward_api</code></a> - (Optional) DownwardAPI represents downward API about the pod that should populate this volume
+</li>
+<li><a name="empty_dir-1" /><a href="#empty_dir-1"><code>empty_dir</code></a> - (Optional) EmptyDir represents a temporary directory that shares a pod&#39;s lifetime. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#emptydir">Kubernetes reference</a>
+</li>
+<li><a name="fc-1" /><a href="#fc-1"><code>fc</code></a> - (Optional) Represents a Fibre Channel resource that is attached to a kubelet&#39;s host machine and then exposed to the pod.
+</li>
+<li><a name="flex_volume-1" /><a href="#flex_volume-1"><code>flex_volume</code></a> - (Optional) Represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.
+</li>
+<li><a name="flocker-1" /><a href="#flocker-1"><code>flocker</code></a> - (Optional) Represents a Flocker volume attached to a kubelet&#39;s host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+</li>
+<li><a name="gce_persistent_disk-1" /><a href="#gce_persistent_disk-1"><code>gce_persistent_disk</code></a> - (Optional) Represents a GCE Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#gcepersistentdisk">Kubernetes reference</a>
+</li>
+<li><a name="git_repo-1" /><a href="#git_repo-1"><code>git_repo</code></a> - (Optional) GitRepo represents a git repository at a particular revision.
+</li>
+<li><a name="glusterfs-1" /><a href="#glusterfs-1"><code>glusterfs</code></a> - (Optional) Represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md">http://releases.k8s.io/HEAD/examples/volumes/glusterfs/README.md</a>
+</li>
+<li><a name="host_path-1" /><a href="#host_path-1"><code>host_path</code></a> - (Optional) Represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#hostpath">Kubernetes reference</a>
+</li>
+<li><a name="iscsi-1" /><a href="#iscsi-1"><code>iscsi</code></a> - (Optional) Represents an ISCSI Disk resource that is attached to a kubelet&#39;s host machine and then exposed to the pod. Provisioned by an admin.
+</li>
+<li><a name="name-12" /><a href="#name-12"><code>name</code></a> - (Optional) Volume&#39;s name. Must be a DNS_LABEL and unique within the pod. For more info see <a href="http://kubernetes.io/docs/user-guide/identifiers#names">Kubernetes reference</a>
+</li>
+<li><a name="nfs-1" /><a href="#nfs-1"><code>nfs</code></a> - (Optional) Represents an NFS mount on the host. Provisioned by an admin. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#nfs">Kubernetes reference</a>
+</li>
+<li><a name="persistent_volume_claim-1" /><a href="#persistent_volume_claim-1"><code>persistent_volume_claim</code></a> - (Optional) The specification of a persistent volume.
+</li>
+<li><a name="photon_persistent_disk-1" /><a href="#photon_persistent_disk-1"><code>photon_persistent_disk</code></a> - (Optional) Represents a PhotonController persistent disk attached and mounted on kubelets host machine
+</li>
+<li><a name="quobyte-1" /><a href="#quobyte-1"><code>quobyte</code></a> - (Optional) Quobyte represents a Quobyte mount on the host that shares a pod&#39;s lifetime
+</li>
+<li><a name="rbd-1" /><a href="#rbd-1"><code>rbd</code></a> - (Optional) Represents a Rados Block Device mount on the host that shares a pod&#39;s lifetime. For more info see <a href="http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md">http://releases.k8s.io/HEAD/examples/volumes/rbd/README.md</a>
+</li>
+<li><a name="secret-1" /><a href="#secret-1"><code>secret</code></a> - (Optional) Secret represents a secret that should populate this volume. For more info see <a href="http://kubernetes.io/docs/user-guide/volumes#secrets">Kubernetes reference</a>
+</li>
+<li><a name="vsphere_volume" /><a href="#vsphere_volume"><code>vsphere_volume</code></a> - (Optional) Represents a vSphere volume attached and mounted on kubelets host machine
+</li>
+</ul>
+<h3 id="volume_mount-1">
+  <a name="volume_mount-1" class="anchor" href="#volume_mount-1">&raquo;</a>
+  <code>volume_mount</code>
+</h3>
+<h4 id="arguments-58">
+  <a name="arguments-58" class="anchor" href="#arguments-58">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="mount_path" /><a href="#mount_path"><code>mount_path</code></a> - (Required) Path within the container at which the volume should be mounted. Must not contain &#39;:&#39;.
+</li>
+<li><a name="name-13" /><a href="#name-13"><code>name</code></a> - (Required) This must match the Name of a Volume.
+</li>
+<li><a name="read_only-14" /><a href="#read_only-14"><code>read_only</code></a> - (Optional) Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+</li>
+<li><a name="sub_path" /><a href="#sub_path"><code>sub_path</code></a> - (Optional) Path within the volume from which the container&#39;s volume should be mounted. Defaults to &quot;&quot; (volume&#39;s root).
+</li>
+</ul>
+<h3 id="vsphere_volume-1">
+  <a name="vsphere_volume-1" class="anchor" href="#vsphere_volume-1">&raquo;</a>
+  <code>vsphere_volume</code>
+</h3>
+<h4 id="arguments-59">
+  <a name="arguments-59" class="anchor" href="#arguments-59">&raquo;</a>
+  Arguments
+</h4>
+
+<ul>
+<li><a name="fs_type-9" /><a href="#fs_type-9"><code>fs_type</code></a> - (Optional) Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. &quot;ext4&quot;, &quot;xfs&quot;, &quot;ntfs&quot;. Implicitly inferred to be &quot;ext4&quot; if unspecified.
+</li>
+<li><a name="volume_path" /><a href="#volume_path"><code>volume_path</code></a> - (Required) Path that identifies vSphere volume vmdk
+</li>
+</ul>
+<h2 id="timeouts">
+  <a name="timeouts" class="anchor" href="#timeouts">&raquo;</a>
+  Timeouts
+</h2>
+<p>The following <a href="/docs/configuration/resources.html#timeouts">Timeout</a> configuration options are available:</p>
+
+<ul>
+<li><a name="create" /><a href="#create"><code>create</code></a> - (Default <code>10 minutes</code>) Used for creating new controller
+</li>
+<li><a name="update" /><a href="#update"><code>update</code></a> - (Default <code>10 minutes</code>) Used for updating a controller
+</li>
+<li><a name="delete" /><a href="#delete"><code>delete</code></a> - (Default <code>10 minutes</code>) Used for destroying a controller
+</li>
+</ul>
+<h2 id="import">
+  <a name="import" class="anchor" href="#import">&raquo;</a>
+  Import
+</h2>
+<p>Deployment can be imported using the namespace and name, e.g.</p>
+<div class="highlight"><pre class="highlight plaintext"><code>$ terraform import kubernetes_deployment.example default/terraform-example
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1046 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manages a Virtual Machine.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/azurestack/r/virtual_machine.html" />
+    <meta property="og:title" content="Azure Resource Manager: azurestack_virtual_machine - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Manages a Virtual Machine." />
+
+    <title>Azure Resource Manager: azurestack_virtual_machine - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-azurestack-resource-compute-virtual-machine" class="layout-azurestack page-azure-resource-manager-azurestack-virtual-machine">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+              <div class="docs-sidebar hidden-print affix-top" role="complementary">
+          <ul class="nav docs-sidenav">
+            <li>
+              <a href="/docs/providers/index.html">All Providers</a>
+            </li>
+
+            <li>
+              <a href="/docs/providers/azurestack/index.html">Azure Stack Provider</a>
+              <ul class="nav nav-visible">
+                <li>
+                    <a href="/docs/providers/azurestack/authenticating_via_service_principal.html">Authenticating via a Service Principal (Shared Account)</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Data Sources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                    <a href="/docs/providers/azurestack/d/network_interface.html">azurestack_network_interface</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurestack/d/network_security_group.html">azurestack_network_security_group</a>
+                </li>
+                
+                <li>
+                    <a href="/docs/providers/azurestack/d/public_ip.html">azurestack_public_ip</a>
+                </li>
+
+                <li>
+                    <a href="/docs/providers/azurestack/d/resource_group.html">azurestack_resource_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/d/route_table.html">azurestack_route_table</a>
+                </li>
+
+
+                <li>
+                    <a href="/docs/providers/azurestack/d/storage_account.html">azurestack_storage_account</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/azurestack/d/subnet.html">azurestack_subnet</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/azurestack/d/virtual_network.html">azurestack_virtual_network</a>
+                </li>
+                <li>
+                    <a href="/docs/providers/azurestack/d/virtual_network_gateway.html">azurestack_virtual_network_gateway</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Base Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurestack/r/resource_group.html">azurestack_resource_group</a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="active">
+              <a href="#">Compute Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/availability_set.html">azurestack_availability_set</a>
+                </li>
+
+                <li class="active">
+                  <a href="/docs/providers/azurestack/r/virtual_machine.html">azurestack_virtual_machine</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/virtual_machine_extension.html">azurestack_virtual_machine_extension</a>
+                
+                </li><li>
+                  <a href="/docs/providers/azurestack/r/virtual_machine_scale_set.html">azurestack_virtual_machine_scale_set</a>
+                </li>
+
+              </ul>
+            </li>
+
+            <li>
+                <a href="#">DNS Resources</a>
+                <ul class="nav nav-visible">
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/dns_a_record.html">azurestack_dns_a_record</a>
+                  </li>
+
+                  <li>
+                      <a href="/docs/providers/azurestack/r/dns_zone.html">azurestack_dns_zone</a>
+                  </li>
+
+                </ul>
+            </li>
+
+            <li>
+              <a href="#">Network Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/local_network_gateway.html">azurestack_local_network_gateway</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/route.html">azurestack_route</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/route_table.html">azurestack_route_table</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/network_interface.html">azurestack_network_interface</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/network_security_group.html">azurestack_network_security_group</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/network_security_rule.html">azurestack_network_security_rule</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/public_ip.html">azurestack_public_ip</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/subnet.html">azurestack_subnet</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/virtual_network.html">azurestack_virtual_network</a>
+                </li>
+
+                 <li>
+                  <a href="/docs/providers/azurestack/r/virtual_network_gateway.html">azurestack_virtual_network_gateway</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Storage Resources</a>
+              <ul class="nav nav-visible">
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/storage_account.html">azurestack_storage_account</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/storage_container.html">azurestack_storage_container</a>
+                </li>
+
+                <li>
+                  <a href="/docs/providers/azurestack/r/storage_blob.html">azurestack_storage_blob</a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li>
+              <a href="#">Load Balancer Resources</a>
+              <ul class="nav nav-visible">
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer.html">azurestack_lb</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer_rule.html">azurestack_lb_rule</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer_backend_address_pool.html">azurestack_lb_backend_address_pool</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer_nat_rule.html">azurestack_lb_nat_rule</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer_probe.html">azurestack_lb_probe</a>
+                  </li>
+
+                  <li>
+                    <a href="/docs/providers/azurestack/r/loadbalancer_nat_pool.html">azurestack_lb_nat_pool</a>
+                  </li>
+
+              </ul>
+            </li>
+
+            <li>
+              <a href="#">Template Resources</a>
+              <ul class="nav nav-visible">
+                <li>
+                  <a href="/docs/providers/azurestack/r/template_deployment.html">azurestack_template_deployment</a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+    <h1 id="azurestack_virtual_machine">
+  <a name="azurestack_virtual_machine" class="anchor" href="#azurestack_virtual_machine">&raquo;</a>
+  azurestack_virtual_machine
+</h1>
+<p>Manages a virtual machine.</p>
+<h2 id="example-usage-with-unmanaged-disks">
+  <a name="example-usage-with-unmanaged-disks" class="anchor" href="#example-usage-with-unmanaged-disks">&raquo;</a>
+  Example Usage with Unmanaged Disks
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"azurestack_resource_group"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"acctestrg"</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="s2">"West US"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_network"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                <span class="o">=</span> <span class="s2">"acctvn"</span>
+  <span class="n">address_space</span>       <span class="o">=</span> <span class="p">[</span><span class="s2">"10.0.0.0/16"</span><span class="p">]</span>
+  <span class="n">location</span>            <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_subnet"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                 <span class="o">=</span> <span class="s2">"acctsub"</span>
+  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="s2">"${azurestack_virtual_network.test.name}"</span>
+  <span class="n">address_prefix</span>       <span class="o">=</span> <span class="s2">"10.0.2.0/24"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_network_interface"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                <span class="o">=</span> <span class="s2">"acctni"</span>
+  <span class="n">location</span>            <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+
+  <span class="n">ip_configuration</span> <span class="p">{</span>
+    <span class="nb">name</span>                          <span class="o">=</span> <span class="s2">"testconfiguration1"</span>
+    <span class="n">subnet_id</span>                     <span class="o">=</span> <span class="s2">"${azurestack_subnet.test.id}"</span>
+    <span class="n">private_ip_address_allocation</span> <span class="o">=</span> <span class="s2">"dynamic"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_storage_account"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                     <span class="o">=</span> <span class="s2">"accsa"</span>
+  <span class="n">resource_group_name</span>      <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">location</span>                 <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">account_tier</span>             <span class="o">=</span> <span class="s2">"Standard"</span>
+  <span class="n">account_replication_type</span> <span class="o">=</span> <span class="s2">"LRS"</span>
+
+  <span class="n">tags</span> <span class="p">{</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="s2">"staging"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_storage_container"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                  <span class="o">=</span> <span class="s2">"vhds"</span>
+  <span class="n">resource_group_name</span>   <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">storage_account_name</span>  <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.name}"</span>
+  <span class="n">container_access_type</span> <span class="o">=</span> <span class="s2">"private"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_machine"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                  <span class="o">=</span> <span class="s2">"acctvm"</span>
+  <span class="n">location</span>              <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span>   <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">network_interface_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"${azurestack_network_interface.test.id}"</span><span class="p">]</span>
+  <span class="n">vm_size</span>               <span class="o">=</span> <span class="s2">"Standard_F2"</span>
+
+  <span class="c1"># Uncomment this line to delete the OS disk automatically when deleting the VM</span>
+  <span class="c1"># delete_os_disk_on_termination = true</span>
+
+  <span class="c1"># Uncomment this line to delete the data disks automatically when deleting the VM</span>
+  <span class="c1"># delete_data_disks_on_termination = true</span>
+
+  <span class="n">storage_image_reference</span> <span class="p">{</span>
+    <span class="n">publisher</span> <span class="o">=</span> <span class="s2">"Canonical"</span>
+    <span class="n">offer</span>     <span class="o">=</span> <span class="s2">"UbuntuServer"</span>
+    <span class="n">sku</span>       <span class="o">=</span> <span class="s2">"16.04-LTS"</span>
+    <span class="n">version</span>   <span class="o">=</span> <span class="s2">"latest"</span>
+  <span class="p">}</span>
+
+  <span class="n">storage_os_disk</span> <span class="p">{</span>
+    <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"myosdisk1"</span>
+    <span class="n">vhd_uri</span>       <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.primary_blob_endpoint}${azurestack_storage_container.test.name}/myosdisk1.vhd"</span>
+    <span class="n">caching</span>       <span class="o">=</span> <span class="s2">"ReadWrite"</span>
+    <span class="n">create_option</span> <span class="o">=</span> <span class="s2">"FromImage"</span>
+  <span class="p">}</span>
+
+  <span class="c1"># Optional data disks</span>
+  <span class="n">storage_data_disk</span> <span class="p">{</span>
+    <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"datadisk0"</span>
+    <span class="n">vhd_uri</span>       <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.primary_blob_endpoint}${azurestack_storage_container.test.name}/datadisk0.vhd"</span>
+    <span class="n">disk_size_gb</span>  <span class="o">=</span> <span class="s2">"1023"</span>
+    <span class="n">create_option</span> <span class="o">=</span> <span class="s2">"Empty"</span>
+    <span class="n">lun</span>           <span class="o">=</span> <span class="mi">0</span>
+  <span class="p">}</span>
+
+  <span class="n">os_profile</span> <span class="p">{</span>
+    <span class="n">computer_name</span>  <span class="o">=</span> <span class="s2">"hostname"</span>
+    <span class="n">admin_username</span> <span class="o">=</span> <span class="s2">"testadmin"</span>
+    <span class="n">admin_password</span> <span class="o">=</span> <span class="s2">"Password1234!"</span>
+  <span class="p">}</span>
+
+  <span class="n">os_profile_linux_config</span> <span class="p">{</span>
+    <span class="n">disable_password_authentication</span> <span class="o">=</span> <span class="kp">false</span>
+  <span class="p">}</span>
+
+  <span class="n">tags</span> <span class="p">{</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="s2">"staging"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="example-usage-with-unmanaged-disks-and-public-ip">
+  <a name="example-usage-with-unmanaged-disks-and-public-ip" class="anchor" href="#example-usage-with-unmanaged-disks-and-public-ip">&raquo;</a>
+  Example Usage with Unmanaged Disks and Public IP
+</h2>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"azurestack_resource_group"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"acctestrg"</span>
+  <span class="c1"># This is Azure Stack Region so it will be different per Azure Stack and should not be in the format of "West US" etc... those are not the same values</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="s2">"region1"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_public_ip"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                         <span class="o">=</span> <span class="s2">"acceptanceTestPublicIp1"</span>
+  <span class="n">location</span>                     <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span>          <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">public_ip_address_allocation</span> <span class="o">=</span> <span class="s2">"static"</span>
+
+  <span class="n">tags</span> <span class="p">{</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="s2">"Production"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_network"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                <span class="o">=</span> <span class="s2">"acctvn"</span>
+  <span class="n">address_space</span>       <span class="o">=</span> <span class="p">[</span><span class="s2">"10.0.0.0/16"</span><span class="p">]</span>
+  <span class="n">location</span>            <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_subnet"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                 <span class="o">=</span> <span class="s2">"acctsub"</span>
+  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">virtual_network_name</span> <span class="o">=</span> <span class="s2">"${azurestack_virtual_network.test.name}"</span>
+  <span class="n">address_prefix</span>       <span class="o">=</span> <span class="s2">"10.0.2.0/24"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_network_interface"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                <span class="o">=</span> <span class="s2">"acctni"</span>
+  <span class="n">location</span>            <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span> <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+
+  <span class="n">ip_configuration</span> <span class="p">{</span>
+    <span class="nb">name</span>                          <span class="o">=</span> <span class="s2">"testconfiguration1"</span>
+    <span class="n">subnet_id</span>                     <span class="o">=</span> <span class="s2">"${azurestack_subnet.test.id}"</span>
+    <span class="n">private_ip_address_allocation</span> <span class="o">=</span> <span class="s2">"dynamic"</span>
+    <span class="n">public_ip_address_id</span>          <span class="o">=</span> <span class="s2">"${azurestack_public_ip.test.id}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_storage_account"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                     <span class="o">=</span> <span class="s2">"accsa"</span>
+  <span class="n">resource_group_name</span>      <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">location</span>                 <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">account_tier</span>             <span class="o">=</span> <span class="s2">"Standard"</span>
+  <span class="n">account_replication_type</span> <span class="o">=</span> <span class="s2">"LRS"</span>
+
+  <span class="n">tags</span> <span class="p">{</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="s2">"staging"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_storage_container"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                  <span class="o">=</span> <span class="s2">"vhds"</span>
+  <span class="n">resource_group_name</span>   <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">storage_account_name</span>  <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.name}"</span>
+  <span class="n">container_access_type</span> <span class="o">=</span> <span class="s2">"private"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_machine"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                  <span class="o">=</span> <span class="s2">"acctvm"</span>
+  <span class="n">location</span>              <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">resource_group_name</span>   <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">network_interface_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"${azurestack_network_interface.test.id}"</span><span class="p">]</span>
+  <span class="n">vm_size</span>               <span class="o">=</span> <span class="s2">"Standard_D2_v2"</span>
+
+  <span class="c1"># Uncomment this line to delete the OS disk automatically when deleting the VM</span>
+  <span class="c1"># delete_os_disk_on_termination = true</span>
+
+  <span class="c1"># Uncomment this line to delete the data disks automatically when deleting the VM</span>
+  <span class="c1"># delete_data_disks_on_termination = true</span>
+
+  <span class="n">storage_image_reference</span> <span class="p">{</span>
+    <span class="n">publisher</span> <span class="o">=</span> <span class="s2">"Canonical"</span>
+    <span class="n">offer</span>     <span class="o">=</span> <span class="s2">"UbuntuServer"</span>
+    <span class="n">sku</span>       <span class="o">=</span> <span class="s2">"16.04-LTS"</span>
+    <span class="n">version</span>   <span class="o">=</span> <span class="s2">"latest"</span>
+  <span class="p">}</span>
+
+  <span class="n">storage_os_disk</span> <span class="p">{</span>
+    <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"myosdisk1"</span>
+    <span class="n">vhd_uri</span>       <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.primary_blob_endpoint}${azurestack_storage_container.test.name}/myosdisk1.vhd"</span>
+    <span class="n">caching</span>       <span class="o">=</span> <span class="s2">"ReadWrite"</span>
+    <span class="n">create_option</span> <span class="o">=</span> <span class="s2">"FromImage"</span>
+  <span class="p">}</span>
+
+  <span class="c1"># Optional data disks</span>
+  <span class="n">storage_data_disk</span> <span class="p">{</span>
+    <span class="nb">name</span>          <span class="o">=</span> <span class="s2">"datadisk0"</span>
+    <span class="n">vhd_uri</span>       <span class="o">=</span> <span class="s2">"${azurestack_storage_account.test.primary_blob_endpoint}${azurestack_storage_container.test.name}/datadisk0.vhd"</span>
+    <span class="n">disk_size_gb</span>  <span class="o">=</span> <span class="s2">"1023"</span>
+    <span class="n">create_option</span> <span class="o">=</span> <span class="s2">"Empty"</span>
+    <span class="n">lun</span>           <span class="o">=</span> <span class="mi">0</span>
+  <span class="p">}</span>
+
+  <span class="n">os_profile</span> <span class="p">{</span>
+    <span class="n">computer_name</span>  <span class="o">=</span> <span class="s2">"hostname"</span>
+    <span class="n">admin_username</span> <span class="o">=</span> <span class="s2">"testadmin"</span>
+    <span class="n">admin_password</span> <span class="o">=</span> <span class="s2">"Password1234!"</span>
+  <span class="p">}</span>
+
+  <span class="n">os_profile_linux_config</span> <span class="p">{</span>
+    <span class="n">disable_password_authentication</span> <span class="o">=</span> <span class="kp">false</span>
+  <span class="p">}</span>
+
+  <span class="n">tags</span> <span class="p">{</span>
+    <span class="n">environment</span> <span class="o">=</span> <span class="s2">"staging"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><a name="name" /><a href="#name"><code>name</code></a> - (Required) Specifies the name of the virtual machine resource. Changing this forces a
+new resource to be created.
+</li>
+<li><a name="resource_group_name" /><a href="#resource_group_name"><code>resource_group_name</code></a> - (Required) The name of the resource group in which to
+create the virtual machine.
+</li>
+<li><a name="location" /><a href="#location"><code>location</code></a> - (Required) Specifies the supported Azure Stack Region where the resource exists. Changing this forces a new resource to be created.
+</li>
+<li><a name="plan" /><a href="#plan"><code>plan</code></a> - (Optional) A plan block as documented below.
+</li>
+<li><a name="availability_set_id" /><a href="#availability_set_id"><code>availability_set_id</code></a> - (Optional) The Id of the Availability Set in which to create the virtual machine
+</li>
+<li><a name="boot_diagnostics" /><a href="#boot_diagnostics"><code>boot_diagnostics</code></a> - (Optional) A boot diagnostics profile block as referenced below.
+</li>
+<li><a name="vm_size" /><a href="#vm_size"><code>vm_size</code></a> - (Required) Specifies the <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-size-specs/">size of the virtual machine</a>.
+</li>
+<li><a name="storage_image_reference" /><a href="#storage_image_reference"><code>storage_image_reference</code></a> - (Optional) A Storage Image Reference block as documented below.
+</li>
+<li><a name="storage_os_disk" /><a href="#storage_os_disk"><code>storage_os_disk</code></a> - (Required) A Storage OS DFlag to enable deletion of the OS disk VHD blob when the VM is deleted, defaults to <code>false</code> (not yet supported).
+</li>
+<li><a name="storage_data_disk" /><a href="#storage_data_disk"><code>storage_data_disk</code></a> - (Optional) A list of Storage Data disk blocks as referenced below.
+</li>
+<li><a name="delete_data_disks_on_termination" /><a href="#delete_data_disks_on_termination"><code>delete_data_disks_on_termination</code></a> - (Optional) Flag to enable deletion of storage data disk VHD blobs when the VM is deleted, defaults to <code>false</code>.
+</li>
+<li><a name="os_profile" /><a href="#os_profile"><code>os_profile</code></a> - (Optional) An OS Profile block as documented below. Required when <code>create_option</code> in the <code>storage_os_disk</code> block is set to <code>FromImage</code>.
+</li>
+<li><p><a name="identity" /><a href="#identity"><code>identity</code></a> - (Optional) An identity block as documented below.</p>
+</li>
+<li><p><a name="license_type" /><a href="#license_type"><code>license_type</code></a> - (Optional, when a Windows machine) Specifies the Windows OS license type. If supplied, the only allowed values are <code>Windows_Client</code> and <code>Windows_Server</code>.</p>
+</li>
+<li><p><a name="os_profile_windows_config" /><a href="#os_profile_windows_config"><code>os_profile_windows_config</code></a> - (Required, when a Windows machine) A Windows config block as documented below.</p>
+</li>
+<li><p><a name="os_profile_linux_config" /><a href="#os_profile_linux_config"><code>os_profile_linux_config</code></a> - (Required, when a Linux machine) A Linux config block as documented below.</p>
+</li>
+<li><p><a name="os_profile_secrets" /><a href="#os_profile_secrets"><code>os_profile_secrets</code></a> - (Optional) A collection of Secret blocks as documented below.</p>
+</li>
+<li><p><a name="network_interface_ids" /><a href="#network_interface_ids"><code>network_interface_ids</code></a> - (Required) Specifies the list of resource IDs for the network interfaces associated with the virtual machine.</p>
+</li>
+<li><p><a name="primary_network_interface_id" /><a href="#primary_network_interface_id"><code>primary_network_interface_id</code></a> - (Optional) Specifies the resource ID for the primary network interface associated with the virtual machine.</p>
+</li>
+<li><p><a name="tags" /><a href="#tags"><code>tags</code></a> - (Optional) A mapping of tags to assign to the resource.</p>
+</li>
+</ul>
+<p>For more information on the different example configurations, please check out the <a href="https://msdn.microsoft.com/en-us/library/mt163591.aspx#Anchor_2">azure documentation</a></p>
+<p><code>Plan</code> supports the following:</p>
+
+<ul>
+<li><a name="name-1" /><a href="#name-1"><code>name</code></a> - (Required) Specifies the name of the image from the marketplace.
+</li>
+<li><a name="publisher" /><a href="#publisher"><code>publisher</code></a> - (Required) Specifies the publisher of the image.
+</li>
+<li><a name="product" /><a href="#product"><code>product</code></a> - (Required) Specifies the product of the image from the marketplace.
+</li>
+</ul>
+<p><code>boot_diagnostics</code> supports the following:</p>
+
+<ul>
+<li><a name="enabled" /><a href="#enabled"><code>enabled</code></a>: (Required) Whether to enable boot diagnostics for the virtual machine.
+</li>
+<li><a name="storage_uri" /><a href="#storage_uri"><code>storage_uri</code></a>: (Required) Blob endpoint for the storage account to hold the virtual machine&#39;s diagnostic files. This must be the root of a storage account, and not a storage container.
+</li>
+</ul>
+<p><code>storage_image_reference</code> supports the following:</p>
+
+<ul>
+<li><a name="id" /><a href="#id"><code>id</code></a> - (Optional) Specifies the ID of the (custom) image to use to create the virtual
+machine, for example:
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code>
+<span class="n">resource</span> <span class="s2">"azurestack_image"</span> <span class="s2">"test"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"test"</span>
+  <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_machine"</span> <span class="s2">"test"</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"test"</span>
+  <span class="o">...</span>
+
+    <span class="n">storage_image_reference</span> <span class="p">{</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="s2">"${azurestack_image.test.id}"</span>
+    <span class="p">}</span>
+
+<span class="o">...</span>
+</code></pre></div>
+<ul>
+<li><a name="publisher-1" /><a href="#publisher-1"><code>publisher</code></a> - (Required, when not using image resource) Specifies the publisher of the image used to create the virtual machine. Changing this forces a new resource to be created.
+</li>
+<li><a name="offer" /><a href="#offer"><code>offer</code></a> - (Required, when not using image resource) Specifies the offer of the image used to create the virtual machine. Changing this forces a new resource to be created.
+</li>
+<li><a name="sku" /><a href="#sku"><code>sku</code></a> - (Required, when not using image resource) Specifies the SKU of the image used to create the virtual machine. Changing this forces a new resource to be created.
+</li>
+<li><a name="version" /><a href="#version"><code>version</code></a> - (Optional) Specifies the version of the image used to create the virtual machine. Changing this forces a new resource to be created.
+</li>
+</ul>
+<p><code>storage_os_disk</code> supports the following:</p>
+
+<ul>
+<li><a name="name-2" /><a href="#name-2"><code>name</code></a> - (Required) Specifies the disk name.
+</li>
+<li><a name="vhd_uri" /><a href="#vhd_uri"><code>vhd_uri</code></a> - (Optional) Specifies the vhd uri. Changing this forces a new resource to be created.
+</li>
+<li><a name="create_option" /><a href="#create_option"><code>create_option</code></a> - (Required) Specifies how the virtual machine should be created. Possible value is<code>FromImage</code>.
+</li>
+<li><a name="caching" /><a href="#caching"><code>caching</code></a> - (Optional) Specifies the caching requirements.
+</li>
+<li><a name="image_uri" /><a href="#image_uri"><code>image_uri</code></a> - (Optional) Specifies the image_uri in the form publisherName:offer:skus:version. <code>image_uri</code> can also specify the <a href="https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-cli-deploy-templates/#create-a-custom-vm-image">VHD uri</a> of a custom VM image to clone. When cloning a custom disk image the <code>os_type</code> documented below becomes required.
+</li>
+<li><a name="os_type" /><a href="#os_type"><code>os_type</code></a> - (Optional) Specifies the operating system Type, valid values are windows, linux.
+</li>
+<li><a name="disk_size_gb" /><a href="#disk_size_gb"><code>disk_size_gb</code></a> - (Optional) Specifies the size of the os disk in gigabytes.
+</li>
+</ul>
+<p><code>storage_data_disk</code> supports the following:</p>
+
+<ul>
+<li><a name="name-3" /><a href="#name-3"><code>name</code></a> - (Required) Specifies the name of the data disk.
+</li>
+<li><a name="vhd_uri-1" /><a href="#vhd_uri-1"><code>vhd_uri</code></a> - (Optional) Specifies the uri of the location in storage where the vhd for the virtual machine should be placed.
+</li>
+<li><a name="create_option-1" /><a href="#create_option-1"><code>create_option</code></a> - (Required) Specifies how the data disk should be created. Possible values are <code>Attach</code>, <code>FromImage</code> and <code>Empty</code>.
+</li>
+<li><a name="disk_size_gb-1" /><a href="#disk_size_gb-1"><code>disk_size_gb</code></a> - (Required) Specifies the size of the data disk in gigabytes.
+</li>
+<li><a name="caching-1" /><a href="#caching-1"><code>caching</code></a> - (Optional) Specifies the caching requirements.
+</li>
+<li><a name="lun" /><a href="#lun"><code>lun</code></a> - (Required) Specifies the logical unit number of the data disk.
+</li>
+</ul>
+<p><code>os_profile</code> supports the following:</p>
+
+<ul>
+<li><a name="computer_name" /><a href="#computer_name"><code>computer_name</code></a> - (Required) Specifies the name of the virtual machine.
+</li>
+<li><a name="admin_username" /><a href="#admin_username"><code>admin_username</code></a> - (Required) Specifies the name of the administrator account.
+</li>
+<li><a name="admin_password" /><a href="#admin_password"><code>admin_password</code></a> - (Required for Windows, Optional for Linux) Specifies the password of the administrator account.
+</li>
+<li><a name="custom_data" /><a href="#custom_data"><code>custom_data</code></a> - (Optional) Specifies custom data to supply to the machine. On linux-based systems, this can be used as a cloud-init script. On other systems, this will be copied as a file on disk. Internally, Terraform will base64 encode this value before sending it to the API. The maximum length of the binary array is 65535 bytes.
+</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p><strong>NOTE:</strong> <code>admin_password</code> must be between 6-72 characters long and must satisfy at least 3 of password complexity requirements from the following:
+1. Contains an uppercase character
+2. Contains a lowercase character
+3. Contains a numeric digit
+4. Contains a special character</p>
+</div>
+<p><code>identity</code> supports the following:</p>
+
+<ul>
+<li><a name="type" /><a href="#type"><code>type</code></a> - (Required) Specifies the identity type of the virtual machine. The only allowable value is <code>SystemAssigned</code>. To enable Managed Service Identity the virtual machine extension &quot;ManagedIdentityExtensionForWindows&quot; or &quot;ManagedIdentityExtensionForLinux&quot; must also be added to the virtual machine. The Principal ID can be retrieved after the virtual machine has been created, e.g.
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"azurestack_virtual_machine"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                <span class="o">=</span> <span class="s2">"test"</span>
+
+  <span class="n">identity</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">type</span> <span class="o">=</span> <span class="s2">"SystemAssigned"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">resource</span> <span class="s2">"azurestack_virtual_machine_extension"</span> <span class="s2">"test"</span> <span class="p">{</span>
+  <span class="nb">name</span>                 <span class="o">=</span> <span class="s2">"test"</span>
+  <span class="n">resource_group_name</span>  <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.name}"</span>
+  <span class="n">location</span>             <span class="o">=</span> <span class="s2">"${azurestack_resource_group.test.location}"</span>
+  <span class="n">virtual_machine_name</span> <span class="o">=</span> <span class="s2">"${azurestack_virtual_machine.test.name}"</span>
+  <span class="n">publisher</span>            <span class="o">=</span> <span class="s2">"Microsoft.ManagedIdentity"</span>
+  <span class="n">type</span>                 <span class="o">=</span> <span class="s2">"ManagedIdentityExtensionForWindows"</span>
+  <span class="n">type_handler_version</span> <span class="o">=</span> <span class="s2">"1.0"</span>
+
+  <span class="n">settings</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">SETTINGS</span><span class="sh">
+    {
+        "port": 50342
+    }
+</span><span class="no">SETTINGS</span>
+<span class="p">}</span>
+<span class="n">output</span> <span class="s2">"principal_id"</span> <span class="p">{</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="s2">"${lookup(azurestack_virtual_machine.test.identity[0], "</span><span class="n">principal_id</span><span class="s2">")}"</span>
+<span class="p">}</span>
+</code></pre></div><p><code>os_profile_windows_config</code> supports the following:</p>
+
+<ul>
+<li><a name="provision_vm_agent" /><a href="#provision_vm_agent"><code>provision_vm_agent</code></a> - (Optional) This value defaults to false.
+</li>
+<li><a name="enable_automatic_upgrades" /><a href="#enable_automatic_upgrades"><code>enable_automatic_upgrades</code></a> - (Optional) This value defaults to false.
+</li>
+<li><a name="winrm" /><a href="#winrm"><code>winrm</code></a> - (Optional) A collection of WinRM configuration blocks as documented below.
+</li>
+<li><a name="additional_unattend_config" /><a href="#additional_unattend_config"><code>additional_unattend_config</code></a> - (Optional) An Additional Unattended Config block as documented below.
+</li>
+</ul>
+<p><code>winrm</code> supports the following:</p>
+
+<ul>
+<li><a name="protocol" /><a href="#protocol"><code>protocol</code></a> - (Required) Specifies the protocol of listener
+</li>
+<li><a name="certificate_url" /><a href="#certificate_url"><code>certificate_url</code></a> - (Optional) Specifies URL of the certificate with which new Virtual Machines is provisioned.
+</li>
+</ul>
+<p><code>additional_unattend_config</code> supports the following:</p>
+
+<ul>
+<li><a name="pass" /><a href="#pass"><code>pass</code></a> - (Required) Specifies the name of the pass that the content applies to. The only allowable value is <code>oobeSystem</code>.
+</li>
+<li><a name="component" /><a href="#component"><code>component</code></a> - (Required) Specifies the name of the component to configure with the added content. The only allowable value is <code>Microsoft-Windows-Shell-Setup</code>.
+</li>
+<li><a name="setting_name" /><a href="#setting_name"><code>setting_name</code></a> - (Required) Specifies the name of the setting to which the content applies. Possible values are: <code>FirstLogonCommands</code> and <code>AutoLogon</code>.
+</li>
+<li><a name="content" /><a href="#content"><code>content</code></a> - (Optional) Specifies the base-64 encoded XML formatted content that is added to the unattend.xml file for the specified path and component.
+</li>
+</ul>
+<p><code>os_profile_linux_config</code> supports the following:</p>
+
+<ul>
+<li><a name="disable_password_authentication" /><a href="#disable_password_authentication"><code>disable_password_authentication</code></a> - (Required) Specifies whether password authentication should be disabled. If set to <code>false</code>, an <code>admin_password</code> must be specified.
+</li>
+<li><a name="ssh_keys" /><a href="#ssh_keys"><code>ssh_keys</code></a> - (Optional) Specifies a collection of <code>path</code> and <code>key_data</code> to be placed on the virtual machine.
+</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p><strong>Note:</strong> Please note that the only allowed <code>path</code> is <code>/home/&lt;username&gt;/.ssh/authorized_keys</code> due to a limitation of Azure.</p>
+</div>
+<p><code>os_profile_secrets</code> supports the following:</p>
+
+<ul>
+<li><a name="source_vault_id" /><a href="#source_vault_id"><code>source_vault_id</code></a> - (Required) Specifies the key vault to use.
+</li>
+<li><a name="vault_certificates" /><a href="#vault_certificates"><code>vault_certificates</code></a> - (Required) A collection of Vault Certificates as documented below
+</li>
+</ul>
+<p><code>vault_certificates</code> support the following:</p>
+
+<ul>
+<li><a name="certificate_url-1" /><a href="#certificate_url-1"><code>certificate_url</code></a> - (Required) Specifies the URI of the key vault secrets in the format of <code>https://&lt;vaultEndpoint&gt;/secrets/&lt;secretName&gt;/&lt;secretVersion&gt;</code>. Stored secret is the Base64 encoding of a JSON Object that which is encoded in UTF-8 of which the contents need to be
+</li>
+</ul>
+<div class="highlight"><pre class="highlight json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="s2">"&lt;Base64-encoded-certificate&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"dataType"</span><span class="p">:</span><span class="s2">"pfx"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"password"</span><span class="p">:</span><span class="s2">"&lt;pfx-file-password&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<ul>
+<li><a name="certificate_store" /><a href="#certificate_store"><code>certificate_store</code></a> - (Required, on windows machines) Specifies the certificate store on the Virtual Machine where the certificate should be added to.
+</li>
+</ul>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported:</p>
+
+<ul>
+<li><a name="id-1" /><a href="#id-1"><code>id</code></a> - The virtual machine ID.
+</li>
+</ul>
+<h2 id="import">
+  <a name="import" class="anchor" href="#import">&raquo;</a>
+  Import
+</h2>
+<p>Virtual Machines can be imported using the <code>resource id</code>, e.g.</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">terraform</span> <span class="n">import</span> <span class="n">azurestack_virtual_machine</span><span class="p">.</span><span class="nf">test</span> <span class="sr">/subscriptions/</span><span class="mo">00000000</span><span class="o">-</span><span class="mo">0000</span><span class="o">-</span><span class="mo">0000</span><span class="o">-</span><span class="mo">0000</span><span class="o">-</span><span class="mo">000000000000</span><span class="o">/</span><span class="n">resourceGroups</span><span class="o">/</span><span class="n">mygroup1</span><span class="o">/</span><span class="n">providers</span><span class="o">/</span><span class="n">microsoft</span><span class="p">.</span><span class="nf">compute</span><span class="o">/</span><span class="n">virtualMachines</span><span class="o">/</span><span class="n">machine1</span>
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>

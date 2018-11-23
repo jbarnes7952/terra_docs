@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manages a V2 VM instance resource within OpenStack.">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicons/apple-touch-icon-13180a24.png">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-32x32-62171ffd.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/favicons/favicon-16x16-2821bcc8.png" sizes="16x16">
+    <link rel="manifest" href="/android-manifest.json">
+    <link rel="mask-icon" href="/assets/images/favicons/safari-pinned-tab-bab846e1.svg" color="#5C4EE5">
+    <meta name="msapplication-config" content="/microsoft-tile.xml" />
+    <meta name="theme-color" content="#ffffff">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@HashiCorp" />
+    <meta name="twitter:creator" content="@HashiCorp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html" />
+    <meta property="og:title" content="OpenStack: openstack_compute_instance_v2 - Terraform by HashiCorp" />
+    <meta property="og:site_name" content="Terraform by HashiCorp"/>
+    <meta property="og:image" content="https://www.terraform.io/assets/images/og-image-f5bbc98c.png"/>
+    <meta property="og:image:width" content="100"/>
+    <meta property="og:image:height" content="100"/>
+    <meta property="og:description" content="Manages a V2 VM instance resource within OpenStack." />
+
+    <title>OpenStack: openstack_compute_instance_v2 - Terraform by HashiCorp</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://use.typekit.net/wxf7mfi.css">
+    <link href="/assets/stylesheets/application-825d2399.css" rel="stylesheet" />
+
+    <!-- Site scripts -->
+    <!--[if lt IE 9]><script src="/assets/javascripts/ie-compat-c141a02d.js" defer="defer"></script><![endif]-->
+    <script src="/assets/javascripts/application-e080fe63.js" defer="defer"></script>
+
+    <!-- Analytics scrpts -->
+    <script defer>
+      !function(){var e=window.analytics=window.analytics||[];if(!e.initialize)if(e.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{e.invoked=!0,e.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"],e.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),e.push(a),e}};for(var t=0;t<e.methods.length;t++){var a=e.methods[t];e[a]=e.factory(a)}e.load=function(e){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+e+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(t,a)},e.SNIPPET_VERSION="4.0.0",e.load("0EXTgkNx0Ydje2PGXVbRhpKKoe5wtzcE")}}();var om597a24292a958,om597a24292a958_poll=function(){var e=0;return function(t,a){clearInterval(e),e=setInterval(t,a)}}();!function(e,t,a){if(e.getElementById(a))om597a24292a958_poll(function(){if(window.om_loaded&&!om597a24292a958)return(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0})},25);else{var n=!1,o=e.createElement("script");o.id=a,o.src="//a.optnmstr.com/app/js/api.min.js",o.async=!0,o.onload=o.onreadystatechange=function(){if(!(n||this.readyState&&"loaded"!==this.readyState&&"complete"!==this.readyState))try{n=om_loaded=!0,(om597a24292a958=new OptinMonsterApp).init({s:"35109.597a24292a958",staging:0,dev:0,beta:0}),o.onload=o.onreadystatechange=null}catch(e){}},(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(o)}}(document,0,"omapi-script");
+    </script>
+
+    
+  </head>
+
+  <body id="page-docs-openstack-resource-compute-instance-v2" class="layout-openstack page-openstack-openstack-compute-instance-v2">
+
+    <svg class="hidden-print" aria-hidden="true" style="position: absolute; width: 0; height: 0;" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <symbol id="mega-nav-icon-angle" viewBox="0 0 13 7">
+      <polygon points="6.5,6.5 0.7,1.6 1.3,0.8 6.5,5.2 11.7,0.8 12.3,1.6 "/>
+    </symbol>
+    <symbol id="mega-nav-icon-close" viewBox="0 0 13 15">
+      <path vector-effect="non-scaling-stroke" d="M1.1 14L11.9 1M11.9 14L1.1 1"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="hidden-print mega-nav-sandbox">
+  <div class="mega-nav-banner">
+    <div class="container">
+      <div class="mega-nav-banner-item">
+        <a class="mega-nav-banner-logo" href="https://www.hashicorp.com"><img src="/assets/images/mega-nav/logo-hashicorp-wordmark-bbed0e8a.svg" alt="HashiCorp Logo" /></a>
+      </div>
+      <div class="mega-nav-banner-item">
+        <p class="mega-nav-tagline"><span class="visible-xs text-muted">Learn the</span><span class="hidden-xs text-muted">Learn how Terraform fits into the</span></p>
+        <div id="#mega-nav" class="mega-nav">
+          <button type="button" id="mega-nav-ctrl" class="mega-nav-ctrl">
+            <div class="mega-nav-ctrl-items">
+              <img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" />
+              <strong>HashiCorp Suite</strong>
+              <span class="mega-nav-icon-outline">
+                <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg><span class="visuallyhidden">Open</span>
+              </span>
+            </div>
+          </button>
+          <div id="mega-nav-body-ct" class="mega-nav-body-ct" aria-labelledby="mega-nav-ctrl">
+            <div class="mega-nav-body">
+              <button type="button" id="mega-nav-close" class="mega-nav-close"><svg class="mega-nav-icon mega-nav-icon-close" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-close"></use></svg><span class="visuallyhidden">Close</span></button>
+              <div class="mega-nav-body-header">
+                <div class="mega-nav-body-header-item">
+                  <h2 class="mega-nav-h1">Provision, Secure, Connect, and&nbsp;Run</h2>
+                  <p class="mega-nav-h2">Any infrastructure for any&nbsp;application</p>
+                </div>
+                <div class="mega-nav-body-header-item">
+                  <a href="https://www.hashicorp.com/" class="mega-nav-btn"><img src="/assets/images/mega-nav/logo-hashicorp-a66fda95.svg" alt="HashiCorp Logo" /> Learn the HashiCorp Enterprise&nbsp;Suite <svg class="mega-nav-icon mega-nav-icon-angle-right" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#mega-nav-icon-angle"></use></svg></a>
+                </div>
+              </div>
+              <div class="mega-nav-body-grid">
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Provision</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vagrantup.com" class="mega-nav-grid-item mega-nav-grid-item-vagrant">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vagrant-a7ab5898.svg" alt="Vagrant Logo" />
+                        </div>
+                        <b>Vagrant</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Build</span></li>
+                          <li><span class="mega-nav-tag">Test</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.packer.io" class="mega-nav-grid-item mega-nav-grid-item-packer">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-packer-cb3b9b94.svg" alt="Packer Logo" />
+                        </div>
+                        <b>Packer</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Package</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.terraform.io" class="mega-nav-grid-item mega-nav-grid-item-terraform">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-terraform-ff69eaae.svg" alt="Terraform Logo" />
+                        </div>
+                        <b>Terraform</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Provision</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Secure</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.vaultproject.io" class="mega-nav-grid-item mega-nav-grid-item-vault">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-vault-0f83e3d2.svg" alt="Vault Logo" />
+                        </div>
+                        <b>Vault</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Secure</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Connect</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.consul.io" class="mega-nav-grid-item mega-nav-grid-item-consul">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-consul-c77f6844.svg" alt="Consul Logo" />
+                        </div>
+                        <b>Consul</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Connect</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mega-nav-body-grid-item">
+                  <h3 class="mega-nav-h3">Run</h3>
+                  <ul class="mega-nav-grid">
+                    <li>
+                      <a href="https://www.nomadproject.io" class="mega-nav-grid-item mega-nav-grid-item-nomad">
+                        <div class="mega-nav-grid-item-img">
+                          <img src="/assets/images/mega-nav/logo-nomad-c4c148be.svg" alt="Nomad Logo" />
+                        </div>
+                        <b>Nomad</b>
+                        <ul>
+                          <li><span class="mega-nav-tag">Run</span></li>
+                        </ul>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="mega-nav-body-footer">
+                <p>Seven elements of the modern Application Lifecycle</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="header" class="navigation navbar-static-top hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="navbar-header">
+              <div class="navbar-brand">
+                <a href="/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="50">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+                </a>
+              </div>
+              <button class="navbar-toggle" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="buttons hidden-xs">
+              <nav class="navigation-links" role="navigation">
+                <ul class="main-links nav navbar-nav navbar-right">
+                  <li><a href="/intro/index.html">Intro</a></li>
+                  <li><a href="/docs/index.html">Docs</a></li>
+                  <li><a href="/guides/index.html">Guides</a></li>
+                  <li><a href="/docs/extend/index.html">Extend</a></li>
+                  <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+                  <li>
+                    <a href="/downloads.html">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/hashicorp/terraform">
+                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay"></div>
+
+<aside class="sidebar" role="navigation">
+  <div class="sidebar-header">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 251 61" class="logo" height="42">
+  <path class="text" fill="#000" fill-rule="nonzero" d="M81.78 19.54h-8.89v-5.31H96.7v5.31h-8.9v26.53h-6"></path>
+  <path class="text" fill="#000" fill-rule="nonzero" d="M102.19 41.77c2.415-.012 4.814-.383 7.12-1.1l.91 4.4c-2.745.99-5.642 1.49-8.56 1.48-7.31 0-9.85-3.39-9.85-9V31.4c0-4.92 2.2-9.08 9.66-9.08s9.13 4.35 9.13 9.37v5h-13v1.2c.05 2.78 1.05 3.88 4.59 3.88zM97.65 32h7.41v-1.18c0-2.2-.67-3.73-3.54-3.73s-3.87 1.53-3.87 3.73V32zm28.54-4.33c-2.148.97-4.217 2.102-6.19 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.6 5.36zm14.24 0c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.955-2.313 6.12-3.06l.58 5.36zm19.51 18.4h-4.78l-.43-1.58c-2.062 1.342-4.47 2.058-6.93 2.06-4.25 0-6.07-2.92-6.07-6.93 0-4.73 2.06-6.55 6.79-6.55h5.59v-2.44c0-2.58-.72-3.49-4.45-3.49-2.17.024-4.33.266-6.45.72l-.72-4.45c2.606-.72 5.296-1.09 8-1.1 7.31 0 9.47 2.58 9.47 8.41l-.02 15.35zm-5.83-8.8h-4.3c-1.91 0-2.44.53-2.44 2.29s.53 2.34 2.34 2.34c1.544-.024 3.058-.436 4.4-1.2v-3.43zm23.75-19.79c-1.1-.237-2.224-.364-3.35-.38-2.29 0-2.63 1-2.63 2.77v2.92h5.93l-.33 4.64h-5.59v18.64h-5.83V27.43h-3.73v-4.64h3.73v-3.25c0-4.83 2.25-7.22 7.41-7.22 1.69-.006 3.372.22 5 .67l-.61 4.49zm11.38 29.07c-8 0-10.13-4.4-10.13-9.18v-5.88c0-4.78 2.15-9.18 10.13-9.18s10.13 4.4 10.13 9.18v5.88c.01 4.78-2.15 9.18-10.13 9.18zm0-19.27c-3.11 0-4.3 1.39-4.3 4v6.26c0 2.63 1.2 4 4.3 4 3.1 0 4.3-1.39 4.3-4V31.3c0-2.63-1.19-4.02-4.3-4.02zm25.14.39c-2.14.97-4.204 2.103-6.17 3.39v15h-5.83V22.79h4.92l.38 2.58c1.897-1.284 3.954-2.313 6.12-3.06l.58 5.36zm16.02 18.4V29.82c0-1.24-.53-1.86-1.86-1.86-2.137.254-4.2.934-6.07 2v16.11h-5.83V22.79h4.45l.57 2c2.906-1.47 6.088-2.315 9.34-2.48 1.843-.174 3.6.82 4.4 2.49 2.91-1.49 6.104-2.34 9.37-2.49 3.87 0 5.26 2.72 5.26 6.88v16.88h-5.83V29.82c0-1.24-.53-1.86-1.86-1.86-2.14.236-4.208.917-6.07 2v16.11h-5.87z"></path>
+  <path class="rect-dark" fill="#4040B2" d="M36.4 39.13l16.4-9.46V10.72L36.4 20.2"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M18.2 10.72l16.4 9.48v18.93l-16.4-9.47"></path>
+  <path class="rect-light" fill="#5C4EE5" d="M0 19.09l16.4 9.47V9.62L0 .15m18.2 50.53l16.4 9.47V41.21l-16.4-9.47"></path>
+</svg>
+
+  </div>
+
+  <ul class="nav sidebar-nav">
+    <li><a href="/intro/index.html">Intro</a></li>
+    <li><a href="/docs/index.html">Docs</a></li>
+    <li><a href="/guides/index.html">Guides</a></li>
+    <li><a href="/docs/extend/index.html">Extend</a></li>
+    <li><a href="https://www.hashicorp.com/products/terraform/?utm_source=oss&utm_medium=header-nav&utm_campaign=terraform">Enterprise</a></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <ul class="external nav sidebar-nav">
+    <li>
+      <a href="/downloads.html">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h28V0zM13.8 22.9L7 17.3l2-2.4 3.2 2.6V7h3.2v10.5l3.2-2.6 2 2.4L13.8 22.9z"></path>
+</svg>
+ Download
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hashicorp/terraform">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 28 28" enable-background="new 0 0 28 28" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve">
+  <path d="M28 0H0v28h11.4c0 0 0-1.3 0-2.4C7.7 26.4 7 23.9 7 23.9 6.4 22.4 5.5 22 5.5 22c-1.2-0.8 0.1-0.8 0.1-0.8 1.3 0.1 2 1.4 2 1.4 1.2 2 3 1.4 3.8 1.1 0.1-0.8 0.5-1.4 0.9-1.8 -2.9-0.3-6-1.5-6-6.5 0-1.4 0.5-2.6 1.3-3.5C7.5 11.5 7 10.2 7.8 8.4c0 0 1.1-0.4 3.6 1.3 1-0.3 2.2-0.4 3.3-0.4 1.1 0 2.2 0.2 3.3 0.4 2.5-1.7 3.6-1.3 3.6-1.3 0.7 1.8 0.3 3.1 0.1 3.5 0.8 0.9 1.3 2.1 1.3 3.5 0 5-3.1 6.1-6 6.5 0.5 0.4 0.9 1.2 0.9 2.4 0 1.8 0 3.7 0 3.7H28V0z"></path>
+</svg>
+ GitHub
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+    <div class="container">
+  <div class="row">
+    <div id="docs-sidebar" class="col-sm-4 col-md-3 col-xs-12 hidden-print" role="complementary">
+          <div class="docs-sidebar hidden-print affix-top" role="complementary">
+      <ul class="nav docs-sidenav">
+        <li>
+          <a href="/docs/providers/index.html">All Providers</a>
+        </li>
+
+        <li>
+          <a href="/docs/providers/openstack/index.html">OpenStack Provider</a>
+        </li>
+
+        <li>
+          <a href="#">Data Sources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/d/compute_flavor_v2.html">openstack_compute_flavor_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/compute_keypair_v2.html">openstack_compute_keypair_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/containerinfra_clustertemplate_v1.html">openstack_containerinfra_clustertemplate_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/dns_zone_v2.html">openstack_dns_zone_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/fw_policy_v1.html">openstack_fw_policy_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_auth_scope_v3.html">openstack_identity_auth_scope_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_endpoint_v3.html">openstack_identity_endpoint_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_group_v3.html">openstack_identity_group_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_project_v3.html">openstack_identity_project_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_role_v3.html">openstack_identity_role_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/identity_user_v3.html">openstack_identity_user_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/images_image_v2.html">openstack_images_image_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_floatingip_v2.html">openstack_networking_floatingip_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_network_v2.html">openstack_networking_network_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_router_v2.html">openstack_networking_router_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_secgroup_v2.html">openstack_networking_secgroup_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_subnet_v2.html">openstack_networking_subnet_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/d/networking_subnetpool_v2.html">openstack_networking_subnetpool_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Block Storage Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/blockstorage_volume_v1.html">openstack_blockstorage_volume_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/blockstorage_volume_v2.html">openstack_blockstorage_volume_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/blockstorage_volume_attach_v2.html">openstack_blockstorage_volume_attach_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/blockstorage_volume_v3.html">openstack_blockstorage_volume_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/blockstorage_volume_attach_v3.html">openstack_blockstorage_volume_attach_v3</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="active">
+          <a href="#">Compute Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/compute_flavor_v2.html">openstack_compute_flavor_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_flavor_access_v2.html">openstack_compute_flavor_access_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_floatingip_v2.html">openstack_compute_floatingip_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_floatingip_associate_v2.html">openstack_compute_floatingip_associate_v2</a>
+            </li>
+            <li class="active">
+              <a href="/docs/providers/openstack/r/compute_instance_v2.html">openstack_compute_instance_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_interface_attach_v2.html">openstack_compute_interface_attach_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_keypair_v2.html">openstack_compute_keypair_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_secgroup_v2.html">openstack_compute_secgroup_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_servergroup_v2.html">openstack_compute_servergroup_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/compute_volume_attach_v2.html">openstack_compute_volume_attach_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Container Infra Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/containerinfra_cluster_v1.html">openstack_containerinfra_cluster_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/containerinfra_clustertemplate_v1.html">openstack_containerinfra_clustertemplate_v1</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Database Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/db_instance_v1.html">openstack_db_instance_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/db_database_v1.html">openstack_db_database_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/db_user_v1.html">openstack_db_user_v1</a>
+            <li>
+              <a href="/docs/providers/openstack/r/db_configuration_v1.html">openstack_db_configuration_v1</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">DNS Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/dns_recordset_v2.html">openstack_dns_recordset_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/dns_zone_v2.html">openstack_dns_zone_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Identity Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/identity_project_v3.html">openstack_identity_project_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/identity_role_v3.html">openstack_identity_role_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/identity_role_assignment_v3.html">openstack_identity_role_assignment_v3</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/identity_user_v3.html">openstack_identity_user_v3</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Images Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/images_image_v2.html">openstack_images_image_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Networking Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/networking_floatingip_v2.html">openstack_networking_floatingip_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_floatingip_associate_v2.html">openstack_networking_floatingip_associate_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_network_v2.html">openstack_networking_network_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_port_v2.html">openstack_networking_port_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_router_interface_v2.html">openstack_networking_router_interface_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_router_route_v2.html">openstack_networking_router_route_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_router_v2.html">openstack_networking_router_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_subnet_v2.html">openstack_networking_subnet_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_subnet_route_v2.html">openstack_networking_subnet_route_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_subnetpool_v2.html">openstack_networking_subnetpool_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_secgroup_v2.html">openstack_networking_secgroup_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_secgroup_rule_v2.html">openstack_networking_secgroup_rule_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/networking_trunk_v2.html">openstack_networking_trunk_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Load Balancer Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/lb_member_v1.html">openstack_lb_member_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_monitor_v1.html">openstack_lb_monitor_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_pool_v1.html">openstack_lb_pool_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_vip_v1.html">openstack_lb_vip_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_loadbalancer_v2.html">openstack_lb_loadbalancer_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_listener_v2.html">openstack_lb_listener_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_pool_v2.html">openstack_lb_pool_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_member_v2.html">openstack_lb_member_v2</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/lb_monitor_v2.html">openstack_lb_monitor_v2</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Firewall Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/fw_firewall_v1.html">openstack_fw_firewall_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/fw_policy_v1.html">openstack_fw_policy_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/fw_rule_v1.html">openstack_fw_rule_v1</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">Object Storage Resources</a>
+          <ul class="nav nav-visible">
+            <li>
+              <a href="/docs/providers/openstack/r/objectstorage_container_v1.html">openstack_objectstorage_container_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/objectstorage_object_v1.html">openstack_objectstorage_object_v1</a>
+            </li>
+            <li>
+              <a href="/docs/providers/openstack/r/objectstorage_tempurl_v1.html">openstack_objectstorage_tempurl_v1</a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+                  <a href="#">VPNaaS Resources</a>
+                  <ul class="nav nav-visible">
+                    <li>
+                      <a href="/docs/providers/openstack/r/vpnaas_ipsec_policy_v2.html">openstack_vpnaas_ipsec_policy_v2</a>
+                    </li>
+                    <li>
+                      <a href="/docs/providers/openstack/r/vpnaas_ike_policy_v2.html">openstack_vpnaas_ike_policy_v2</a>
+                    </li>
+                    <li>
+                      <a href="/docs/providers/openstack/r/vpnaas_service_v2.html">openstack_vpnaas_service_v2</a>
+                    </li>
+                    <li>
+                      <a href="/docs/providers/openstack/r/vpnaas_endpoint_group_v2.html">openstack_vpnaas_endpoint_group_v2</a>
+                    </li>
+                    <li>
+                      <a href="/docs/providers/openstack/r/vpnaas_site_connection_v2.html">openstack_vpnaas_site_connection_v2</a>
+                    </li>
+                  </ul>
+                </li>
+
+      </ul>
+    </div>
+
+    </div>
+
+    <div id="inner" class="col-sm-8 col-md-9 col-xs-12" role="main">
+      
+  <h1 id="openstack_compute_instance_v2">
+  <a name="openstack_compute_instance_v2" class="anchor" href="#openstack_compute_instance_v2">&raquo;</a>
+  openstack_compute_instance_v2
+</h1>
+<p>Manages a V2 VM instance resource within OpenStack.</p>
+<h2 id="example-usage">
+  <a name="example-usage" class="anchor" href="#example-usage">&raquo;</a>
+  Example Usage
+</h2>
+<h3 id="basic-instance">
+  <a name="basic-instance" class="anchor" href="#basic-instance">&raquo;</a>
+  Basic Instance
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"basic"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"basic"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">metadata</span> <span class="p">{</span>
+    <span class="n">this</span> <span class="o">=</span> <span class="s2">"that"</span>
+  <span class="p">}</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instance-with-attached-volume">
+  <a name="instance-with-attached-volume" class="anchor" href="#instance-with-attached-volume">&raquo;</a>
+  Instance With Attached Volume
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_blockstorage_volume_v2"</span> <span class="s2">"myvol"</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"myvol"</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"myinstance"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"myinstance"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_volume_attach_v2"</span> <span class="s2">"attached"</span> <span class="p">{</span>
+  <span class="n">instance_id</span> <span class="o">=</span> <span class="s2">"${openstack_compute_instance_v2.myinstance.id}"</span>
+  <span class="n">volume_id</span> <span class="o">=</span> <span class="s2">"${openstack_blockstorage_volume_v2.myvol.id}"</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="boot-from-volume">
+  <a name="boot-from-volume" class="anchor" href="#boot-from-volume">&raquo;</a>
+  Boot From Volume
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"boot-from-volume"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"boot-from-volume"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="boot-from-an-existing-volume">
+  <a name="boot-from-an-existing-volume" class="anchor" href="#boot-from-an-existing-volume">&raquo;</a>
+  Boot From an Existing Volume
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_blockstorage_volume_v1"</span> <span class="s2">"myvol"</span> <span class="p">{</span>
+  <span class="nb">name</span>     <span class="o">=</span> <span class="s2">"myvol"</span>
+  <span class="n">size</span>     <span class="o">=</span> <span class="mi">5</span>
+  <span class="n">image_id</span> <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"boot-from-volume"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"bootfromvolume"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"${openstack_blockstorage_volume_v1.myvol.id}"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="boot-instance-create-volume-and-attach-volume-as-a-block-device">
+  <a name="boot-instance-create-volume-and-attach-volume-as-a-block-device" class="anchor" href="#boot-instance-create-volume-and-attach-volume-as-a-block-device">&raquo;</a>
+  Boot Instance, Create Volume, and Attach Volume as a Block Device
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"instance_1"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"instance_1"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"blank"</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="boot-instance-and-attach-existing-volume-as-a-block-device">
+  <a name="boot-instance-and-attach-existing-volume-as-a-block-device" class="anchor" href="#boot-instance-and-attach-existing-volume-as-a-block-device">&raquo;</a>
+  Boot Instance and Attach Existing Volume as a Block Device
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_blockstorage_volume_v2"</span> <span class="s2">"volume_1"</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"volume_1"</span>
+  <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"instance_1"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"instance_1"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"${openstack_blockstorage_volume_v2.volume_1.id}"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"volume"</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instance-with-multiple-networks">
+  <a name="instance-with-multiple-networks" class="anchor" href="#instance-with-multiple-networks">&raquo;</a>
+  Instance With Multiple Networks
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_networking_floatingip_v2"</span> <span class="s2">"myip"</span> <span class="p">{</span>
+  <span class="n">pool</span> <span class="o">=</span> <span class="s2">"my_pool"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"multi-net"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"multi-net"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_first_network"</span>
+  <span class="p">}</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_second_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_floatingip_associate_v2"</span> <span class="s2">"myip"</span> <span class="p">{</span>
+  <span class="n">floating_ip</span> <span class="o">=</span> <span class="s2">"${openstack_networking_floatingip_v2.myip.address}"</span>
+  <span class="n">instance_id</span> <span class="o">=</span> <span class="s2">"${openstack_compute_instance_v2.multi-net.id}"</span>
+  <span class="n">fixed_ip</span> <span class="o">=</span> <span class="s2">"${openstack_compute_instance_v2.multi-net.network.1.fixed_ip_v4}"</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instance-with-personality">
+  <a name="instance-with-personality" class="anchor" href="#instance-with-personality">&raquo;</a>
+  Instance With Personality
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"personality"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"personality"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">personality</span> <span class="p">{</span>
+    <span class="n">file</span>    <span class="o">=</span> <span class="s2">"/path/to/file/on/instance.txt"</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="s2">"contents of file"</span>
+  <span class="p">}</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instance-with-multiple-ephemeral-disks">
+  <a name="instance-with-multiple-ephemeral-disks" class="anchor" href="#instance-with-multiple-ephemeral-disks">&raquo;</a>
+  Instance with Multiple Ephemeral Disks
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"multi-eph"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"multi_eph"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"&lt;image-id&gt;"</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"blank"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">1</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"blank"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instance-with-user-data-cloud-init-">
+  <a name="instance-with-user-data-cloud-init-" class="anchor" href="#instance-with-user-data-cloud-init-">&raquo;</a>
+  Instance with User Data (cloud-init)
+</h3>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"instance_1"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"basic"</span>
+  <span class="n">image_id</span>        <span class="o">=</span> <span class="s2">"ad091b52-742f-469e-8f3c-fd81cadf0743"</span>
+  <span class="n">flavor_id</span>       <span class="o">=</span> <span class="s2">"3"</span>
+  <span class="n">key_pair</span>        <span class="o">=</span> <span class="s2">"my_key_pair_name"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+  <span class="n">user_data</span>       <span class="o">=</span> <span class="s2">"#cloud-config</span><span class="se">\n</span><span class="s2">hostname: instance_1.example.com</span><span class="se">\n</span><span class="s2">fqdn: instance_1.example.com"</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"my_network"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p><code>user_data</code> can come from a variety of sources: inline, read in from the <code>file</code>
+function, or the <code>template_cloudinit_config</code> resource.</p>
+<h2 id="argument-reference">
+  <a name="argument-reference" class="anchor" href="#argument-reference">&raquo;</a>
+  Argument Reference
+</h2>
+<p>The following arguments are supported:</p>
+
+<ul>
+<li><p><a name="region" /><a href="#region"><code>region</code></a> - (Optional) The region in which to create the server instance. If
+omitted, the <code>region</code> argument of the provider is used. Changing this
+creates a new server.</p>
+</li>
+<li><p><a name="name" /><a href="#name"><code>name</code></a> - (Required) A unique name for the resource.</p>
+</li>
+<li><p><a name="image_id" /><a href="#image_id"><code>image_id</code></a> - (Optional; Required if <code>image_name</code> is empty and not booting
+from a volume. Do not specify if booting from a volume.) The image ID of
+the desired image for the server. Changing this creates a new server.</p>
+</li>
+<li><p><a name="image_name" /><a href="#image_name"><code>image_name</code></a> - (Optional; Required if <code>image_id</code> is empty and not booting
+from a volume. Do not specify if booting from a volume.) The name of the
+desired image for the server. Changing this creates a new server.</p>
+</li>
+<li><p><a name="flavor_id" /><a href="#flavor_id"><code>flavor_id</code></a> - (Optional; Required if <code>flavor_name</code> is empty) The flavor ID of
+the desired flavor for the server. Changing this resizes the existing server.</p>
+</li>
+<li><p><a name="flavor_name" /><a href="#flavor_name"><code>flavor_name</code></a> - (Optional; Required if <code>flavor_id</code> is empty) The name of the
+desired flavor for the server. Changing this resizes the existing server.</p>
+</li>
+<li><p><a name="user_data" /><a href="#user_data"><code>user_data</code></a> - (Optional) The user data to provide when launching the instance.
+Changing this creates a new server.</p>
+</li>
+<li><p><a name="security_groups" /><a href="#security_groups"><code>security_groups</code></a> - (Optional) An array of one or more security group names
+to associate with the server. Changing this results in adding/removing
+security groups from the existing server. <em>Note</em>: When attaching the
+instance to networks using Ports, place the security groups on the Port
+and not the instance.</p>
+</li>
+<li><p><a name="availability_zone" /><a href="#availability_zone"><code>availability_zone</code></a> - (Optional) The availability zone in which to create
+the server. Changing this creates a new server.</p>
+</li>
+<li><p><a name="network" /><a href="#network"><code>network</code></a> - (Optional) An array of one or more networks to attach to the
+instance. The network object structure is documented below. Changing this
+creates a new server.</p>
+</li>
+<li><p><a name="metadata" /><a href="#metadata"><code>metadata</code></a> - (Optional) Metadata key/value pairs to make available from
+within the instance. Changing this updates the existing server metadata.</p>
+</li>
+<li><p><a name="config_drive" /><a href="#config_drive"><code>config_drive</code></a> - (Optional) Whether to use the config_drive feature to
+configure the instance. Changing this creates a new server.</p>
+</li>
+<li><p><a name="admin_pass" /><a href="#admin_pass"><code>admin_pass</code></a> - (Optional) The administrative password to assign to the server.
+Changing this changes the root password on the existing server.</p>
+</li>
+<li><p><a name="key_pair" /><a href="#key_pair"><code>key_pair</code></a> - (Optional) The name of a key pair to put on the server. The key
+pair must already be created and associated with the tenant&#39;s account.
+Changing this creates a new server.</p>
+</li>
+<li><p><a name="block_device" /><a href="#block_device"><code>block_device</code></a> - (Optional) Configuration of block devices. The block_device
+structure is documented below. Changing this creates a new server.
+You can specify multiple block devices which will create an instance with
+multiple disks. This configuration is very flexible, so please see the
+following <a href="http://docs.openstack.org/developer/nova/block_device_mapping.html">reference</a>
+for more information.</p>
+</li>
+<li><p><a name="scheduler_hints" /><a href="#scheduler_hints"><code>scheduler_hints</code></a> - (Optional) Provide the Nova scheduler with hints on how
+the instance should be launched. The available hints are described below.</p>
+</li>
+<li><p><a name="personality" /><a href="#personality"><code>personality</code></a> - (Optional) Customize the personality of an instance by
+defining one or more files and their contents. The personality structure
+is described below.</p>
+</li>
+<li><p><a name="stop_before_destroy" /><a href="#stop_before_destroy"><code>stop_before_destroy</code></a> - (Optional) Whether to try stop instance gracefully
+before destroying it, thus giving chance for guest OS daemons to stop correctly.
+If instance doesn&#39;t stop within timeout, it will be destroyed anyway.</p>
+</li>
+<li><p><a name="force_delete" /><a href="#force_delete"><code>force_delete</code></a> - (Optional) Whether to force the OpenStack instance to be
+forcefully deleted. This is useful for environments that have reclaim / soft
+deletion enabled.</p>
+</li>
+<li><p><a name="power_state" /><a href="#power_state"><code>power_state</code></a> - (Optional) Provide the VM state. Only &#39;active&#39; and &#39;shutoff&#39;
+are supported values. <em>Note</em>: If the initial power_state is the shutoff
+the VM will be stopped immediately after build and the provisioners like
+remote-exec or files are not supported.</p>
+</li>
+<li><p><a name="vendor_options" /><a href="#vendor_options"><code>vendor_options</code></a> - (Optional) Map of additional vendor-specific options.
+Supported options are described below.</p>
+</li>
+</ul>
+<p>The <code>network</code> block supports:</p>
+
+<ul>
+<li><p><a name="uuid" /><a href="#uuid"><code>uuid</code></a> - (Required unless <code>port</code>  or <code>name</code> is provided) The network UUID to
+attach to the server. Changing this creates a new server.</p>
+</li>
+<li><p><a name="name-1" /><a href="#name-1"><code>name</code></a> - (Required unless <code>uuid</code> or <code>port</code> is provided) The human-readable
+name of the network. Changing this creates a new server.</p>
+</li>
+<li><p><a name="port" /><a href="#port"><code>port</code></a> - (Required unless <code>uuid</code> or <code>name</code> is provided) The port UUID of a
+network to attach to the server. Changing this creates a new server.</p>
+</li>
+<li><p><a name="fixed_ip_v4" /><a href="#fixed_ip_v4"><code>fixed_ip_v4</code></a> - (Optional) Specifies a fixed IPv4 address to be used on this
+network. Changing this creates a new server.</p>
+</li>
+<li><p><a name="fixed_ip_v6" /><a href="#fixed_ip_v6"><code>fixed_ip_v6</code></a> - (Optional) Specifies a fixed IPv6 address to be used on this
+network. Changing this creates a new server.</p>
+</li>
+<li><p><a name="access_network" /><a href="#access_network"><code>access_network</code></a> - (Optional) Specifies if this network should be used for
+provisioning access. Accepts true or false. Defaults to false.</p>
+</li>
+</ul>
+<p>The <code>block_device</code> block supports:</p>
+
+<ul>
+<li><p><a name="uuid-1" /><a href="#uuid-1"><code>uuid</code></a> - (Required unless <code>source_type</code> is set to <code>&quot;blank&quot;</code> ) The UUID of
+the image, volume, or snapshot. Changing this creates a new server.</p>
+</li>
+<li><p><a name="source_type" /><a href="#source_type"><code>source_type</code></a> - (Required) The source type of the device. Must be one of
+&quot;blank&quot;, &quot;image&quot;, &quot;volume&quot;, or &quot;snapshot&quot;. Changing this creates a new
+server.</p>
+</li>
+<li><p><a name="volume_size" /><a href="#volume_size"><code>volume_size</code></a> - The size of the volume to create (in gigabytes). Required
+in the following combinations: source=image and destination=volume,
+source=blank and destination=local, and source=blank and destination=volume.
+Changing this creates a new server.</p>
+</li>
+<li><p><a name="boot_index" /><a href="#boot_index"><code>boot_index</code></a> - (Optional) The boot index of the volume. It defaults to 0.
+Changing this creates a new server.</p>
+</li>
+<li><p><a name="destination_type" /><a href="#destination_type"><code>destination_type</code></a> - (Optional) The type that gets created. Possible values
+are &quot;volume&quot; and &quot;local&quot;. Changing this creates a new server.</p>
+</li>
+<li><p><a name="delete_on_termination" /><a href="#delete_on_termination"><code>delete_on_termination</code></a> - (Optional) Delete the volume / block device upon
+termination of the instance. Defaults to false. Changing this creates a
+new server.</p>
+</li>
+</ul>
+<p>The <code>scheduler_hints</code> block supports:</p>
+
+<ul>
+<li><p><a name="group" /><a href="#group"><code>group</code></a> - (Optional) A UUID of a Server Group. The instance will be placed
+into that group.</p>
+</li>
+<li><p><a name="different_host" /><a href="#different_host"><code>different_host</code></a> - (Optional) A list of instance UUIDs. The instance will
+be scheduled on a different host than all other instances.</p>
+</li>
+<li><p><a name="same_host" /><a href="#same_host"><code>same_host</code></a> - (Optional) A list of instance UUIDs. The instance will be
+scheduled on the same host of those specified.</p>
+</li>
+<li><p><a name="query" /><a href="#query"><code>query</code></a> - (Optional) A conditional query that a compute node must pass in
+order to host an instance.</p>
+</li>
+<li><p><a name="target_cell" /><a href="#target_cell"><code>target_cell</code></a> - (Optional) The name of a cell to host the instance.</p>
+</li>
+<li><p><a name="build_near_host_ip" /><a href="#build_near_host_ip"><code>build_near_host_ip</code></a> - (Optional) An IP Address in CIDR form. The instance
+will be placed on a compute node that is in the same subnet.</p>
+</li>
+<li><p><a name="additional_properties" /><a href="#additional_properties"><code>additional_properties</code></a> - (Optional) Arbitrary key/value pairs of additional
+properties to pass to the scheduler.</p>
+</li>
+</ul>
+<p>The <code>personality</code> block supports:</p>
+
+<ul>
+<li><p><a name="file" /><a href="#file"><code>file</code></a> - (Required) The absolute path of the destination file.</p>
+</li>
+<li><p><a name="contents" /><a href="#contents"><code>contents</code></a> - (Required) The contents of the file. Limited to 255 bytes.</p>
+</li>
+</ul>
+<p>The <code>vendor_options</code> block supports:</p>
+
+<ul>
+<li><a name="ignore_resize_confirmation" /><a href="#ignore_resize_confirmation"><code>ignore_resize_confirmation</code></a> - (Optional) Boolean to control whether
+to ignore manual confirmation of the instance resizing. This can be helpful
+to work with some OpenStack clouds which automatically confirm resizing of
+instances after some timeout.
+</li>
+</ul>
+<h2 id="attributes-reference">
+  <a name="attributes-reference" class="anchor" href="#attributes-reference">&raquo;</a>
+  Attributes Reference
+</h2>
+<p>The following attributes are exported:</p>
+
+<ul>
+<li><a name="region-1" /><a href="#region-1"><code>region</code></a> - See Argument Reference above.
+</li>
+<li><a name="name-2" /><a href="#name-2"><code>name</code></a> - See Argument Reference above.
+</li>
+<li><a name="access_ip_v4" /><a href="#access_ip_v4"><code>access_ip_v4</code></a> - The first detected Fixed IPv4 address <em>or</em> the
+Floating IP.
+</li>
+<li><a name="access_ip_v6" /><a href="#access_ip_v6"><code>access_ip_v6</code></a> - The first detected Fixed IPv6 address.
+</li>
+<li><a name="metadata-1" /><a href="#metadata-1"><code>metadata</code></a> - See Argument Reference above.
+</li>
+<li><a name="security_groups-1" /><a href="#security_groups-1"><code>security_groups</code></a> - See Argument Reference above.
+</li>
+<li><a name="flavor_id-1" /><a href="#flavor_id-1"><code>flavor_id</code></a> - See Argument Reference above.
+</li>
+<li><a name="flavor_name-1" /><a href="#flavor_name-1"><code>flavor_name</code></a> - See Argument Reference above.
+</li>
+<li><a name="network-uuid" /><a href="#network-uuid"><code>network/uuid</code></a> - See Argument Reference above.
+</li>
+<li><a name="network-name" /><a href="#network-name"><code>network/name</code></a> - See Argument Reference above.
+</li>
+<li><a name="network-port" /><a href="#network-port"><code>network/port</code></a> - See Argument Reference above.
+</li>
+<li><a name="network-fixed_ip_v4" /><a href="#network-fixed_ip_v4"><code>network/fixed_ip_v4</code></a> - The Fixed IPv4 address of the Instance on that
+network.
+</li>
+<li><a name="network-fixed_ip_v6" /><a href="#network-fixed_ip_v6"><code>network/fixed_ip_v6</code></a> - The Fixed IPv6 address of the Instance on that
+network.
+</li>
+<li><a name="network-mac" /><a href="#network-mac"><code>network/mac</code></a> - The MAC address of the NIC on that network.
+</li>
+<li><a name="all_metadata" /><a href="#all_metadata"><code>all_metadata</code></a> - Contains all instance metadata, even metadata not set
+by Terraform.
+</li>
+</ul>
+<h2 id="notes">
+  <a name="notes" class="anchor" href="#notes">&raquo;</a>
+  Notes
+</h2>
+<h3 id="multiple-ephemeral-disks">
+  <a name="multiple-ephemeral-disks" class="anchor" href="#multiple-ephemeral-disks">&raquo;</a>
+  Multiple Ephemeral Disks
+</h3>
+<p>It&#39;s possible to specify multiple <code>block_device</code> entries to create an instance
+with multiple ephemeral (local) disks. In order to create multiple ephemeral
+disks, the sum of the total amount of ephemeral space must be less than or
+equal to what the chosen flavor supports.</p>
+<p>The following example shows how to create an instance with multiple ephemeral
+disks:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"terraform-test"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"image"</span>
+    <span class="n">uuid</span>                  <span class="o">=</span> <span class="s2">"&lt;image uuid&gt;"</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"blank"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">1</span>
+  <span class="p">}</span>
+
+  <span class="n">block_device</span> <span class="p">{</span>
+    <span class="n">boot_index</span>            <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">delete_on_termination</span> <span class="o">=</span> <span class="kp">true</span>
+    <span class="n">destination_type</span>      <span class="o">=</span> <span class="s2">"local"</span>
+    <span class="n">source_type</span>           <span class="o">=</span> <span class="s2">"blank"</span>
+    <span class="n">volume_size</span>           <span class="o">=</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instances-and-security-groups">
+  <a name="instances-and-security-groups" class="anchor" href="#instances-and-security-groups">&raquo;</a>
+  Instances and Security Groups
+</h3>
+<p>When referencing a security group resource in an instance resource, always
+use the <em>name</em> of the security group. If you specify the ID of the security
+group, Terraform will remove and reapply the security group upon each call.
+This is because the OpenStack Compute API returns the names of the associated
+security groups and not their IDs.</p>
+<p>Note the following example:</p>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_networking_secgroup_v2"</span> <span class="s2">"sg_1"</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"sg_1"</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"foo"</span> <span class="p">{</span>
+  <span class="nb">name</span>            <span class="o">=</span> <span class="s2">"terraform-test"</span>
+  <span class="n">security_groups</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"${openstack_networking_secgroup_v2.sg_1.name}"</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="instances-and-ports">
+  <a name="instances-and-ports" class="anchor" href="#instances-and-ports">&raquo;</a>
+  Instances and Ports
+</h3>
+<p>Neutron Ports are a great feature and provide a lot of functionality. However,
+there are some notes to be aware of when mixing Instances and Ports:</p>
+
+<ul>
+<li><p>In OpenStack environments prior to the Kilo release, deleting or recreating
+an Instance will cause the Instance&#39;s Port(s) to be deleted. One way of working
+around this is to taint any Port(s) used in Instances which are to be recreated.
+See <a href="https://review.openstack.org/#/c/126309/">here</a> for further information.</p>
+</li>
+<li><p>When attaching an Instance to one or more networks using Ports, place the
+security groups on the Port and not the Instance. If you place the security
+groups on the Instance, the security groups will not be applied upon creation,
+but they will be applied upon a refresh. This is a known OpenStack bug.</p>
+</li>
+<li><p>Network IP information is not available within an instance for networks that
+are attached with Ports. This is mostly due to the flexibility Neutron Ports
+provide when it comes to IP addresses. For example, a Neutron Port can have
+multiple Fixed IP addresses associated with it. It&#39;s not possible to know which
+single IP address the user would want returned to the Instance&#39;s state
+information. Therefore, in order for a Provisioner to connect to an Instance
+via it&#39;s network Port, customize the <code>connection</code> information:</p>
+</li>
+</ul>
+<div class="highlight"><pre class="highlight hcl"><code><span class="n">resource</span> <span class="s2">"openstack_networking_port_v2"</span> <span class="s2">"port_1"</span> <span class="p">{</span>
+  <span class="nb">name</span>           <span class="o">=</span> <span class="s2">"port_1"</span>
+  <span class="n">admin_state_up</span> <span class="o">=</span> <span class="s2">"true"</span>
+
+  <span class="n">network_id</span> <span class="o">=</span> <span class="s2">"0a1d0a27-cffa-4de3-92c5-9d3fd3f2e74d"</span>
+
+  <span class="n">security_group_ids</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"2f02d20a-8dca-49b7-b26f-b6ce9fddaf4f"</span><span class="p">,</span>
+    <span class="s2">"ca1e5ed7-dae8-4605-987b-fadaeeb30461"</span><span class="p">,</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">resource</span> <span class="s2">"openstack_compute_instance_v2"</span> <span class="s2">"instance_1"</span> <span class="p">{</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"instance_1"</span>
+
+  <span class="n">network</span> <span class="p">{</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="s2">"${openstack_networking_port_v2.port_1.id}"</span>
+  <span class="p">}</span>
+
+  <span class="n">connection</span> <span class="p">{</span>
+    <span class="n">user</span>        <span class="o">=</span> <span class="s2">"root"</span>
+    <span class="n">host</span>        <span class="o">=</span> <span class="s2">"${openstack_networking_port_v2.port_1.fixed_ip.0.ip_address}"</span>
+    <span class="n">private_key</span> <span class="o">=</span> <span class="s2">"~/path/to/key"</span>
+  <span class="p">}</span>
+
+  <span class="n">provisioner</span> <span class="s2">"remote-exec"</span> <span class="p">{</span>
+    <span class="n">inline</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">"echo terraform executed &gt; /tmp/foo"</span><span class="p">,</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="navigation hidden-print">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="footer-links nav navbar-nav">
+              <li><a href="/intro/index.html">Intro</a></li>
+              <li><a href="/docs/index.html">Docs</a></li>
+              <li><a href="/docs/extend/index.html">Extend</a></li>
+              <li><a href="https://www.hashicorp.com/privacy">Privacy</a></li>
+              <li><a href="/security.html">Security</a></li>
+              <li><a href="/assets/files/press-kit.zip">Press Kit</a></li>
+            </ul>
+            <ul class="footer-links nav navbar-nav navbar-right">
+              <li><a href="https://github.com/hashicorp/terraform-website">Edit this page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "Terraform",
+        "alternateName": "Terraform by HashiCorp",
+        "manufacturer": "HashiCorp",
+        "url": "https://www.terraform.io",
+        "logo": "https://www.terraform.io/assets/images/logo-hashicorp-3f10732f.svg",
+        "sameAs": [
+          "https://github.com/hashicorp/terraform"
+        ]
+      }
+    </script>
+  </body>
+</html>
